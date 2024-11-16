@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
+header{
+    display:flex;
+    justify-content: center;
+    width:100%;
+    margin:auto;
+    padding-top:20px;
+    padding-bottom:20px;
+    background-color:lightblue;
+    outline: 10px solid lightblue;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+#loginForm{
+    margin-top:20px;
+    border: solid 2px;
+    border-radius:20px;
+    width:300px;
+    padding:10px;
+    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+#inloggTable{
+    padding:5px;
+    margin-left:5px;
+    margin-top:15px;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+#användarnamn{
+    padding:5px;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+#lösenord{
+    padding:5px;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+#inlogg{
+    display:flex;
+    justify-content: center;
+    padding:5px;
+    margin:auto;
+}
+
+.infoText{
+    margin:auto;
+    margin-top:20px;
+    border: solid 2px;
+    border-radius:20px;
+    width:60%;
+    padding:10px;
+    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.5);
+
+    font-family: 'Roboto', sans-serif;
+}
