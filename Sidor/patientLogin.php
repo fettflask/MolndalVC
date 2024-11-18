@@ -17,7 +17,7 @@
     <main>
         <div id="loginForm">
             <h3>Patient Inlogg</h3>
-            <form method='post' action='patientJournal.php'>
+            <form method='post' action='patientLoggedIn.php'>
                 <table id="inloggTable">
                     <tr id="användarnamn">
                         <div>
