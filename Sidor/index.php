@@ -47,15 +47,29 @@
     </main>
     
     <footer>
-        <div class="IndexFooter">
-            <h2>   
-                Mölndal vårdcentral
-            </h2>
-            
-
+    <div class="index-footer">
+        <h2>Mölndal Vårdcentral</h2>
         
-
-
+        <nav class="footer-nav">
+            <ul>
+                <li><a href="index.php">Hem</a></li>
+                <li><a href="news.php">Nyheter</a></li>
+                <li><a href="contact.php">Kontakt</a></li>
+                <li><a href="about.php">Om oss</a></li>
+            </ul>
+        </nav>
+        
+        <div class="footer-login">
+            <ul>
+                <li><a href="patientLogin.php">Patient Inlogg</a></li>
+                <li><a href="personalLogin.php">Personal Inlogg</a></li>
+            </ul>
         </div>
-    </footer>
+
+        <div class="footer-info">
+            <p>Adress: The white house | Telefon: ??? ??? ????</p>
+        </div>
+    </div>
+</footer>
+
 </body>
