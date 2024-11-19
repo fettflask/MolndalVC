@@ -17,8 +17,6 @@ if (isset($_POST["namn"])){
     $_SESSION["anamn"] = $_POST["namn"];
     $_SESSION["pword"] = $_POST["password"];
     $_SESSION["timeout"] = 300; // (300=5min)
-    echo "<br>" . $_SESSION["anamn"];
-    echo "<br>" . $_SESSION["pword"];
     }
 
 
@@ -71,7 +69,7 @@ if (isset($_POST["namn"])){
     }
     
     if($response["message"] != "Logged In"){
-        header("Location: loginStart.php");
+        header("Location: personalLogin.php");
         $_SESSION["error"] = "Wrong username or password";
         die();
     }

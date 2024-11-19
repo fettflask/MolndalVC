@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <link rel="stylesheet" href="../Stylesheets/style.css">
+
 </head>
 <body>
     <header>
@@ -19,6 +19,12 @@
             <h3>Patient Inlogg</h3>
             <form method='post' action='patientLoggedIn.php'>
                 <table id="inloggTable">
+                    <?php
+                    if(isset($_SESSION["error"])){
+                        echo "<tr>" .  $_SESSION["error"] . "</tr>";
+                        session_unset();
+                    }
+                    ?>
                     <tr id="användarnamn">
                         <div>
                             <td>
