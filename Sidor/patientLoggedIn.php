@@ -1,5 +1,6 @@
 <?php
     session_start();
+    $_SESSION["timeout"] = 300;
 
     $pdo = new PDO("mysql:dbname=grupp6;host=localhost", "sqllab", "Hare#2022");
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -62,7 +63,7 @@
 
     function addPatient(){
         echo"<div>";
-        echo"<h3>Registrering</h3>";
+        echo"<h3>Registrera dig här!</h3>";
         echo"<form method='POST' action='patientLoggedIn.php'>";
         echo"<table>";
         echo '<tr><td>Personnummer:</td><td><input type="text" name="newpnr" id="pnr" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13"  value="'. $_POST["pnr"] .'"</td></tr>';
@@ -87,7 +88,7 @@
         echo"<tr><td>Kön:</td><td><input type='text' name='sex' required></td></tr>";
         echo"</table>";
         echo "<input type='text' value=".$_POST["pnr"]." name='pnr' hidden>";
-        echo"<input type='submit' value='Identifiera med BankID'>";
+        echo"<input type='submit' value='Verifiera med BankID'>";
         echo"</form>";
         echo"</div>";
     }
@@ -186,20 +187,21 @@
                 foreach($pdo ->query("select * from patient;") as $row) {
                     if($row["pnr"] == $_POST["pnr"]){
                         $pnrIDarabas = true;
-                        $patientNamn = $row["fullNamn"];
+                        $_SESSION["namn"] = $row["fullNamn"];
+                        $_SESSION["pnr"] = $row["pnr"];
                         break;
                     }
                 }
 
                 if($pnrIDarabas){
-                    echo "<header>";
-                    echo "<h1>Välkommen, " . $patientNamn . "</h1>";
-                    echo "</header>";
+                    echo '<script>
+                            window.setTimeout(function() {
+                            window.location = "minaSidor.php";
+                            }, 2000);
+                        </script>';
+                    
                 }
                 else{
-                    echo "<header>";
-                    echo "<h1>Slow down, broski, du måste regga >:(</h1>";
-                    echo "</header>";
                     addPatient();
                 }
                 
@@ -214,7 +216,6 @@
                     header("Location: patientLogin.php");
                     $_SESSION["error"] = "Felaktikt personnummer";
                     die();
-                   
                 }
             }  
         }
