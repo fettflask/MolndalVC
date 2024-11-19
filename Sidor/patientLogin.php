@@ -25,13 +25,28 @@
                         session_unset();
                     }
                     ?>
-                    <tr id="användarnamn">
+                    <tr>
                         <div>
                             <td>
                                 Personnummer
                             </td>
                             <td>
-                                <input type='text' name='pnr'>
+                                <input type='text' id="pnr" name='pnr' pattern="[0-9]{8}-[0-9]{4}" required maxlength="13">   
+
+                                <script>
+                                    const pnrInput = document.getElementById("pnr");
+
+                                    pnrInput.addEventListener("input", function () {
+                                        let value = pnrInput.value.replace(/\D/g, "");
+
+                                        if (value.length > 8) {
+                                            value = value.slice(0, 8) + "-" + value.slice(8, 12);
+                                        }
+
+                                        pnrInput.value = value;
+                                    });
+                                </script>
+
                             </td>
                         </div>
                     </tr>
