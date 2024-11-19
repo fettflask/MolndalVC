@@ -3,21 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/indexStyle.css">
     <title>Mölndals Vårdcentral</title>
 </head> 
 <body>
     <header>
-        <div class="topnav">
-            <a href="index.php">Hem</a>
-            <a href="news.php">Nyheter</a>
-            <a href="contact.php">Kontakt</a>
-            <a href="about.php">Om oss</a>
+        <div id="companylogo">
+            <a href="index.php">
+                <img src="../IMG/MölndalLogo.png">
+            </a>
+        </div>
+        
+
+        <div id="topnav">
+            <div class="navbox">
+                <a href="">Nyheter</a>
+            </div>
+            <div class="navbox">
+                <a href="">Sjukdomar & Besvär</a>
+            </div>
+            <div class="navbox">
+                <a href="">Hälsoråd & Tips</a>
+            </div>
+            <div class="navbox">
+                <a>Mer</a>
+            </div>
         </div>
 
-        <div class="patientLogin">
-            <a href="patientLogin.php">Om oss</a>
-            <a href="personalLogin.php">Personal Inlogg</a>
+        <div class="navbutton">
+                <a href="">MINA SIDOR</a>
+        </div>
+        <div class="navbutton">
+            <a href="">SÖK VÅRD</a>
         </div>
     </header>
     <main>
