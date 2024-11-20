@@ -149,6 +149,26 @@
             let input = event.target;
             let value = input.value.trim();
 
+<<<<<<< HEAD
+            console.log("Original Input:", value); // Debugging: Log the initial value
+
+            // Allow letters (a-z, åäö), spaces, and hyphens (-)
+            value = value.replace(/[^a-zA-ZåäöÅÄÖ\s-]/g, '');
+            console.log("Sanitized Input:", value); // Debugging: Log after sanitization
+
+            // Capitalize the first letter of each word
+            input.value = value.replace(/(^|\s|-)([a-zåäö])/gu, function(match, p1, p2) {
+                console.log("Matched Letter:", p2); // Debugging: Log each matched letter
+                switch (p2) {
+                    case 'å': return p1 + 'Å';
+                    case 'ä': return p1 + 'Ä';
+                    case 'ö': return p1 + 'Ö';
+                    default: return p1 + p2.toUpperCase(); // Handle other letters
+                }
+            });
+
+            console.log("Capitalized Output:", input.value); // Debugging: Log the final transformed value
+=======
             // Remove all non-alphabetical characters except letters and spaces
             value = value.replace(/[^a-zA-ZåäöÅÄÖ\s]/g, '');
 
@@ -156,6 +176,7 @@
             input.value = value.replace(/\b[a-zåäö]/gi, function(match) {
                 return match.toUpperCase();
             });
+>>>>>>> 03848f9e315e66d14b0d12f5cf54d799241c4753
         }
 
         document.getElementById('name').addEventListener('input', capitalizeInput);
