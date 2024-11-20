@@ -3,11 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <title>Registrera</title>
 </head>
 <body>
     <header>
+        <div id="companylogo">
+            <a href="index.php">
+                <img src="../IMG/MölndalLogo.png">
+            </a>
+        </div>
 
+        <div id="topnav">
+            <div class="navbox">
+                <a href="">Nyheter</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Sjukdomar & Besvär</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Hälsoråd & Tips</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Mer</a>
+            </div>
+        </div>
+
+        <div class="navbutton" id="push">
+            <a href="minaSidor.php">MINA SIDOR</a>
+        </div>
+
+        <div class="navbutton" id="buffer">
+            <a href="">SÖK VÅRD</a>
+        </div>
     </header>
     <main>
         <?php
