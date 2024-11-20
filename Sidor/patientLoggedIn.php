@@ -89,7 +89,7 @@
                             Personnummer:
                         </td>
                         <td>
-                        <input type="text" name="newpnr" id="pnr" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13" placeholder="YYYYMMDD-XXXX" value="'. $_POST["pnr"]. '">
+                        <input type="text" name="newpnr" id="pnr" disabled value="'. $_POST["pnr"]. '">
                         </td>
                     </tr>
                     <tr>
