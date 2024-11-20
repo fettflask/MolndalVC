@@ -186,6 +186,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <title>Mölndals Vårdcentral</title>
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
 
     <script type="text/javascript">
         window.onload = function() {
@@ -193,6 +194,7 @@
             setTimeout(function() {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
+                document.getElementById('header').style.display = 'flex';
             }, 2000);
             var shouldRunOnLoad = false;
         };   
@@ -212,6 +214,39 @@
 </head>
 
 <body>
+    <header id="header" style="display: none; ">
+        <div id="companylogo">
+            <a href="index.php">
+                <img src="../IMG/MölndalLogo.png">
+            </a>
+        </div>
+
+        <div id="topnav">
+            <div class="navbox">
+                <a href="">Nyheter</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Sjukdomar & Besvär</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Hälsoråd & Tips</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Mer</a>
+            </div>
+        </div>
+
+        <div class="navbutton" id="push">
+            <a href="minaSidor.php">MINA SIDOR</a>
+        </div>
+
+        <div class="navbutton" id="buffer">
+            <a href="">SÖK VÅRD</a>
+        </div>
+    </header>   
     <div id="loading" style="display: none; ">
         <img src="../IMG/bankID.png" alt="Öppna BankID">
     </div>
