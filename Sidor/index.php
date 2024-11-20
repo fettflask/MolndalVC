@@ -117,7 +117,6 @@
 
     
     <footer>
-<<<<<<< HEAD
     <div class="indexFooter">
         <h2>Mölndal Vårdcentral</h2>
         
@@ -143,7 +142,4 @@
     </div>
 </footer>
 
-=======
-    </footer>
->>>>>>> indexstyling
 </body>
