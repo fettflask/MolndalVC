@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/indexStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <title>Mölndals Vårdcentral</title>
 </head> 
 <body>
@@ -14,30 +15,34 @@
                 <img src="../IMG/MölndalLogo.png">
             </a>
         </div>
-        
 
         <div id="topnav">
             <div class="navbox">
                 <a href="">Nyheter</a>
             </div>
+
             <div class="navbox">
                 <a href="">Sjukdomar & Besvär</a>
             </div>
+
             <div class="navbox">
                 <a href="">Hälsoråd & Tips</a>
             </div>
+
             <div class="navbox">
-                <a>Mer</a>
+                <a href="">Mer</a>
             </div>
         </div>
 
-        <div class="navbutton">
-                <a href="">MINA SIDOR</a>
+        <div class="navbutton" id="push">
+            <a href="minaSidor.php">MINA SIDOR</a>
         </div>
-        <div class="navbutton">
+
+        <div class="navbutton" id="buffer">
             <a href="">SÖK VÅRD</a>
         </div>
     </header>
+
     <main>
         <div class="infoText">
             <h2>
@@ -65,15 +70,5 @@
     </main>
     
     <footer>
-        <div class="IndexFooter">
-            <h2>   
-                Mölndal vårdcentral
-            </h2>
-            
-
-        
-
-
-        </div>
     </footer>
 </body>
