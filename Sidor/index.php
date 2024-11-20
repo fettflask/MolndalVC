@@ -3,23 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Stylesheets/IndexStyle.css">
+    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
+    <link rel="stylesheet" href="../Stylesheets/indexStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <title>Mölndals Vårdcentral</title>
 </head> 
 <body>
     <header>
-        <div class="topnav">
-            <a href="index.php">Hem</a>
-            <a href="news.php">Nyheter</a>
-            <a href="contact.php">Kontakt</a>
-            <a href="about.php">Om oss</a>
+        <div id="companylogo">
+            <a href="index.php">
+                <img src="../IMG/MölndalLogo.png">
+            </a>
         </div>
 
-        <div class="patientLogin">
-            <a href="patientLogin.php">Om oss</a>
-            <a href="personalLogin.php">Personal Inlogg</a>
+        <div id="topnav">
+            <div class="navbox">
+                <a href="">Nyheter</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Sjukdomar & Besvär</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Hälsoråd & Tips</a>
+            </div>
+
+            <div class="navbox">
+                <a href="">Mer</a>
+            </div>
+        </div>
+
+        <div class="navbutton" id="push">
+            <a href="minaSidor.php">MINA SIDOR</a>
+        </div>
+
+        <div class="navbutton" id="buffer">
+            <a href="">SÖK VÅRD</a>
         </div>
     </header>
+
     <main>
     <div class="infoText">
         <h2>Mölndals Vårdcentral</h2>
@@ -94,6 +117,7 @@
 
     
     <footer>
+<<<<<<< HEAD
     <div class="indexFooter">
         <h2>Mölndal Vårdcentral</h2>
         
@@ -119,4 +143,7 @@
     </div>
 </footer>
 
+=======
+    </footer>
+>>>>>>> indexstyling
 </body>
