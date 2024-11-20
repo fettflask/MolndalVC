@@ -88,7 +88,7 @@
         echo"<tr><td>Kön:</td><td><input type='text' name='sex' required></td></tr>";
         echo"</table>";
         echo "<input type='text' value=".$_POST["pnr"]." name='pnr' hidden>";
-        echo"<input type='submit' value='Verifiera med BankID'>";
+        echo"<input type='submit' value='Godkänn registrering via BankID'>";
         echo"</form>";
         echo"</div>";
     }
