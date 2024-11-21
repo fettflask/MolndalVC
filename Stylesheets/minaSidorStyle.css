@@ -18,14 +18,53 @@ h2{
     display: grid;
     justify-content: center;
     grid-template-columns: auto auto auto auto;
+    font-family: 'Roboto', sans-serif;
+}
+
+.mastergridelement{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(238, 243, 255, 0.7);
+    border-radius: 10px;
+    margin: 15px;
 }
 
 .gridelement{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
     text-align: center;
-    border-radius: 10px;
-    background-color: rgba(238, 243, 255, 0.7);
     width: 15vw;
-    height: 45vh;
-    margin: 10px;
+    height: 280px;
+    margin: 32px 24px;
 }
 
+h3{
+    text-align: center;
+    font-size: 24px;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(18, 38, 105);
+}
+
+p{
+    margin: 8px;
+    color: rgb(18, 38, 105);
+    font-size: 16px;
+}
+
+.pushdowndammit{
+    margin-block-start: auto;
+    text-decoration: none;
+}
+
+.gridbutton{
+    border-radius: 100px;
+    overflow: hidden;
+    background-color: rgb(18, 38, 105);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 12px 28px;
+}
