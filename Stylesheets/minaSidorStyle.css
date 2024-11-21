@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
+
+#namn{
+    color: rgb(18, 38, 105);
+    font-size: 3.5vh;
+    font-family: 'Roboto', sans-serif;
+    margin: 0 80px 0 auto;
+}
+
+h2{
+    text-align: center;
+    font-size: 4vh;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(18, 38, 105);
+}
+
+#mastergrid{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto auto auto auto;
+}
+
+.gridelement{
+    text-align: center;
+    border-radius: 10px;
+    background-color: rgba(238, 243, 255, 0.7);
+    width: 15vw;
+    height: 45vh;
+    margin: 10px;
+}
+
