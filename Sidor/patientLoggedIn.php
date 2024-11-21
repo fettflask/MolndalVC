@@ -89,7 +89,7 @@
                             Personnummer:
                         </td>
                         <td>
-                        <input type="text" name="newpnr" id="pnr" disabled value="'. $_POST["pnr"]. '">
+                        <input type="text" name="pnr" id="pnr" disabled value="'. $_POST["pnr"]. '">
                         </td>
                     </tr>
                     <tr>
@@ -143,7 +143,7 @@
         echo"</div>";
     }
 
-    if(isset($_POST["newpnr"])){
+    if(isset($_POST["name"])){
         curlSetup();
 
         ini_set('display_errors', 1);
@@ -154,7 +154,7 @@
         $ch = curl_init('http://193.93.250.83:8080/api/resource/Patient');
 
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, '{"uid":"'.$_POST["newpnr"].'","first_name":"'.$_POST["name"].'","last_name":"'.$_POST["lastname"].'","sex":"'.$_POST["sex"].'"}');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, '{"uid":"'.$_POST["pnr"].'","first_name":"'.$_POST["name"].'","last_name":"'.$_POST["lastname"].'","sex":"'.$_POST["sex"].'"}');
     
         
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
@@ -172,7 +172,8 @@
         $stmt->bindParam(':namn', $fullname);  
         
         try{ 
-            $stmt->execute();                  
+            $stmt->execute();   
+            echo $_POST["pnr"] . "  " . $fullname;               
         }catch (PDOException $e){
             echo $e->getMessage(); 
         }
@@ -200,16 +201,6 @@
         };   
     </script>
                             
-    <script>
-        const pnrInput = document.getElementById("pnr");
-        pnrInput.addEventListener("input", function () {
-            let value = pnrInput.value.replace(/\D/g, '');
-            if (value.length > 8) {
-                value = value.slice(0, 8) + '-' + value.slice(8, 12);
-            }
-            pnrInput.value = value;
-        });
-    </script>
 
 </head>
 
@@ -330,17 +321,21 @@
             let input = event.target;
             let value = input.value.trim();
 
-            // Remove all non-alphabetical characters except letters and spaces
-            value = value.replace(/[^a-zA-ZåäöÅÄÖ\s]/g, '');
+            value = value.replace(/[^a-zA-ZåäöÅÄÖ\s-]/g, '');
 
-            // Capitalize the first letter of each word
-            input.value = value.replace(/\b[a-zåäö]/gi, function(match) {
-                return match.toUpperCase();
+            input.value = value.replace(/(^|\s|-)([a-zåäö])/gu, function(match, p1, p2) {
+                console.log("Matched Letter:", p2);
+                switch (p2) {
+                    case 'å': return p1 + 'Å';
+                    case 'ä': return p1 + 'Ä';
+                    case 'ö': return p1 + 'Ö';
+                    default: return p1 + p2.toUpperCase();
+                }
             });
         }
 
         document.getElementById('name').addEventListener('input', capitalizeInput);
         document.getElementById('lastname').addEventListener('input', capitalizeInput);
-    </script>   
+    </script>  
 </body>
 </html>
