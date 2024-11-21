@@ -57,7 +57,7 @@
             }
 
             curl_setopt($ch,CURLOPT_POST, true);
-            curl_setopt($ch,CURLOPT_POSTFIELDS, '{"usr":"webb_user", "pwd":"Pangolin!24"}');
+            curl_setopt($ch,CURLOPT_POSTFIELDS, '{"usr":"a23jaced@student.his.se", "pwd":"lmaokraftwerkvem?"}');
 
             $ch = curl_init($baseurl.'api/resource/Patient');
 
@@ -122,7 +122,7 @@
                         </td>
                         <td>
                             <select name="sex" required title="Välj från listan">
-                                <option></option>
+                                <option selected hidden disabled>Välj kön</option>
                                 <?php
                                     ini_set("display_errors", 1);
                                     ini_set("display_startup_errors", 1);

@@ -21,7 +21,7 @@
 
         curl_setopt($ch,CURLOPT_POST, true);
 
-        curl_setopt($ch,CURLOPT_POSTFIELDS, '{usr":"webb_user", "pwd":"Pangolin!24"}');
+        curl_setopt($ch,CURLOPT_POSTFIELDS, '{"usr":"a23jaced@student.his.se", "pwd":"lmaokraftwerkvem?"}');
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
         application/json'));
@@ -84,20 +84,13 @@
             <h3>Patient Inlogg</h3>
             <form method="POST" action="patientLoggedIn.php">
                 <table>
-                    <tr>
-                        <td>
-                            Personnummer:
-                        </td>
-                        <td>
-                        <input type="text" name="pnr" id="pnr" disabled value="'. $_POST["pnr"]. '">
-                        </td>
-                    </tr>
+                    <input type="text" name="pnr" hidden value="'. $_POST["pnr"] .'">
                     <tr>
                         <td>
                             Förnamn:
                         </td>
                         <td>
-                            <input type="text" name="name" id="name" required pattern="[A-Za-zÅåÄäÖö]+" title="Endast bokstäver" placeholder="Förnamn">
+                            <input type="text" name="name" id="name" required pattern="[A-Za-zÅåÄäÖö]+(-[A-Za-zÅåÄäÖö]+)?" title="Endast bokstäver" placeholder="Förnamn">
                         </td>
                     </tr>
                     <tr>
@@ -105,7 +98,7 @@
                             Efternamn:
                         </td>
                         <td>
-                            <input  type="text" name="lastname" id="lastname" required pattern="[A-Za-zÅåÄäÖö]+" title="Endast bokstäver" placeholder="Efternamn">
+                            <input  type="text" name="lastname" id="lastname" required pattern="[A-Za-zÅåÄäÖö]+(-[A-Za-zÅåÄäÖö]+)?" title="Endast bokstäver" placeholder="Efternamn">
                         </td>
                     </tr>
                     <tr>
@@ -114,7 +107,7 @@
                         </td>
                         <td>
                             <select name="sex" required title="Välj från listan">
-                                <option></option>
+                                <option selected hidden disabled>Välj kön</option>
         ';
         $genders = getGender();
         $genders = json_decode($genders, true);
@@ -137,15 +130,13 @@
                 </tr>
             </table>
         ';
-        echo "<input type='text' value=".$_POST["pnr"]." name='pnr' hidden>";
         echo"<input type='submit' value='Godkänn registrering via BankID'>";
         echo"</form>";
         echo"</div>";
     }
 
     if(isset($_POST["name"])){
-        curlSetup();
-
+        curlSetup();  
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -157,6 +148,7 @@
         curl_setopt($ch, CURLOPT_POSTFIELDS, '{"uid":"'.$_POST["pnr"].'","first_name":"'.$_POST["name"].'","last_name":"'.$_POST["lastname"].'","sex":"'.$_POST["sex"].'"}');
     
         
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
         application/json'));
         curl_setopt($ch,CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
@@ -172,8 +164,7 @@
         $stmt->bindParam(':namn', $fullname);  
         
         try{ 
-            $stmt->execute();   
-            echo $_POST["pnr"] . "  " . $fullname;               
+            $stmt->execute();                 
         }catch (PDOException $e){
             echo $e->getMessage(); 
         }
@@ -256,9 +247,11 @@
             $_SESSION["timeout"] = 300;
             //Loggar in på webbuser
             curlSetup();
-
+            echo "DONEZO AYYOO";
+            //Hämtar alla patienters personnummer från ERP
             $patientPnr = curlGetData('api/resource/Patient?fields=["uid"]');
             
+            //Går igenom de hämtade personnumren och kollar om det inskrivna matchar med något
             $validCheck = false;
             foreach($patientPnr as $row){
                 foreach($row as $row2){    
@@ -269,8 +262,10 @@
                 }
             }
 
+            //Om det angivna personnumret finns i ERP
             if($validCheck){
                 
+                //Går igenom databasen och kollar om det angivna PNR finns i DB
                 $pnrIDarabas = false;                
                 foreach($pdo ->query("select * from patient;") as $row) {
                     if($row["pnr"] == $_POST["pnr"]){
@@ -281,6 +276,7 @@
                     }
                 }
 
+                //Om det fanns i databasen
                 if($pnrIDarabas){
                     echo '<script>
                             window.setTimeout(function() {
@@ -289,22 +285,16 @@
                         </script>';
                     
                 }
+                //Om inte i DB
                 else{
+                    //LÖS FÖRFANAKSJAKSJAKSJAKJSAJSAKJSALSKJDALKSJDLASKDJ
                     addPatient();
                 }
                 
   
             }
             else{
-
-                $regex = '#^[0-9]{8}-[0-9]{4}$#';
-                if (preg_match($regex, $_POST["pnr"])) {
-                    addPatient();
-                } else {
-                    header("Location: patientLogin.php");
-                    $_SESSION["error"] = "Felaktikt personnummer";
-                    die();
-                }
+                addPatient();
             }  
         }
         else{
