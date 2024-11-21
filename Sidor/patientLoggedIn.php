@@ -39,7 +39,7 @@
         $cookiepath = "/tmp/cookies.txt";
         
         try {
-            $ch = curl_init('http://193.93.250.83:8080/' . $domainSuffix . "&limit_page_length=None");
+            $ch = curl_init('http://193.93.250.83:8080/' . $domainSuffix);
         } 
         catch (Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n";
@@ -133,6 +133,29 @@
         echo"<input type='submit' value='Godkänn registrering via BankID'>";
         echo"</form>";
         echo"</div>";
+    }
+
+    function addPatientDB($pdo){
+        
+        $response = curlGetData("api/resource/Patient?filters={%22uid%22:%22". $_POST["pnr"] ."%22}");
+        foreach($response as $row){
+            foreach($row as $payload){
+                $fullname = $payload["name"];
+            }
+        }
+        
+        $queryString = "insert into patient(pnr, fullNamn) values (:pnr, :namn);"; 
+        $stmt = $pdo->prepare($queryString);
+        $stmt->bindParam(':pnr', $_POST["pnr"]);
+        $stmt->bindParam(':namn', $fullname);  
+        
+        try{ 
+            $stmt->execute();                 
+        }catch (PDOException $e){
+            echo $e->getMessage(); 
+        }
+        $_SESSION["namn"] = $fullname;
+        $_SESSION["pnr"] = $_POST["pnr"];
     }
 
     if(isset($_POST["name"])){
@@ -235,10 +258,10 @@
     <div id="content" style="display: none;">
     <?php
         /*
-            if pnr in api-lista: login --Done
+            if pnr in api-lista: 
                 if pnr INTE i databas 
-                    lägg till i databas
-                Fixa en startskärm för patient
+                    lägg till i databas --WIP
+                Reroute till MinaSidor --Done
             else reroute tillbaka till patientLogin.php --Done
         */
 
@@ -247,14 +270,14 @@
             $_SESSION["timeout"] = 300;
             //Loggar in på webbuser
             curlSetup();
-            echo "DONEZO AYYOO";
+
             //Hämtar alla patienters personnummer från ERP
-            $patientPnr = curlGetData('api/resource/Patient?fields=["uid"]');
+            $patientPnr = curlGetData('api/resource/Patient?fields=["uid"]&limit_page_length=None');
             
             //Går igenom de hämtade personnumren och kollar om det inskrivna matchar med något
             $validCheck = false;
             foreach($patientPnr as $row){
-                foreach($row as $row2){    
+                foreach($row as $row2){   
                     if($row2["uid"] == $_POST["pnr"]){
                         $validCheck = true;
                         break;
@@ -287,13 +310,19 @@
                 }
                 //Om inte i DB
                 else{
-                    //LÖS FÖRFANAKSJAKSJAKSJAKJSAJSAKJSALSKJDALKSJDLASKDJ
-                    addPatient();
+                    addPatientDB($pdo);
+                    echo '<script>
+                            window.setTimeout(function() {
+                            window.location = "minaSidor.php";
+                            }, 2000);
+                        </script>';
                 }
                 
   
             }
+            //Om pnr Inte finns i ERP
             else{
+                echo"WTAH";
                 addPatient();
             }  
         }
