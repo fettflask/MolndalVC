@@ -116,15 +116,11 @@
                     echo '<p>Prov: ' . htmlspecialchars($lab['name'] ?? 'N/A') . '</p>';
                     echo '<p>Ansvarig läkare: ' . htmlspecialchars($lab['practitioner_name'] ?? 'N/A') . '</p>';
                     echo '<p>Förväntad svarsdag: ' . htmlspecialchars($lab['expected_result_date'] ?? 'N/A') . '</p>';
-                    echo '<p>Svarsdag: ' . htmlspecialchars($lab['expected_result_date'] ?? 'N/A') . '</p>';
                     echo '<hr>';
 
                     if (isset($lab['name'])) {
                         $labDetails = getLabResultat($lab);
                         $labDetails = json_decode($labDetails, true);
-
-                        echo '<details>';
-                        echo '<summary class="mainSummary">Prov resultat</summary>';
                         if (isset($labDetails['data']['normal_test_items']) && is_array($labDetails['data']['normal_test_items'])) {
                             $hasResultValue = false;
                         
@@ -137,39 +133,16 @@
                         
                             if ($hasResultValue) {
                                 echo '<details>';
-                                echo '<summary>Prov resultat</summary>';
+                                echo '<summary class="mainSummary">Prov resultat</summary>';
                                 if (isset($labDetails['data']['normal_test_items']) && is_array($labDetails['data']['normal_test_items'])) {
                                         foreach ($labDetails['data']['normal_test_items'] as $provSvar) {
-                                            echo '<div>';
+                                            echo '<div><hr>';
                                                 echo '<p>';
                                                 echo 'Prov ID: ' . htmlspecialchars($provSvar['lab_test_name'] ?? 'N/A') . '<br>';
                                                 echo 'Resultat: ' . htmlspecialchars($provSvar['result_value'] ?? 'N/A') . '  ';
                                                 if (!empty($provSvar['lab_test_uom'])){
                                                 echo '<span>(' . htmlspecialchars($provSvar['lab_test_uom'] ?? 'N/A') . ')</span>';
                                                 }
-                                echo '<div><hr>';
-                                    echo '<p>';
-                                    echo 'Prov ID: ' . htmlspecialchars($provSvar['lab_test_name'] ?? 'N/A') . '<br>';
-                                    echo 'Resultat: ' . htmlspecialchars($provSvar['result_value'] ?? 'N/A') . '  ';
-                                    if (!empty($provSvar['lab_test_uom'])){
-                                    echo '<span>(' . htmlspecialchars($provSvar['lab_test_uom'] ?? 'N/A') . ')</span>';
-                                    }
-
-                                    $normalVärdeUppdelad = explode("\n", $provSvar['normal_range']);
-                                    foreach ($normalVärdeUppdelad as $nVärde) {
-                                        echo '<p>Normalvärde: ' . htmlspecialchars($nVärde) . '</p>';
-                                    }
-                                    echo '</p>';
-                                echo '</div>';
-                            }
-                        } else {
-                            echo '<p>Inga provsvar tillgängliga. Se förväntat svars datum</p>';
-                        }
-                        echo '<p><hr>Kommentar: ' . htmlspecialchars($lab['lab_test_comment'] ?? 'N/A') . '</p>';
-                        echo '</details>';
-                    } else {
-                        echo '<p>Inga testresultat tillgängliga.</p>';
-                    }
 
                                                 $normalVärdeUppdelad = explode("\n", $provSvar['normal_range']);
                                                 foreach ($normalVärdeUppdelad as $nVärde) {
@@ -179,21 +152,21 @@
                                             echo '</div>';
                                             
                                         }
-                                        echo '<p>Kommentar:</p>';
+                                        echo '<hr><p>Kommentar:</p>';
                                     }
                                 }
 
                             echo '<p>' . htmlspecialchars($lab['lab_test_comment'] ?? 'Ingen kommentar från vårdgivare eller provresultat än, se förväntat svars datum') . '</p>';
                             echo '</details>';
                         }
-                        else {
+                        } else {
                         echo '<p>Inga testresultat tillgängliga.</p>';
                         }
-                    
+
                         echo '</details>';
-                    
+                    }
                 echo '</div>';
-                    {
+            } else {
                 echo '<div>';
                     echo '<details><summary>Inga labprov tillgängliga</summary>';
                         echo '<p>Inga labprov hittades.</p>';
