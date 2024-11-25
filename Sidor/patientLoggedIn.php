@@ -322,7 +322,6 @@
             }
             //Om pnr Inte finns i ERP
             else{
-                echo"WTAH";
                 addPatient();
             }  
         }
