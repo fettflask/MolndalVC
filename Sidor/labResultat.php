@@ -121,7 +121,7 @@
                         $labDetails = json_decode($labDetails, true);
                         echo '<details>';
                         echo '<summary>Prov resultat</summary>';
-                        if (isset($labDetails['data']['normal_test_items']) && is_array($labDetails['data']['normal_test_items'])) {
+                        if (isset($labDetails['data']['normal_test_items']['result_value']) && is_array($labDetails['data']['normal_test_items'])) {
                             foreach ($labDetails['data']['normal_test_items'] as $provSvar) {
                                 echo '<div>';
                                     echo '<p>';
