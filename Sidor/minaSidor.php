@@ -51,6 +51,12 @@
                 echo "Välkommen, " . $_SESSION["namn"];
             ?>
         </div>
+
+        <div id="topnav">
+            <div class="navbutton" id="push">
+                <a href="sessionKill.php">Logga ut</a>
+            </div>
+        </div>
     </header>
 
     <main>

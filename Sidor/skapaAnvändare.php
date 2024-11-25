@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/skapaStyle.css">
     <title>Registrera</title>
 </head>
 <body>
@@ -40,6 +41,7 @@
             <a href="">SÖK VÅRD</a>
         </div>
     </header>
+
     <main>
         <?php
             ini_set('display_errors', 1);
@@ -81,48 +83,26 @@
             curl_close($ch);
         ?>
 
-        <div>
-            <p>
-                Välkommen till att skapa ett konto som patient hos Mölndals Vårdcentral. 
-                Fyll i alla fälten nedanför och verifiera med BankID.
-            </p>
-        </div>
-
-        <div>
-            <h3>Patient Inlogg</h3>
-            <form method="POST" action="patientLoggedIn.php">
-                <table>
-                    <tr>
-                        <td>
-                            Personnummer:
-                        </td>
-                        <td>
-                        <input type="text" name="pnr" id="pnr" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13" placeholder="YYYYMMDD-XXXX" title="Format: YYYYMMDD-XXXX">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Förnamn:
-                        </td>
-                        <td>
-                            <input type="text" name="name" id="name" required pattern="[A-Za-zÅåÄäÖö]+" title="Endast bokstäver" placeholder="Förnamn">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Efternamn:
-                        </td>
-                        <td>
-                            <input  type="text" name="lastname" id="lastname" required pattern="[A-Za-zÅåÄäÖö]+" title="Endast bokstäver" placeholder="Efternamn">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Kön:
-                        </td>
-                        <td>
-                            <select name="sex" required title="Välj från listan">
-                                <option selected hidden disabled>Välj kön</option>
+        <div id="skapaForm">
+            <div id="centerForm">
+                <h1>Registrering</h1>
+                <form method="POST" action="patientLoggedIn.php">
+                    <div class="inputField">
+                        Personnummer:
+                        <input type="text" name="pnr" class="input" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13" placeholder="YYYYMMDD-XXXX" title="Format: YYYYMMDD-XXXX">
+                    </div>
+                    <div class="inputField">
+                        Förnamn:
+                        <input type="text" name="name" class="input" required pattern="[A-Za-zÅåÄäÖö]+" title="Endast bokstäver" placeholder="Förnamn">
+                    </div>
+                    <div class="inputField">
+                        Efternamn:
+                        <input  type="text" name="lastname" class="input" required pattern="[A-Za-zÅåÄäÖö]+" title="Endast bokstäver" placeholder="Efternamn">
+                    </div>
+                    <div id="konSelect">
+                        Kön:
+                        <select name="sex" id="selector" required title="Välj från listan">
+                            <option selected hidden disabled>Välj kön</option>
                                 <?php
                                     ini_set("display_errors", 1);
                                     ini_set("display_startup_errors", 1);
@@ -165,16 +145,17 @@
                                     }
                                 ?>
                             </select>
-                        </td>
-                    </tr>
-                </table>
-                <input type="submit" value=Öppna BankID'>
-            </form>
+                        </div>
+                    <input type="submit" id="registrera" value='Registrera'>
+                </form>
+            </div>
         </div>
     </main>
+
     <footer>
 
     </footer>
+
     <script>
         function capitalizeInput(event) {
             let input = event.target;
