@@ -96,7 +96,7 @@
                     <h3>Din journal</h3>
                     <p>Här kan du ta andel av dina journalanteckningar.</p>
                     <!--Lägg adressen här-->
-                    <a href="" class="pushdowndammit">
+                    <a href="patientJournal.php" class="pushdowndammit">
                         <div class="gridbutton">Se journal</div>
                     </a>
                 </div>
