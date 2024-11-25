@@ -21,7 +21,7 @@
 
         curl_setopt($ch,CURLOPT_POST, true);
 
-        curl_setopt($ch,CURLOPT_POSTFIELDS, '{"usr":"a23jacka@student.his.se", "pwd":"Pangolin!24"}');
+        curl_setopt($ch,CURLOPT_POSTFIELDS, '{"usr":"webb_user", "pwd":"Pangolin!24"}');
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
         application/json'));
@@ -33,7 +33,9 @@
         curl_exec($ch);
     }
     function getLabTester(){
-        $ch = curl_init('http://193.93.250.83:8080/api/resource/Lab%20Test?filters={"patient":"'.$_SESSION["name"].'"}&fields=["name","lab_test_name","date","expected_result_date","lab_test_comment","practitioner_name"]&order_by=date%20asc');
+        $name = str_replace(" ", "%20", $_SESSION["namn"]);;
+        
+        $ch = curl_init('http://193.93.250.83:8080/api/resource/Lab%20Test?filters={"patient":"'.$name.'"}&fields=["name","lab_test_name","date","expected_result_date","lab_test_comment","practitioner_name"]&order_by=date%20asc');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
@@ -100,9 +102,9 @@
     </header>
     <main>
         <?php
+            curlSetup();
             $labTest = getLabTester();
             $labTest = json_decode($labTest, true);
-
 
             if (isset($labTest['data']) && !empty($labTest['data'])) {
                 echo '<div>';
@@ -137,7 +139,7 @@
                                 echo '</div>';
                             }
                         } else {
-                            echo '<p>Inga testresultat tillgängliga.</p>';
+                            echo '<p>Inga provsvar tillgängliga. Se förväntat svars datum</p>';
                         }
                         echo '<p>Kommentar: ' . htmlspecialchars($lab['lab_test_comment'] ?? 'N/A') . '</p>';
                         echo '</details>';
