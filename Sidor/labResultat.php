@@ -149,8 +149,9 @@
                                                 }
                                                 echo '</p>';
                                             echo '</div>';
-                                            echo '<p>Kommentar:</p>';
+                                            
                                         }
+                                        echo '<p>Kommentar:</p>';
                                     }
                                 }
 
