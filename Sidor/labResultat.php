@@ -189,11 +189,11 @@
                         else {
                         echo '<p>Inga testresultat tillgängliga.</p>';
                         }
-
+                    
                         echo '</details>';
                     
                 echo '</div>';
-                else {
+                    {
                 echo '<div>';
                     echo '<details><summary>Inga labprov tillgängliga</summary>';
                         echo '<p>Inga labprov hittades.</p>';
