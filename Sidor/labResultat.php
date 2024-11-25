@@ -162,12 +162,11 @@
                                                     echo '<p>Normalvärde: ' . htmlspecialchars($nVärde) . '</p>';
                                                 }
                                                 echo '</p>';
-                                            echo '</div>';
-                                            
+                                            echo '</div>'; 
                                         }
-                                        echo '<hr><p>Kommentar:</p>';
-                                    }
+                                    echo '<hr><p>Kommentar:</p>';
                                 }
+                            }
 
                             echo '<p>' . htmlspecialchars($lab['lab_test_comment'] ?? 'Ingen kommentar från vårdgivare eller provresultat än, se förväntat svars datum') . '</p>';
                             echo '</details>';
