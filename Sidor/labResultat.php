@@ -62,7 +62,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
-    <title>Registrera</title>
+    <title>Provsvar</title>
 </head>
 <body>
     <header>
