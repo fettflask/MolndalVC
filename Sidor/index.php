@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,14 +13,15 @@
     <title>Mölndals Vårdcentral</title>
 </head> 
 <body>
-    <header>
-        <div id="companylogo">
-            <a href="index.php">
-                <img src="../IMG/MölndalLogo.png">
-            </a>
-        </div>
+<header>
 
-        <div id="topnav">
+    <div id="companylogo">
+        <a href="index.php">
+            <img src="../IMG/MölndalLogo.png">
+        </a>
+    </div>
+        <div id="topnav">    
+
             <div class="navbox">
                 <a href="">Nyheter</a>
             </div>
@@ -32,15 +37,25 @@
             <div class="navbox">
                 <a href="">Mer</a>
             </div>
+
         </div>
 
         <div class="navbutton" id="push">
-            <a href="minaSidor.php">MINA SIDOR</a>
+            <a href="minaSidor.php">Mina sidor</a>
         </div>
 
         <div class="navbutton" id="buffer">
-            <a href="">SÖK VÅRD</a>
+            <a href="">Sök vård</a>
         </div>
+
+        <?php
+            if(isset($_SESSION["namn"])){
+                echo '<div class="navbutton">';
+                     echo '<a href="sessionKill.php">Logga ut</a>';
+                echo '</div>';
+            }
+        ?>
+   
     </header>
 
     <main>

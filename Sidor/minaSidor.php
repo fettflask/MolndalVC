@@ -22,13 +22,14 @@
 </head>
 <body>
     <header>
-        <div id="companylogo">
-            <a href="index.php">
-                <img src="../IMG/MölndalLogo.png">
-            </a>
-        </div>
 
-        <div id="topnav">
+    <div id="companylogo">
+        <a href="index.php">
+            <img src="../IMG/MölndalLogo.png">
+        </a>
+    </div>
+        <div id="topnav">    
+
             <div class="navbox">
                 <a href="">Nyheter</a>
             </div>
@@ -44,23 +45,31 @@
             <div class="navbox">
                 <a href="">Mer</a>
             </div>
+
         </div>
 
-        <div id="namn">
-            <?php
-                echo "Välkommen, " . $_SESSION["namn"];
-            ?>
+        <div class="navbutton" id="push">
+            <a href="minaSidor.php">Mina sidor</a>
         </div>
 
-        <div id="topnav">
-            <div class="navbutton" id="push">
-                <a href="sessionKill.php">Logga ut</a>
-            </div>
+        <div class="navbutton" id="buffer">
+            <a href="">Sök vård</a>
         </div>
+
+        <?php
+            if(isset($_SESSION["namn"])){
+                echo '<div class="navbutton">';
+                     echo '<a href="sessionKill.php">Logga ut</a>';
+                echo '</div>';
+            }
+        ?>
+   
     </header>
 
     <main>
-        <h2>Hur kan vi hjälpa dig?</h2>
+        <?php
+            echo '<h2>Hej, ' . $_SESSION["namn"] . '. Hur kan vi hjälpa dig?</h2>';
+        ?>
         <div id="mastergrid">
             <div class="mastergridelement">
                 <div class="gridelement">

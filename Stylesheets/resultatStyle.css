@@ -1,11 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
 
-#provMasterElement{
+.provMasterElement{
     font-family: 'Roboto', sans-serif;
     color: rgb(13, 48, 80);
+    width: 75%;
+    margin: auto;
 }
 
-#provElement{
+.provElement{
     background-color: rgb(240, 244, 250);
     margin: 15px;
     padding: 15px;

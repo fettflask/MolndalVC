@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Proxima+Nova');
+
 html, body {
     max-width: 100%;
     overflow-x: hidden;
@@ -6,24 +8,23 @@ html, body {
 
 header {
     display: flex;
+    justify-content: center;
     overflow: hidden;
     align-items: center;
     border-bottom: 1px solid rgb(240, 244, 250);
-    font-family: 'Roboto', sans-serif;
+    font-family: proxima-nova, helvetica, arial, sans-serif;
 }
 
 #companylogo img{
-    height: 9vh;
+    height: 70px;
     width: auto;
     margin: 20px;
     margin-left: 80px;
 }
 
 #topnav {
-    margin: 20px;
     overflow: hidden;
     display: flex;
-    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     transition: 0.5s;
 }
@@ -36,7 +37,7 @@ header {
     text-decoration: underline;
     text-decoration-color: transparent;
     text-align: center;
-    font-size: 2.5vh;
+    font-size: 16px;
     color: rgb(13, 48, 80);
     transition: 500ms;
 }
@@ -54,13 +55,13 @@ header {
     width: auto;
     text-align: center;
     margin: 20px;
-    padding: 1.5vh;
+    padding: 12px;
     transition: 500ms;
 }
 
 .navbutton a{ 
     text-decoration: none;
-    font-size: 2.5vh;
+    font-size: 16px;
     color: rgb(255, 255, 255);
 }
 

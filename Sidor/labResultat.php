@@ -68,14 +68,16 @@
     <title>Provsvar</title>
 </head>
 <body>
+
     <header>
+
         <div id="companylogo">
             <a href="index.php">
                 <img src="../IMG/MölndalLogo.png">
             </a>
         </div>
+        <div id="topnav">    
 
-        <div id="topnav">
             <div class="navbox">
                 <a href="">Nyheter</a>
             </div>
@@ -91,16 +93,27 @@
             <div class="navbox">
                 <a href="">Mer</a>
             </div>
+
         </div>
 
         <div class="navbutton" id="push">
-            <a href="minaSidor.php">MINA SIDOR</a>
+            <a href="minaSidor.php">Mina sidor</a>
         </div>
 
         <div class="navbutton" id="buffer">
-            <a href="">SÖK VÅRD</a>
+            <a href="">Sök vård</a>
         </div>
+
+        <?php
+            if(isset($_SESSION["namn"])){
+                echo '<div class="navbutton">';
+                     echo '<a href="sessionKill.php">Logga ut</a>';
+                echo '</div>';
+            }
+        ?>
+   
     </header>
+
     <main>
     <?php
             curlSetup();
@@ -108,9 +121,9 @@
             $labTest = json_decode($labTest, true);
 
             if (isset($labTest['data']) && !empty($labTest['data'])) {
-                echo '<div id="provMasterElement">';
+                echo '<div class="provMasterElement">';
                 foreach ($labTest['data'] as $lab) {
-                    echo '<details id="provElement">';
+                    echo '<details class="provElement">';
                     echo '<summary class="mainSummary">Prov: ' . htmlspecialchars($lab['lab_test_name'] ?? 'N/A') . '<br>Datum: ' . htmlspecialchars($lab['date'] ?? 'N/A') . '</summary>';
 
                     echo '<p>Prov: ' . htmlspecialchars($lab['name'] ?? 'N/A') . '</p>';
@@ -167,9 +180,9 @@
                     }
                 echo '</div>';
             } else {
-                echo '<div>';
-                    echo '<details><summary>Inga labprov tillgängliga</summary>';
-                        echo '<p>Inga labprov hittades.</p>';
+                echo '<div class="provMasterElement">';
+                    echo '<details class="provElement"><summary>Inga labbprov tillgängliga</summary>';
+                        echo '<p>Inga labbprov hittades. Du har inte genomfört några prover eller de har inte blivit registrerade ännu. </p>';
                     echo '</details>';
                 echo '</div>';
             }
