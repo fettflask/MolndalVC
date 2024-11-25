@@ -64,7 +64,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
-    <link rel="stylesheet" href="../Stylesheets/resultatStyle.css">
     <title>Provsvar</title>
 </head>
 <body>
@@ -102,7 +101,7 @@
         </div>
     </header>
     <main>
-        <?php
+    <?php
             curlSetup();
             $labTest = getLabTester();
             $labTest = json_decode($labTest, true);
