@@ -15,27 +15,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/journalStyle.css">
     <title>Provsvar</title>
 </head>
 <body>
     <?php echoHead(); ?>
     <main>
+        <div id="slaveOwner">
         <?php
             curlSetup();
             $patientJournal = getPatientEncounters();
             
             if (isset($patientJournal['data']) && !empty($patientJournal['data'])) {
-                echo '<div>';
+                echo '<div class="jourMasterElement">';
                 echo '<h2>Vårdmöten</h2>';
                 foreach ($patientJournal['data'] as $journal) {
-                    echo '<details>';
-                    echo '<summary>Antäckning - ' . htmlspecialchars($journal['name'] ?? 'N/A') . ' med ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . ' <br>' . htmlspecialchars($journal['encounter_date'] ?? 'N/A') . '</summary>';
+                    echo '<details class="jourElement">';
+                    echo '<summary class="mainSummary">Anteckning - ' . htmlspecialchars($journal['name'] ?? 'N/A') . ' med ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . ' <br>' . htmlspecialchars($journal['encounter_date'] ?? 'N/A') . '</summary>';
 
                     echo '<p>Ansvarig läkare: ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . '</p>';
                     echo '<p>Avdelning: ' . htmlspecialchars($journal['medical_department'] ?? 'N/A') . '</p>';
                     
-                    echo '<p>Journal antäckning:<br>';
-                    echo '' . htmlspecialchars($journal['encounter_comment'] ?? 'Finns ingen antäckning för mötet') . '</p>';
+                    echo '<p>Journal anteckning:<br>';
+                    echo '' . htmlspecialchars($journal['encounter_comment'] ?? 'Finns ingen anteckning för mötet') . '</p>';
                     if (isset($journal['name'])) {
                         $JournalDetails = getPatientEncountersDetails($journal);
 
@@ -84,7 +86,7 @@
                         
                         if($hasSymptoms){
                             echo '<details>';
-                            echo '<summary>Symptom vid möte</summary>';
+                            echo '<summary class="mainSummary">Symptom vid möte</summary>';
                             if (isset($JournalDetails['data']['symptoms']) && is_array($JournalDetails['data']['symptoms'])) {
                                 echo '<div><ul>';
                                 foreach ($JournalDetails['data']['symptoms'] as $Detail) {
@@ -97,7 +99,7 @@
 
                         if($hasProcedure){
                             echo '<details>';
-                            echo '<summary>Genomförd procedur</summary>';
+                            echo '<summary class="mainSummary">Genomförd procedur</summary>';
                             if (isset($JournalDetails['data']['procedure_prescription']) && is_array($JournalDetails['data']['procedure_prescription'])) {
                                     foreach ($JournalDetails['data']['procedure_prescription'] as $Detail) {
                                         echo '<div>';
@@ -115,7 +117,7 @@
                     
                     if($hasMedicine){
                         echo '<details>';
-                        echo '<summary>Utskriven medicin</summary>';
+                        echo '<summary class="mainSummary">Utskriven medicin</summary>';
                         if (isset($JournalDetails['data']['drug_prescription']) && is_array($JournalDetails['data']['drug_prescription'])) {
                             foreach ($JournalDetails['data']['drug_prescription'] as $Detail) {
                                 echo '<div>';
@@ -138,11 +140,11 @@
             $patientVital = getPatientVitals();
 
             if (isset($patientVital['data']) && !empty($patientVital['data'])) {
-                echo '<div>';
+                echo '<div class="jourMasterElement">';
                     echo '<h2>Vitalparametrar & mätningar</h2>';
                     foreach ($patientVital['data'] as $vital) {
-                        echo '<details>';
-                            echo '<summary>' . htmlspecialchars($vital['title'] ?? 'N/A') . '</summary>';                  
+                        echo '<details class="jourElement">';
+                            echo '<summary class="mainSummary">' . htmlspecialchars($vital['title'] ?? 'N/A') . '</summary>';                  
                             echo '<p>Kommentar: ' . htmlspecialchars($vital['vital_signs_note'] ?? 'N/A') . '</p>';
                             echo '<h4>Vitalparametrar</h4>';
                             echo '<p>';
@@ -164,6 +166,7 @@
                     echo '</div>';
                 }
         ?>
+        </div>
     </main>
     <footer>
 
