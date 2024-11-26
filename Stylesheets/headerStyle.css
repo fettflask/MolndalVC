@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css?family=Proxima+Nova');
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0px;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    align-items: center;
+    border-bottom: 1px solid rgb(240, 244, 250);
+    font-family: proxima-nova, helvetica, arial, sans-serif;
+}
+
+#companylogo img{
+    height: 70px;
+    width: auto;
+    margin: 20px;
+    margin-left: 80px;
+}
+
+#topnav {
+    overflow: hidden;
+    display: flex;
+    font-weight: bold;
+    transition: 0.5s;
+}
+
+.navbox{
+    margin: 20px;
+}
+
+.navbox a{
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-align: center;
+    font-size: 16px;
+    color: rgb(13, 48, 80);
+    transition: 500ms;
+}
+
+.navbox a:hover{
+    text-decoration-color: rgb(13, 48, 80);
+    transition: 500ms;
+}
+
+.navbutton{
+    justify-content: flex-end;
+    background-color: rgb(13, 48, 80);
+    border-radius: 100px;
+    font-weight: bold;
+    width: auto;
+    text-align: center;
+    margin: 20px;
+    padding: 12px;
+    transition: 500ms;
+}
+
+.navbutton a{ 
+    text-decoration: none;
+    font-size: 16px;
+    color: rgb(255, 255, 255);
+}
+
+.navbutton:hover{    
+    background-color: rgb(67, 89, 163);
+    transition: 500ms;
+}
+
+#push{
+    margin-left: auto;
+}

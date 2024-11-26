@@ -1,18 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
-header{
-    display:flex;
-    justify-content: center;
-    width:100%;
-    margin:auto;
-    padding-top:20px;
-    padding-bottom:20px;
-    background-color:lightblue;
-    outline: 10px solid lightblue;
-
-    font-family: 'Roboto', sans-serif;
-}
-
-
 
 #loginForm{
     margin-top:20px;

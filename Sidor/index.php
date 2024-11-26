@@ -1,25 +1,21 @@
+<?php
+    session_start();
+    include 'Funktioner/funktioner.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Stylesheets/IndexStyle.css">
+    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
+    <link rel="stylesheet" href="../Stylesheets/indexStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <title>Mölndals Vårdcentral</title>
 </head> 
 <body>
-    <header>
-        <div class="topnav">
-            <a href="index.php">Hem</a>
-            <a href="news.php">Nyheter</a>
-            <a href="contact.php">Kontakt</a>
-            <a href="about.php">Om oss</a>
-        </div>
+    <?php echoHead(); ?>
 
-        <div class="patientLogin">
-            <a href="patientLogin.php">Om oss</a>
-            <a href="personalLogin.php">Personal Inlogg</a>
-        </div>
-    </header>
     <main>
     <div class="infoText">
         <h2>Mölndals Vårdcentral</h2>

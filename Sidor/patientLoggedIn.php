@@ -1,101 +1,14 @@
 <?php
     session_start();
     $_SESSION["timeout"] = 300;
+    include 'Funktioner/funktioner.php';
 
     $pdo = new PDO("mysql:dbname=grupp6;host=localhost", "sqllab", "Hare#2022");
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    function curlSetup(){
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        $cookiepath = "/tmp/cookies.txt";
-
-        try {
-            $ch = curl_init('http://193.93.250.83:8080/api/method/login');
-        } 
-        catch (Exception $e) {
-            echo 'Caught exception: ', $e->getMessage(), "\n";
-        }
-
-        curl_setopt($ch,CURLOPT_POST, true);
-
-        curl_setopt($ch,CURLOPT_POSTFIELDS, '{"usr":"a23jaced@student.his.se", "pwd":"lmaokraftwerkvem?"}');
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
-        application/json'));
-        curl_setopt($ch,CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-        curl_setopt($ch,CURLOPT_COOKIEJAR, $cookiepath);
-        curl_setopt($ch,CURLOPT_COOKIEFILE, $cookiepath);
-        curl_setopt($ch,CURLOPT_TIMEOUT, $_SESSION["timeout"]);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-        curl_exec($ch);
-    }
-    function curlGetData($domainSuffix){
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        $cookiepath = "/tmp/cookies.txt";
-        
-        try {
-            $ch = curl_init('http://193.93.250.83:8080/' . $domainSuffix . "&limit_page_length=None");
-        } 
-        catch (Exception $e) {
-            echo 'Caught exception: ', $e->getMessage(), "\n";
-        }
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
-        application/json'));
-        curl_setopt($ch,CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-        curl_setopt($ch,CURLOPT_COOKIEJAR, $cookiepath);
-        curl_setopt($ch,CURLOPT_COOKIEFILE, $cookiepath);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
-        $response = json_decode($response,true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            echo "JSON decode error: " . json_last_error_msg() . "<br>";
-        }
-        
-        return $response;
-    }
-
-    function addPatient(){
-        echo"<div>";
-        echo"<h3>Registrera dig här!</h3>";
-        echo"<form method='POST' action='patientLoggedIn.php'>";
-        echo"<table>";
-        echo '<tr><td>Personnummer:</td><td><input type="text" name="newpnr" id="pnr" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13"  value="'. $_POST["pnr"] .'"</td></tr>';
-        echo '               
-        <script>
-            const pnrInput = document.getElementById("pnr");
-
-            pnrInput.addEventListener("input", function () {
-                let value = pnrInput.value.replace(/\D/g, "");
-
-                if (value.length > 8) {
-                    value = value.slice(0, 8) + "-" + value.slice(8, 12);
-                }
-
-                pnrInput.value = value;
-            });
-        </script>';
-        echo"</td></tr>";
-
-        echo"<tr><td>Förnamn:</td><td><input type='text' name='name' required autocapitalize='on'></td> </tr>";
-        echo"<tr><td>Efternamn:</td><td><input type='text' name='lastname' required autocapitalize='on'></td></tr>";
-        echo"<tr><td>Kön:</td><td><input type='text' name='sex' required></td></tr>";
-        echo"</table>";
-        echo "<input type='text' value=".$_POST["pnr"]." name='pnr' hidden>";
-        echo"<input type='submit' value='Verifiera med BankID'>";
-        echo"</form>";
-        echo"</div>";
-    }
-
-    if(isset($_POST["newpnr"])){
-        curlSetup();
-
+    if(isset($_POST["name"])){
+        curlSetup();  
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
@@ -104,9 +17,10 @@
         $ch = curl_init('http://193.93.250.83:8080/api/resource/Patient');
 
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, '{"uid":"'.$_POST["newpnr"].'","first_name":"'.$_POST["name"].'","last_name":"'.$_POST["lastname"].'","sex":"'.$_POST["sex"].'"}');
+        curl_setopt($ch, CURLOPT_POSTFIELDS, '{"uid":"'.$_POST["pnr"].'","first_name":"'.$_POST["name"].'","last_name":"'.$_POST["lastname"].'","sex":"'.$_POST["sex"].'"}');
     
         
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
         application/json'));
         curl_setopt($ch,CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
@@ -122,7 +36,7 @@
         $stmt->bindParam(':namn', $fullname);  
         
         try{ 
-            $stmt->execute();                  
+            $stmt->execute();                 
         }catch (PDOException $e){
             echo $e->getMessage(); 
         }
@@ -134,7 +48,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
+    <title>Mölndals Vårdcentral</title>
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
 
     <script type="text/javascript">
         window.onload = function() {
@@ -142,24 +58,28 @@
             setTimeout(function() {
                 document.getElementById('loading').style.display = 'none';
                 document.getElementById('content').style.display = 'block';
+                document.getElementById('header').style.display = 'flex';
             }, 2000);
             var shouldRunOnLoad = false;
         };   
     </script>
+                            
 
 </head>
 
 <body>
+    <?php echoHead(); ?>
+   
     <div id="loading" style="display: none; ">
         <img src="../IMG/bankID.png" alt="Öppna BankID">
     </div>
     <div id="content" style="display: none;">
     <?php
         /*
-            if pnr in api-lista: login --Done
+            if pnr in api-lista: 
                 if pnr INTE i databas 
-                    lägg till i databas
-                Fixa en startskärm för patient
+                    lägg till i databas --WIP
+                Reroute till MinaSidor --Done
             else reroute tillbaka till patientLogin.php --Done
         */
 
@@ -169,11 +89,13 @@
             //Loggar in på webbuser
             curlSetup();
 
-            $patientPnr = curlGetData('api/resource/Patient?fields=["uid"]');
+            //Hämtar alla patienters personnummer från ERP
+            $patientPnr = curlGetData('api/resource/Patient?fields=["uid"]&limit_page_length=None');
             
+            //Går igenom de hämtade personnumren och kollar om det inskrivna matchar med något
             $validCheck = false;
             foreach($patientPnr as $row){
-                foreach($row as $row2){    
+                foreach($row as $row2){   
                     if($row2["uid"] == $_POST["pnr"]){
                         $validCheck = true;
                         break;
@@ -181,8 +103,10 @@
                 }
             }
 
+            //Om det angivna personnumret finns i ERP
             if($validCheck){
                 
+                //Går igenom databasen och kollar om det angivna PNR finns i DB
                 $pnrIDarabas = false;                
                 foreach($pdo ->query("select * from patient;") as $row) {
                     if($row["pnr"] == $_POST["pnr"]){
@@ -193,6 +117,7 @@
                     }
                 }
 
+                //Om det fanns i databasen
                 if($pnrIDarabas){
                     echo '<script>
                             window.setTimeout(function() {
@@ -201,22 +126,21 @@
                         </script>';
                     
                 }
+                //Om inte i DB
                 else{
-                    addPatient();
+                    addPatientDB($pdo);
+                    echo '<script>
+                            window.setTimeout(function() {
+                            window.location = "minaSidor.php";
+                            }, 2000);
+                        </script>';
                 }
                 
   
             }
+            //Om pnr Inte finns i ERP
             else{
-
-                $regex = '#^[0-9]{8}-[0-9]{4}$#';
-                if (preg_match($regex, $_POST["pnr"])) {
-                    addPatient();
-                } else {
-                    header("Location: patientLogin.php");
-                    $_SESSION["error"] = "Felaktikt personnummer";
-                    die();
-                }
+                addPatient();
             }  
         }
         else{
@@ -227,5 +151,27 @@
     
     ?>
     </div>
+
+    <script>
+        function capitalizeInput(event) {
+            let input = event.target;
+            let value = input.value.trim();
+
+            value = value.replace(/[^a-zA-ZåäöÅÄÖ\s-]/g, '');
+
+            input.value = value.replace(/(^|\s|-)([a-zåäö])/gu, function(match, p1, p2) {
+                console.log("Matched Letter:", p2);
+                switch (p2) {
+                    case 'å': return p1 + 'Å';
+                    case 'ä': return p1 + 'Ä';
+                    case 'ö': return p1 + 'Ö';
+                    default: return p1 + p2.toUpperCase();
+                }
+            });
+        }
+
+        document.getElementById('name').addEventListener('input', capitalizeInput);
+        document.getElementById('lastname').addEventListener('input', capitalizeInput);
+    </script>  
 </body>
 </html>
