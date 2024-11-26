@@ -7,32 +7,6 @@
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    function curlSetup(){
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-        $cookiepath = "/tmp/cookies.txt";
-
-        try {
-            $ch = curl_init('http://193.93.250.83:8080/api/method/login');
-        } 
-        catch (Exception $e) {
-            echo 'Caught exception: ', $e->getMessage(), "\n";
-        }
-
-        curl_setopt($ch,CURLOPT_POST, true);
-
-        curl_setopt($ch,CURLOPT_POSTFIELDS, '{"usr":"webb_user", "pwd":"Pangolin!24"}');
-
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
-        application/json'));
-        curl_setopt($ch,CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-        curl_setopt($ch,CURLOPT_COOKIEJAR, $cookiepath);
-        curl_setopt($ch,CURLOPT_COOKIEFILE, $cookiepath);
-        curl_setopt($ch,CURLOPT_TIMEOUT, $_SESSION["timeout"]);
-        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-        curl_exec($ch);
-    }
     function getPatientEncounters(){
         $name = str_replace(" ", "%20", $_SESSION["namn"]);;
         

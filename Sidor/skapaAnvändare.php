@@ -24,16 +24,8 @@
 
             $baseurl= 'http://193.93.250.83:8080/';
 
-            try {
-                $ch = curl_init($baseurl.'api/method/login');
-            } 
-            catch (Exception $e) {
-                echo 'Caught exception: ', $e->getMessage(), "\n";
-            }
-
-            curl_setopt($ch,CURLOPT_POST, true);
-            curl_setopt($ch,CURLOPT_POSTFIELDS, '{"usr":"a23jaced@student.his.se", "pwd":"lmaokraftwerkvem?"}');
-
+            curlSetup();
+            
             $ch = curl_init($baseurl.'api/resource/Patient');
 
             if (!empty($_POST)){
