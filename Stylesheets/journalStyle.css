@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
 
+#slaveOwner{
+    display: flex;
+    flex-direction: row;
+}
+
 .jourMasterElement{
     font-family: 'Roboto', sans-serif;
     color: rgb(13, 48, 80);
