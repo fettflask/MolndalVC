@@ -70,7 +70,7 @@
                 echo '<h2>Vårdmöten</h2>';
                 foreach ($patientJournal['data'] as $journal) {
                     echo '<details>';
-                    echo '<summary>Antäckning - ' . htmlspecialchars($journal['name'] ?? 'N/A') . ' med ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . ' <br>' . htmlspecialchars($journal['encounter_date'] ?? 'N/A') . '</summary>';
+                    echo '<summary>Anteckning - ' . htmlspecialchars($journal['name'] ?? 'N/A') . ' med ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . ' <br>' . htmlspecialchars($journal['encounter_date'] ?? 'N/A') . '</summary>';
 
                     echo '<p>Ansvarig läkare: ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . '</p>';
                     echo '<p>Avdelning: ' . htmlspecialchars($journal['medical_department'] ?? 'N/A') . '</p>';
