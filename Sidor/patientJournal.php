@@ -1,50 +1,11 @@
 <?php
     session_start();
-    include 'Funktioner/funktioner.php';
     $_SESSION["timeout"] = 300;
+    include 'Funktioner/funktioner.php';
 
     $pdo = new PDO("mysql:dbname=grupp6;host=localhost", "sqllab", "Hare#2022");
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    function getPatientEncounters(){
-        $name = str_replace(" ", "%20", $_SESSION["namn"]);;
-        
-        $ch = curl_init('http://193.93.250.83:8080/api/resource/Patient%20Encounter?filters={"patient":"'.$name.'"}&fields=["name","title","encounter_date","encounter_time","practitioner_name","medical_department","encounter_comment"]&order_by=encounter_date%20asc');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
-        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
-
-        $response = curl_exec($ch);
-
-        return $response;
-    }
-    function getPatientEncountersDetails($journal){
-        $ch = curl_init('http://193.93.250.83:8080/api/resource/Patient%20Encounter/'.$journal["name"].'');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
-        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
-
-        $response = curl_exec($ch);
-
-        return $response;
-    }
-
-    function getPatientVitals(){
-        $name = str_replace(" ", "%20", $_SESSION["namn"]);;
-        
-        $ch = curl_init('http://193.93.250.83:8080/api/resource/Vital%20Signs?filters={"patient":"'.$name.'"}&fields=["name","title","signs_date","bp","vital_signs_note","temperature","pulse","respiratory_rate","height","weight","bmi"]&order_by=signs_date%20asc');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
-        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
-
-        $response = curl_exec($ch);
-
-        return $response;
-    }
 ?>
 
 <!DOCTYPE html>
