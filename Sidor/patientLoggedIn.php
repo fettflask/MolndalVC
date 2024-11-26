@@ -1,6 +1,7 @@
 <?php
     session_start();
     $_SESSION["timeout"] = 300;
+    include 'Funktioner/funktioner.php';
 
     $pdo = new PDO("mysql:dbname=grupp6;host=localhost", "sqllab", "Hare#2022");
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -219,50 +220,7 @@
 </head>
 
 <body>
-<header>
-
-<div id="companylogo">
-    <a href="index.php">
-        <img src="../IMG/MölndalLogo.png">
-    </a>
-</div>
-    <div id="topnav">    
-
-        <div class="navbox">
-            <a href="">Nyheter</a>
-        </div>
-
-        <div class="navbox">
-            <a href="">Sjukdomar & Besvär</a>
-        </div>
-
-        <div class="navbox">
-            <a href="">Hälsoråd & Tips</a>
-        </div>
-
-        <div class="navbox">
-            <a href="">Mer</a>
-        </div>
-
-    </div>
-
-    <div class="navbutton" id="push">
-        <a href="minaSidor.php">Mina sidor</a>
-    </div>
-
-    <div class="navbutton" id="buffer">
-        <a href="">Sök vård</a>
-    </div>
-
-    <?php
-        if(isset($_SESSION["namn"])){
-            echo '<div class="navbutton">';
-                 echo '<a href="sessionKill.php">Logga ut</a>';
-            echo '</div>';
-        }
-    ?>
-
-</header>
+    <?php echoHead(); ?>
    
     <div id="loading" style="display: none; ">
         <img src="../IMG/bankID.png" alt="Öppna BankID">

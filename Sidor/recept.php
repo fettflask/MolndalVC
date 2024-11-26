@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include 'Funktioner/funktioner.php';
     if(!isset($_SESSION["namn"])){
         header("Location: patientLogin.php");
         die();
@@ -212,39 +213,7 @@
     <title>Mölndals Vårdcentral</title>
 </head>
 <body>
-    <header>
-        <div id="companylogo">
-            <a href="index.php">
-                <img src="../IMG/MölndalLogo.png">
-            </a>
-        </div>
-
-        <div id="topnav">
-            <div class="navbox">
-                <a href="">Nyheter</a>
-            </div>
-
-            <div class="navbox">
-                <a href="">Sjukdomar & Besvär</a>
-            </div>
-
-            <div class="navbox">
-                <a href="">Hälsoråd & Tips</a>
-            </div>
-
-            <div class="navbox">
-                <a href="">Mer</a>
-            </div>
-        </div>
-
-        <div class="navbutton" id="push">
-            <a href="minaSidor.php">MINA SIDOR</a>
-        </div>
-
-        <div class="navbutton" id="buffer">
-            <a href="">SÖK VÅRD</a>
-        </div>
-    </header>
+    <?php echoHead(); ?>
 
     <div>
         <p>

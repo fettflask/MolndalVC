@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include 'Funktioner/funktioner.php';
     $_SESSION["timeout"] = 300;
 
     $pdo = new PDO("mysql:dbname=grupp6;host=localhost", "sqllab", "Hare#2022");
@@ -82,49 +83,7 @@
     <title>Provsvar</title>
 </head>
 <body>
-    <header>
-    <div id="companylogo">
-        <a href="index.php">
-            <img src="../IMG/MölndalLogo.png">
-        </a>
-    </div>
-        <div id="topnav">    
-
-            <div class="navbox">
-                <a href="">Nyheter</a>
-            </div>
-
-            <div class="navbox">
-                <a href="">Sjukdomar & Besvär</a>
-            </div>
-
-            <div class="navbox">
-                <a href="">Hälsoråd & Tips</a>
-            </div>
-
-            <div class="navbox">
-                <a href="">Mer</a>
-            </div>
-
-        </div>
-
-        <div class="navbutton" id="push">
-            <a href="minaSidor.php">Mina sidor</a>
-        </div>
-
-        <div class="navbutton" id="buffer">
-            <a href="">Sök vård</a>
-        </div>
-
-        <?php
-            if(isset($_SESSION["namn"])){
-                echo '<div class="navbutton">';
-                    echo '<a href="sessionKill.php">Logga ut</a>';
-                echo '</div>';
-            }
-        ?>
-
-    </header>
+    <?php echoHead(); ?>
     <main>
         <?php
             curlSetup();
