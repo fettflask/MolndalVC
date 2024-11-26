@@ -25,7 +25,7 @@
             $baseurl= 'http://193.93.250.83:8080/';
 
             curlSetup();
-            
+
             $ch = curl_init($baseurl.'api/resource/Patient');
 
             if (!empty($_POST)){
@@ -69,45 +69,7 @@
                         <select name="sex" id="selector" required title="Välj från listan">
                             <option selected hidden disabled>Välj kön</option>
                                 <?php
-                                    ini_set("display_errors", 1);
-                                    ini_set("display_startup_errors", 1);
-                                    error_reporting(E_ALL);
-                                    $cookiepath = "/tmp/cookies.txt";
-
-                                    $baseurl = "http://193.93.250.83:8080/";
-
-                                    $ch = curl_init($baseurl . "api/method/login");
-                                    curl_setopt($ch, CURLOPT_POST, true);
-                                    curl_setopt($ch, CURLOPT_POSTFIELDS, '{usr":"webb_user", "pwd":"Pangolin!24"}');
-                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
-                                    curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiepath);
-                                    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-                                    $login_response = curl_exec($ch);
-                                    curl_close($ch);
-
-                                    $ch = curl_init($baseurl . 'api/resource/Gender');
-                                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-                                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                                    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
-                                    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-                                    $response = curl_exec($ch);
-                                    curl_close($ch);
-
-                                    $genders = json_decode($response, true);
-
-                                    if (isset($genders['data']) && is_array($genders['data'])) {
-                                        foreach ($genders['data'] as $gender) {
-                                            echo '<option value="' . htmlspecialchars($gender['name']) . '">' . htmlspecialchars($gender['name']) . '</option>';
-                                        }
-                                    } else {
-                                        echo '<option value="">No genders available</option>';
-                                        if (isset($genders['message'])) {
-                                            echo '<p>Error: ' . htmlspecialchars($genders['message']) . '</p>';
-                                        } else {
-                                            echo '<p>No gender data available in the response.</p>';
-                                        }
-                                    }
+                                    getGender();  
                                 ?>
                             </select>
                         </div>
