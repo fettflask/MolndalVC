@@ -25,7 +25,6 @@
     <?php
             curlSetup();
             $labTest = getLabTester();
-            $labTest = json_decode($labTest, true);
 
             if (isset($labTest['data']) && !empty($labTest['data'])) {
                 echo '<div class="provMasterElement">';
@@ -40,7 +39,7 @@
 
                     if (isset($lab['name'])) {
                         $labDetails = getLabResultat($lab);
-                        $labDetails = json_decode($labDetails, true);
+                        
                         if (isset($labDetails['data']['normal_test_items']) && is_array($labDetails['data']['normal_test_items'])) {
                             $hasResultValue = false;
                         

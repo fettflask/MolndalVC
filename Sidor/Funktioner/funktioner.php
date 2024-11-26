@@ -1,4 +1,9 @@
 <?php
+    session_start();
+    /**
+     * Skriver ut sidans header - används på alla sidor
+     * @return void
+     */
     function echoHead(){
         echo '
             <header>
@@ -50,10 +55,12 @@
      * Loggar in på ERP
      * 
      * Används i:
-     *    patientLoggedIn
-     *    recept
-     *    skapaAnvändare
-     *    patientJournal
+     *    patientLoggedIn.php
+     *    recept.php
+     *    skapaAnvändare.php
+     *    patientJournal.php
+     *    labResultat.php
+     *    patientJournal.php
      * 
      * @return void
      */
@@ -84,6 +91,11 @@
         curl_exec($ch);
     }
 
+    /**
+     * Hämtar data från en angiven sida i API:et.
+     * @param mixed $domainSuffix URL:ens ändelse vilken avgör vartifrån datan hämtas - specificeras vi påkallning av funktionen
+     * @return mixed
+     */
     function curlGetData($domainSuffix){
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
@@ -113,6 +125,12 @@
         return $response;
     }
 
+    /**
+     * Hämtar kön från ERP samt skriver ut dem i option-taggar 
+     * (Select behöver startas samt avslutas före respektive 
+     * efter påkallning av funktion)
+     * @return void
+     */
     function getGender(){
         curlSetup();
         $ch = curl_init('http://193.93.250.83:8080/api/resource/Gender');
@@ -138,6 +156,10 @@
         }
     }
 
+    /**
+     * Kollar om aktuell patient ($_SESSION["namn"]) har en aktuell beställning på angiven medicin ($_POST["medicin"]). 
+     * @return bool Return "true" om aktiv beställning finns, Return "False" om ingen aktiv bokning finns.
+     */
     function checkRequests(){
         curlSetup();
         $name = str_replace(" ", "%20", $_SESSION["namn"]);
@@ -163,6 +185,10 @@
         return false;
     }
 
+    /**
+     * Postar formulärdatan till MedicationRequest i ERPNext
+     * @return bool Return True om aktiv begäran av aktuell medicin redan finns innan post, return False om posten sker.
+     */
     function sendForm(){
         curlSetup();  
         $med = addMed();
@@ -206,8 +232,13 @@
                 echo "Unexpected HTTP status code: $http_code\n";
             }
         }
+        return false;
     }
 
+    /**
+     * Kollar om aktuell medicin redan finns i ERPNexts Item-DocType, och om inte lägger till den
+     * @return mixed Returnerar _POST["medicin"] för att avsluta 
+     */
     function addMed(){  
         $medication = curlGetData("api/resource/Item?limit_page_length=None");
 
@@ -260,6 +291,11 @@
         return $_POST["medicin"];
     }
 
+    /**
+     * Hämtar labbresultat för angiven lab
+     * @param mixed $labTest Labben som data hämtas för
+     * @return mixed Returnerar data om param
+     */
     function getLabResultat($labTest){
         $ch = curl_init('http://193.93.250.83:8080/api/resource/Lab%20Test/'.$labTest["name"].'');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
@@ -268,9 +304,14 @@
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
 
         $response = curl_exec($ch);
-
+        $response = json_decode($response, true);
         return $response;
     }
+
+    /**
+     * Hämtar alla labbtester för inloggad patient
+     * @return mixed JSON-data för alla labbtester
+     */
     function getLabTester(){
         $name = str_replace(" ", "%20", $_SESSION["namn"]);;
         
@@ -281,9 +322,15 @@
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
 
         $response = curl_exec($ch);
+        $response = json_decode($response, true);
 
         return $response;
     }
+    
+    /**
+     * Printar HTML-formulär för adering av patient
+     * @return void
+     */
     function addPatient(){
         echo'
         <div>
@@ -334,6 +381,12 @@
         echo"</form>";
         echo"</div>";
     }
+
+    /**
+     * Lägger till ny patient i databasen
+     * @param mixed $pdo - Anslutningen till databas
+     * @return void
+     */
     function addPatientDB($pdo){
         
         $response = curlGetData("api/resource/Patient?filters={%22uid%22:%22". $_POST["pnr"] ."%22}");
@@ -357,6 +410,10 @@
         $_SESSION["pnr"] = $_POST["pnr"];
     }
 
+    /**
+     * Hämtar data från patientEncounter för inloggad patient.
+     * @return mixed Returnerar den hämtade datan i JSON-frmat
+     */
     function getPatientEncounters(){
         $name = str_replace(" ", "%20", $_SESSION["namn"]);;
         
@@ -367,9 +424,16 @@
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
 
         $response = curl_exec($ch);
+        $response = json_decode($response, true);
 
         return $response;
     }
+
+    /**
+     * Hämtar patientjournalen från PatientEncounter för angiven patient
+     * @param mixed $journal 
+     * @return mixed Returnerar datan i JSON-format
+     */
     function getPatientEncountersDetails($journal){
         $ch = curl_init('http://193.93.250.83:8080/api/resource/Patient%20Encounter/'.$journal["name"].'');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
@@ -378,10 +442,15 @@
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
 
         $response = curl_exec($ch);
+        $response = json_decode($response, true);
 
         return $response;
     }
 
+    /**
+     * Hämtar data om inloggad patients vitalsigns
+     * @return mixed
+     */
     function getPatientVitals(){
         $name = str_replace(" ", "%20", $_SESSION["namn"]);;
         
@@ -392,6 +461,7 @@
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
 
         $response = curl_exec($ch);
+        $response = json_decode($response, true);
 
         return $response;
     }

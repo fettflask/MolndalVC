@@ -23,9 +23,7 @@
         <?php
             curlSetup();
             $patientJournal = getPatientEncounters();
-            $patientJournal = json_decode($patientJournal, true);
             
-
             if (isset($patientJournal['data']) && !empty($patientJournal['data'])) {
                 echo '<div>';
                 echo '<h2>Vårdmöten</h2>';
@@ -40,7 +38,6 @@
                     echo '' . htmlspecialchars($journal['encounter_comment'] ?? 'Finns ingen antäckning för mötet') . '</p>';
                     if (isset($journal['name'])) {
                         $JournalDetails = getPatientEncountersDetails($journal);
-                        $JournalDetails = json_decode($JournalDetails, true);
 
                         $hasDiagnosis = false;
                         $hasProcedure = false;
@@ -139,7 +136,6 @@
             echo '</div>';
 
             $patientVital = getPatientVitals();
-            $patientVital = json_decode($patientVital, true);
 
             if (isset($patientVital['data']) && !empty($patientVital['data'])) {
                 echo '<div>';
