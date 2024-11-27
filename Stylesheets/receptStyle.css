@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
 
-#intro{
+body{
     color: rgb(13, 48, 80);
     font-family: 'Roboto', sans-serif;
+}
+
+.intro{
     margin: 20px 20px 0 20px;
 }
 
@@ -11,7 +14,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    width: 30%;
+    width: 440px;
     margin: 20px;
     background-color: rgb(209, 223, 241);
     border-radius: 20px;
@@ -24,6 +27,7 @@
 }
 
 h1{
+
     font-size: 38px;
     font-weight: bold;
 }
