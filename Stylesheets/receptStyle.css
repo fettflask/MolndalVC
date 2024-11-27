@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
+
+#intro{
+    color: rgb(13, 48, 80);
+    font-family: 'Roboto', sans-serif;
+    margin: 20px 20px 0 20px;
+}
+
+#receptForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 30%;
+    margin: 20px;
+    background-color: rgb(209, 223, 241);
+    border-radius: 20px;
+    color: rgb(13, 48, 80);
+    font-family: 'Roboto', sans-serif;
+}
+
+#centerForm{
+    margin: 20px 30px;
+}
+
+h1{
+    font-size: 38px;
+    font-weight: bold;
+}
+
+#repSelect{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+#selector{
+    height: 30px;
+    border: 1px solid rgb(13, 48, 80);
+    border-radius: 30px;
+    background-color: white;
+    text-indent: 5px;
+    appearance: none;
+}
+
+#order{
+    background-color: rgb(13, 48, 80);
+    border: 0;
+    border-radius: 100px;
+    font-weight: bold;
+    width: auto;
+    text-align: center;
+    margin: 20px;
+    padding: 12px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    transition: 500ms;
+}
+
+#order:hover{
+    background-color: rgb(67, 89, 163);
+    transition: 500ms;
+}
