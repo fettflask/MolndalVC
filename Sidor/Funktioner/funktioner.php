@@ -415,7 +415,7 @@
      * @return mixed Returnerar den hämtade datan i JSON-frmat
      */
     function getPatientEncounters(){
-        $name = str_replace(" ", "%20", $_SESSION["namn"]);;
+        $name = str_replace(" ", "%20", $_SESSION["namn"]);
         
         $ch = curl_init('http://193.93.250.83:8080/api/resource/Patient%20Encounter?filters={"patient":"'.$name.'"}&fields=["name","title","encounter_date","encounter_time","practitioner_name","medical_department","encounter_comment"]&order_by=encounter_date%20asc');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
@@ -455,6 +455,22 @@
         $name = str_replace(" ", "%20", $_SESSION["namn"]);;
         
         $ch = curl_init('http://193.93.250.83:8080/api/resource/Vital%20Signs?filters={"patient":"'.$name.'"}&fields=["name","title","signs_date","bp","vital_signs_note","temperature","pulse","respiratory_rate","height","weight","bmi"]&order_by=signs_date%20asc');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
+        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
+
+        $response = curl_exec($ch);
+        $response = json_decode($response, true);
+
+        return $response;
+    }
+    /**
+     * Hämtar blogg posts för nyhets sidan
+     * retunerar data i json format
+     */
+    function getBloggPost(){        
+        $ch = curl_init('http://193.93.250.83:8080/api/resource/Blog%20Post?fields=[%22name%22,%22published_on%22,%22blogger%22,%22content%22,%22blog_intro%22,%22content_html%22,%22title%22,%22published%22]&filters={"published":"1"}');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
