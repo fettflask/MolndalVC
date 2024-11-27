@@ -36,6 +36,7 @@
         <h3>Beställ recept</h3>
         <form method="POST" action="recept.php">
             <table>
+                <tr>
                 <?php
                     if(isset($_POST["medicin"])){
                         if(isset($_POST["request"]) && $_POST["request"] == "REDAN REQUESTAT"){
@@ -46,6 +47,7 @@
                         }
                     }
                 ?>
+                </tr>
                 <tr>
                     <td>
                         
@@ -131,6 +133,73 @@
                 </tr>  
             </table> 
         </form>
+    </div>
+
+    <div>
+        <p>Recepthistorik:</p>
+        <table>
+            <thead>
+                <th>Recept</th><th>Datum</th><th>Status</th>
+            </thead>
+            
+                <?php
+                /**
+                 * Hämtar alla befintliga recept, sorterar dem efter datum/tid beställningen lades, sorterar dem nyast först och skriver ut recept/datum/status
+                 */
+                    $name = str_replace(" ", "%20", $_SESSION["namn"]);
+                    $requests = curlGetData('api/resource/Medication%20Request?limit_page_length=None&filters={"patient":"'. $name .'"}');
+                    $printArray = [];
+
+                    foreach($requests as $data){
+                        foreach($data as $request){
+                            $reqDetails = curlGetData('api/resource/Medication%20Request/' . $request["name"]);
+                            foreach($reqDetails as $row3){
+                                $tempArray = [];
+                                if(isset($row3["medication"])){
+                                    $tempArray["med"] =  $row3["medication"];
+                                }else{
+                                    $tempArray["med"] =  $row3["medication_item"];
+                                }
+                                
+                                $tempArray["date"] =  $row3["order_date"];
+                                $tempArray["time"] = $row3["order_time"];
+                                if($row3["status"] == "active-Medication Request Status"){
+                                    $tempArray["status"] =  "Tillgänglig för uthämtning";
+                                }else if($row3["status"] == "draft-Medication Request Status"){
+                                    $tempArray["status"] =  "Väntar på svar";
+                                }else if($row3["status"] == "on-hold-Medication Request Status"){
+                                    $tempArray["status"] =  "Under utvärdering";
+                                }else{ 
+                                    $tempArray["status"] =  "Utgånget</td>";
+                                }
+                                
+                                array_push($printArray, $tempArray);
+                            }
+                        }
+                    }
+
+                    //Bubblesort algoritm som sorterar de hämtade recepten i datum och tid - nyast först
+                    for($i = 0; $i < sizeof($printArray); $i++){
+                        for($j = 0; $j < sizeof($printArray)-1; $j++){
+                            $tempArray = [];
+                            if($printArray[$i]["date"] > $printArray[$j]["date"]){
+                                $tempArray = $printArray[$j];
+                                $printArray[$j] = $printArray[$i];
+                                $printArray[$i] = $tempArray;
+                            } 
+                            else if($printArray[$i]["date"] == $printArray[$j]["date"] && $printArray[$i]["time"] > $printArray[$j]["time"]){
+                                $tempArray = $printArray[$j];
+                                $printArray[$j] = $printArray[$i];
+                                $printArray[$i] = $tempArray;
+                            }
+                        }
+                    }
+
+                    foreach($printArray as $printable){
+                        echo'<tr><td>'. $printable["med"] .'</td><td>'. $printable["date"] .'</td><td>'. $printable["status"] .'</td></tr>';
+                    }  
+                ?>
+        </table>
     </div>
     
 
