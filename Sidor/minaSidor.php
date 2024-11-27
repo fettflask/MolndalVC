@@ -33,7 +33,7 @@
                     <h3>Boka tid</h3>
                     <p>Du kan direkt boka ett läkarbesök hos oss om du bedöms behöva det.</p>
                     <!--Lägg adressen här-->
-                    <a href="" class="pushdowndammit">
+                    <a href="schema/VadVillDuGöra.php" class="pushdowndammit">
                         <div class="gridbutton">Boka tid</div>
                     </a>
                 </div>

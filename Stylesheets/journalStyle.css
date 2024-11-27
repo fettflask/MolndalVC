@@ -2,14 +2,14 @@
 
 #slaveOwner{
     display: flex;
-    flex-direction: row;
+    align-items: flex-start;
+
 }
 
 .jourMasterElement{
     font-family: 'Roboto', sans-serif;
     color: rgb(13, 48, 80);
     width: 75%;
-    margin: auto;
 }
 
 .jourElement{
@@ -22,6 +22,11 @@
 .mainSummary{
     font-size: 18px;
     font-weight: bold;
+    cursor: pointer;
+}
+
+h2{
+    margin-left: 18px;
 }
 
 hr{

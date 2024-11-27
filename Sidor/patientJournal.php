@@ -31,7 +31,7 @@
                 echo '<h2>Vårdmöten</h2>';
                 foreach ($patientJournal['data'] as $journal) {
                     echo '<details class="jourElement">';
-                    echo '<summary class="mainSummary">Anteckning - ' . htmlspecialchars($journal['name'] ?? 'N/A') . ' med ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . ' <br>' . htmlspecialchars($journal['encounter_date'] ?? 'N/A') . '</summary>';
+                    echo '<summary class="mainSummary">Anteckning -'/*. htmlspecialchars($journal['name'] ?? 'N/A') */. ' av ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . ' ' . htmlspecialchars($journal['encounter_date'] ?? 'N/A') . '</summary>';
 
                     echo '<p>Ansvarig läkare: ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . '</p>';
                     echo '<p>Avdelning: ' . htmlspecialchars($journal['medical_department'] ?? 'N/A') . '</p>';
@@ -85,7 +85,7 @@
                         }
                         
                         if($hasSymptoms){
-                            echo '<details>';
+                            echo '<hr><details>';
                             echo '<summary class="mainSummary">Symptom vid möte</summary>';
                             if (isset($JournalDetails['data']['symptoms']) && is_array($JournalDetails['data']['symptoms'])) {
                                 echo '<div><ul>';
@@ -98,7 +98,7 @@
                         }
 
                         if($hasProcedure){
-                            echo '<details>';
+                            echo '<hr><details>';
                             echo '<summary class="mainSummary">Genomförd procedur</summary>';
                             if (isset($JournalDetails['data']['procedure_prescription']) && is_array($JournalDetails['data']['procedure_prescription'])) {
                                     foreach ($JournalDetails['data']['procedure_prescription'] as $Detail) {
@@ -116,7 +116,7 @@
                     }
                     
                     if($hasMedicine){
-                        echo '<details>';
+                        echo '<hr><details>';
                         echo '<summary class="mainSummary">Utskriven medicin</summary>';
                         if (isset($JournalDetails['data']['drug_prescription']) && is_array($JournalDetails['data']['drug_prescription'])) {
                             foreach ($JournalDetails['data']['drug_prescription'] as $Detail) {
@@ -146,7 +146,7 @@
                         echo '<details class="jourElement">';
                             echo '<summary class="mainSummary">' . htmlspecialchars($vital['title'] ?? 'N/A') . '</summary>';                  
                             echo '<p>Kommentar: ' . htmlspecialchars($vital['vital_signs_note'] ?? 'N/A') . '</p>';
-                            echo '<h4>Vitalparametrar</h4>';
+                            echo '<hr><h4>Vitalparametrar</h4>';
                             echo '<p>';
                                 echo 'Puls: ' . htmlspecialchars($vital['pulse'] ?? 'N/A') . '<br>';
                                 echo 'Blodtryck: ' . htmlspecialchars($vital['bp'] ?? 'N/A') . '<br>';
@@ -154,7 +154,7 @@
                                 echo 'Temperatur: ' . htmlspecialchars($vital['temperature'] ?? 'N/A') . 'C°';
                             echo '</p>';
 
-                            echo '<h4>Mätning</h4>';
+                            echo '<hr><h4>Mätning</h4>';
                             echo '<p>';
                                 echo 'Längd: ' . htmlspecialchars($vital['height'] ?? 'N/A') . ' m (meter)<br>';
                                 echo 'Vikt: ' . htmlspecialchars($vital['weight'] ?? 'N/A') . ' kg (kilogram)<br>';
