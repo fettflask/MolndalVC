@@ -20,15 +20,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/indexStyle.css">
-    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/receptStyle.css">
     <title>Mölndals Vårdcentral</title>
 </head>
+
 <body>
     <?php echoHead(); ?>
 
-    <div>
+    <div id="intro">
+        <h1>Beställ recept</h1>
         <p>
-            Välj ur listan nedan vilken medicin du vill begära nytt recept på
+            Här kan du begära en förnying på dina receptbelagda läkemedel. <br>
+            Välj ur listan nedan vilken medicin du vill begära nytt recept på.
         </p>
     </div>
 
@@ -110,29 +113,23 @@
                                     }
                                 } else{$printList = $mediciner2;}
 
-                                echo '
-                                Mediciner:
-                                </td>
-                                <td>
-                                    <select name="medicin" required title="Välj från listan">
-                                    <option selected hidden disabled>Välj Medicin</option>
-                                    ';
+                                echo '<div id="repSelect"><p style="font-size: 24px; font-weight: bold;">Mediciner:</p> 
+                                    <select name="medicin" id="selector" required title="Välj från listan">
+                                    <option selected hidden disabled>Välj Medicin <em>--Klicka här--</em></option>
+                                    </div>';
                                 foreach($printList as $medicin){
                                     //Value sätts till medCode då data hämtat från medReq har olika namn/kod och applikationen vill ha kod för ny medReq
                                     echo '<option value="' . $medicin["medCode"] . '">' . $medicin["medName"] . '</option>';
                                 }
                                 echo '</select>';
-                                echo '</td></tr>';
-                                echo"<tr><td><input type='submit' value='Skicka begäran'>";
+                                echo"<input type='submit' id='order' value='Skicka begäran'>";
                             }
                             else{
                                 echo '<p>Vi hittade inga mediciner du har blivit utskriven tidigare. Fyll i </p> <a href="">kontaktformuläret</a><p> för vidare rådgivning</p>';
                             } 
-                        ?>
-                    </td>
-                </tr>  
-            </table> 
-        </form>
+                        ?>  
+            </form>
+        </div>
     </div>
 
     <div>
