@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="navbox">
-                            <a href="">Hälsoråd & Tips</a>
+                            <a href="hälsoråd.php">Hälsoråd & Tips</a>
                         </div>
 
                         <div class="navbox">
