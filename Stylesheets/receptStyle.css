@@ -65,3 +65,15 @@ h1{
     background-color: rgb(67, 89, 163);
     transition: 500ms;
 }
+
+table{
+    margin: 20px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+th, td{
+    padding: 8px;
+    border-bottom: 1px solid rgb(67, 89, 163);
+    
+}
