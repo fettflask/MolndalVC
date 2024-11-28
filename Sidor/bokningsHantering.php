@@ -1,9 +1,11 @@
 <?php
-ini_set('display_errors', 1);
+//ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 session_start();
+include 'Funktioner/funktioner.php';
+
 
 // Sätt upp API-bas och cookies
 $cookiepath = "/tmp/cookies.txt";
@@ -83,13 +85,15 @@ foreach ($allAppointments as $appointment) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/bokningarStyle.css">
     <title>Mina Bokningar</title>
 </head>
 
 <body>
-    <h1>Välkommen, <?php echo htmlspecialchars($anvandarnamn); ?>!</h1>
-    <h2>Dina Bokningar</h2>
+    <?php echoHead(); ?>
+
+    <h1>Dina Bokningar</h1>
 
     <?php if (!empty($userAppointments)): ?>
     <div id="bokningarMaster">    

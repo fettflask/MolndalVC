@@ -1,8 +1,15 @@
+h1{
+    font-size: 38px;
+    font-weight: bold;
+    margin: 15px;
+    font-family: 'Roboto', sans-serif;
+    color: rgb(13, 48, 80);
+}
+
 #bokningarMaster{
     font-family: 'Roboto', sans-serif;
     color: rgb(13, 48, 80);
-    width: 75%;
-    margin: auto;
+    width: 750px;
 }
 
 #bokningarElement{
@@ -14,6 +21,10 @@
     border-radius: 25px;
 }
 
+#status{
+    margin-top: 5px;
+}
+
 #buttonMaster{
     display: flex;
     flex-direction: row;
@@ -22,12 +33,9 @@
 
 #buttonMaster a{
     text-decoration: none;
-    height: auto;
-    width: auto;
 }
 
 .buttonSlave{
-    justify-content: flex-end;
     background-color: rgb(13, 48, 80);
     border-radius: 100px;
     font-weight: bold;
