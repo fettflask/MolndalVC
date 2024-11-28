@@ -16,15 +16,15 @@
                     <div id="topnav">    
 
                         <div class="navbox">
-                            <a href="">Nyheter</a>
+                            <a href="nyheter.php">Nyheter</a>
                         </div>
 
                         <div class="navbox">
-                            <a href="">Sjukdomar & Besvär</a>
+                            <a href="sjukdomarbesvär.php">Sjukdomar & Besvär</a>
                         </div>
 
                         <div class="navbox">
-                            <a href="">Hälsoråd & Tips</a>
+                            <a href="hälsoråd.php">Hälsoråd & Tips</a>
                         </div>
 
                         <div class="navbox">
@@ -470,7 +470,39 @@
      * retunerar data i json format
      */
     function getBloggPost(){        
-        $ch = curl_init('http://193.93.250.83:8080/api/resource/Blog%20Post?fields=[%22name%22,%22published_on%22,%22blogger%22,%22content%22,%22blog_intro%22,%22content_html%22,%22title%22,%22published%22]&filters={"published":"1"}');
+        $ch = curl_init('http://193.93.250.83:8080/api/resource/Blog%20Post?fields=[%22name%22,%22published_on%22,%22blogger%22,%22content_html%22,%22title%22,%22published%22,%22blog_intro%22]&filters={%22published%22:%221%22,%22blogger%22:%22M%C3%B6lndal%20VC(G6)%22,%22blog_category%22:%22v%C3%A5rd-nyhet%22}&order_by=published_on%20asc');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
+        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
+
+        $response = curl_exec($ch);
+        $response = json_decode($response, true);
+
+        return $response;
+    }
+    /**
+     * Hämtar blogg posts för sjukdoms delen för sjukdomar och besvär sidan
+     * retunerar data i json format
+     */
+    function getBloggPostSjukdom(){        
+        $ch = curl_init('http://193.93.250.83:8080/api/resource/Blog%20Post?fields=[%22name%22,%22published_on%22,%22blogger%22,%22content_html%22,%22blog_intro%22,%22title%22,%22published%22,%22blog_category%22]&filters={%22published%22:%221%22,%22blogger%22:%22M%C3%B6lndal%20VC(G6)%22,%22blog_category%22:%22sjukdomar%22}&order_by=published_on%20asc');
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
+        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
+
+        $response = curl_exec($ch);
+        $response = json_decode($response, true);
+
+        return $response;
+    }    
+    /**
+    * Hämtar blogg posts för besvär delen för sjukdomar och besvär sidan
+    * retunerar data i json format
+    */
+    function getBloggPostBesvär(){        
+        $ch = curl_init('http://193.93.250.83:8080/api/resource/Blog%20Post?fields=[%22name%22,%22published_on%22,%22blogger%22,%22content_html%22,%22blog_intro%22,%22title%22,%22published%22,%22blog_category%22]&filters={%22published%22:%221%22,%22blogger%22:%22M%C3%B6lndal%20VC(G6)%22,%22blog_category%22:%22besv%C3%A4r%22}&order_by=published_on%20asc');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
