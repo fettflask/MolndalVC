@@ -34,6 +34,7 @@ apiLogin($baseurl, $cookiepath);
 
 // Se om formuläret fungerade
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $selectedPatient = $_POST['selectedPatient'] ?? '';
     $selectedPractitioner = $_POST['selectedPractitioner'] ?? '';
 
     if (!$selectedPractitioner) {
@@ -175,6 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h1>Schema för <?= htmlspecialchars($selectedPractitioner) ?></h1>
+    <p>Vald patient: <?= htmlspecialchars($selectedPatient) ?></p>
 
     <!-- Dropdownen för datum -->
     <label for="dateDropdown">Välj ett datum:</label>
@@ -207,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="hidden" name="department" value="Allmänvård(G6)">
     <input type="hidden" name="appointment For" value="Practitioner">
     <input type="hidden" name="selectedPractitioner" value="<?= htmlspecialchars($selectedPractitioner) ?>">
-    <input type="hidden" name="patient" value="kabbe karlsson">
+    <input type="hidden" name="patient" value="<?= htmlspecialchars($selectedPatient) ?>">
     
     <button type="submit">Boka tidslucka</button>
 </form>

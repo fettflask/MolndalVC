@@ -49,7 +49,7 @@ function fetchData($url, $cookiepath) {
 
 // Hämta rådata
 $patientsRaw = fetchData('http://193.93.250.83:8080/api/resource/Patient?limit_page_length=None', $cookiepath);
-$practitionersRaw = fetchData('http://193.93.250.83:8080/api/resource/Practitioner%20Schedule?limit_page_length=100', $cookiepath);
+$practitionersRaw = fetchData('http://193.93.250.83:8080/api/resource/Practitioner%20Schedule?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25%28G6%29%25%22%5D%5D&limit_page_length=None', $cookiepath);
 
 // Avkoda JSON-data utanför funktionen
 $patientsData = json_decode($patientsRaw, true);

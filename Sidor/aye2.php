@@ -131,15 +131,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $appointmentFor = $_POST['appointment_For'] ?? '';
     $patientName = $_POST['patient'] ?? '';
 
-    if (!$selectedTimeSlot || !$company || !$department || !$appointmentFor || !$patientName) {
-        echo "Ett eller flera obligatoriska fält saknas.";
-        exit;
-    }
+
 
     $title = $patientName . ' with ' . $selectedPractitionerName;
     $appointmentDatetime = $selectedDate . ' ' . $selectedTimeSlot;
     $serviceUnit = 'Almänmottagnings Rum 1 - MV';
-    $patientNameFull = $patientName . ' (G6)';
 
     $bookingData = [
         'title' => $title,
@@ -154,7 +150,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'appointment_time' => $selectedTimeSlot,
         'appointment_datetime' => $appointmentDatetime,
         'patient' => $patientName,
-        'patient_name' => $patientNameFull,
         'service_unit' => $serviceUnit,
     ];
 

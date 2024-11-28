@@ -1,0 +1,42 @@
+#bokningarMaster{
+    font-family: 'Roboto', sans-serif;
+    color: rgb(13, 48, 80);
+    width: 75%;
+    margin: auto;
+}
+
+#bokningarElement{
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(240, 244, 250);
+    margin: 15px;
+    padding: 15px;
+    border-radius: 25px;
+}
+
+#buttonMaster{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+}
+
+#buttonMaster a{
+    text-decoration: none;
+    height: auto;
+    width: auto;
+}
+
+.buttonSlave{
+    justify-content: flex-end;
+    background-color: rgb(13, 48, 80);
+    border-radius: 100px;
+    font-weight: bold;
+    width: auto;
+    text-align: center;
+    margin: 20px;
+    padding: 12px;
+    border: none;
+    color: white;
+    font-size: 16px;
+    transition: 500ms;
+}

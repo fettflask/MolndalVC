@@ -33,7 +33,7 @@
                     <h3>Boka tid</h3>
                     <p>Du kan direkt boka ett läkarbesök hos oss om du bedöms behöva det.</p>
                     <!--Lägg adressen här-->
-                    <a href="schema/VadVillDuGöra.php" class="pushdowndammit">
+                    <a href="VadVillDuGöra.php" class="pushdowndammit">
                         <div class="gridbutton">Boka tid</div>
                     </a>
                 </div>
@@ -70,21 +70,21 @@
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
-                    <h3>Av- eller omboka</h3>
-                    <p>Här kan du be om att av- eller omboka en tid hos oss.</p>
+                    <h3>Dina tider</h3>
+                    <p>Här kan du se alla dina bokade besök hos oss och av- eller omboka dem.</p>
                     <!--Lägg adressen här-->
-                    <a href="" class="pushdowndammit">
-                        <div class="gridbutton">Avboka tid</div>
+                    <a href="bokningsHantering.php" class="pushdowndammit">
+                        <div class="gridbutton">Se tider</div>
                     </a>
                 </div>
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
-                    <h3>Dina tider</h3>
-                    <p>Här kan du se alla dina bokade besök hos oss.</p>
+                    <h3>Lorem Ipsum</h3>
+                    <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
                     <!--Lägg adressen här-->
                     <a href="" class="pushdowndammit">
-                        <div class="gridbutton">Se tider</div>
+                        <div class="gridbutton">Botono</div>
                     </a>
                 </div>
             </div>

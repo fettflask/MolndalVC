@@ -21,22 +21,9 @@
 
 <body>
     <?php echoHead(); ?>
-    <?php     
-    function getBloggPost(){        
-        $ch = curl_init('http://193.93.250.83:8080/api/resource/Blog%20Post?fields=[%22name%22,%22published_on%22,%22blogger%22,%22content%22,%22blog_intro%22,%22content_html%22,%22title%22,%22published%22]&filters={"published":"1"}');
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
-        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
-
-        $response = curl_exec($ch);
-        $response = json_decode($response, true);
-
-        return $response;
-    }
-    ?>
     <main>
     <div id="healthCenterArticles">
+        <h1>Nyheter</h1>
         <?php
             curlSetup();
             $bloggpost = getBloggPost();
