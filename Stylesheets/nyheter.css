@@ -1,67 +1,60 @@
-/* Main container for all articles */
 #healthCenterArticles {
-    font-family: "Arial", sans-serif; /* Clean, professional font */
-    color: #333; /* Default text color */
-    line-height: 1.6; /* Comfortable text spacing */
-    background-color: #f8f9fa; /* Light background for the container */
-    padding: 24px; /* Space around the articles */
-    border-radius: 8px; /* Rounded corners for the container */
+    font-family: "Arial", sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    padding: 24px;
+    border-radius: 8px;
 }
 
-/* Parent container for articles */
 .articleList {
     display: flex;
-    flex-direction: column; /* Stack articles vertically */
-    gap: 20px; /* Add space between each article */
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Individual article container */
 .articleCard {
-    background-color: #ffffff; /* White card background */
-    border: 1px solid #e0e0e0; /* Subtle border for definition */
-    border-radius: 8px; /* Rounded corners */
-    padding: 16px; /* Padding inside the card */
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); /* Light shadow for depth */
-    transition: transform 0.2s, box-shadow 0.2s ease; /* Smooth hover animation */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s ease;
 }
 
 .articleCard:hover {
-    transform: scale(1.02); /* Slightly enlarge on hover */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Darker shadow on hover */
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Article headline styling */
 .articleCard summary {
-    font-size: 1.3em; /* Larger font size for headlines */
+    font-size: 1.3em;
     font-weight: bold;
-    color: #006d77; /* Health-themed greenish-blue */
-    cursor: pointer; /* Pointer for interactivity */
-    margin-bottom: 12px; /* Space below the headline */
-    text-decoration: none; /* Remove underline */
+    color: #006d77;
+    cursor: pointer;
+    margin-bottom: 12px;
+    text-decoration: none;
     display: block;
 }
 
 .articleCard summary:hover {
-    color: #005f6b; /* Darker greenish-blue for hover */
+    color: #005f6b;
 }
 
-/* Metadata styling */
 .articleCard summary p:first-of-type {
-    color: #666; /* Subtle gray for metadata */
-    font-size: 0.9em; /* Smaller font for metadata */
-    margin: 8px 0; /* Tighten spacing around metadata */
+    color: #666;
+    font-size: 0.9em;
+    margin: 8px 0;
 }
 
-/* Article intro/content preview styling */
 .articleCard summary p:last-of-type {
-    color: #444; /* Darker gray for content preview */
-    font-size: 1em; /* Standard size for intro text */
-    margin-top: 8px; /* Space between metadata and intro */
+    color: #444;
+    font-size: 1em;
+    margin-top: 8px;
 }
 
-/* Full article content styling (inside details) */
 .articleCard p {
-    color: #333; /* Default text color */
-    font-size: 1em; /* Readable size for main content */
-    margin-top: 16px; /* Space above article body */
+    color: #333;
+    font-size: 1em;
+    margin-top: 16px;
 }

@@ -16,7 +16,7 @@
                     <div id="topnav">    
 
                         <div class="navbox">
-                            <a href="">Nyheter</a>
+                            <a href="nyheter.php">Nyheter</a>
                         </div>
 
                         <div class="navbox">
@@ -470,7 +470,7 @@
      * retunerar data i json format
      */
     function getBloggPost(){        
-        $ch = curl_init('http://193.93.250.83:8080/api/resource/Blog%20Post?fields=[%22name%22,%22published_on%22,%22blogger%22,%22content%22,%22blog_intro%22,%22content_html%22,%22title%22,%22published%22]&filters={"published":"1"}');
+        $ch = curl_init('http://193.93.250.83:8080/api/resource/Blog%20Post?fields=[%22name%22,%22published_on%22,%22blogger%22,%22content_html%22,%22title%22,%22published%22,%22blog_intro%22]&filters={%22published%22:%221%22,%22blogger%22:%22Mölndal%20VC(G6)%22,%22blog_category%22:%22vård-nyhet%22}&order_by=published_on%20asc');
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
