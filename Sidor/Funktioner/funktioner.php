@@ -20,7 +20,7 @@
                         </div>
 
                         <div class="navbox">
-                            <a href="sjukdomar&besvär.php">Sjukdomar & Besvär</a>
+                            <a href="sjukdomarbesvär.php">Sjukdomar & Besvär</a>
                         </div>
 
                         <div class="navbox">
