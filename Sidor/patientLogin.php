@@ -10,6 +10,7 @@
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/loginStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Mölndals Vårdcentral</title>
 
 </head>
@@ -49,5 +50,7 @@
             </div>
         </div>
     </main>
+
+    <?php echoFooter(); ?>
 </body>
 </html>

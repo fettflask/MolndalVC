@@ -20,6 +20,7 @@
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/resultatStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Provsvar</title>
 </head>
 <body>
@@ -97,8 +98,6 @@
             }
             ?>
     </main>
-    <footer>
-
-    </footer>
+    <?php echoFooter(); ?>
 </body>
 </html>

@@ -51,6 +51,87 @@
         echo '</header>';
     }
 
+    //Skriver ut footer på sidan
+    function echoFooter(){
+        echo '    
+        <footer>
+        <div id="footCenter">
+            <div class="footContainer">
+                <h3>Hitta Mottagning</h3>
+                <div class="footContet">
+                    <a href="">Lorem</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Ipsum</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Dolor</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Magnum</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Dong</a>
+                </div>
+            </div>
+            <div class="footContainer">
+                <h3>Om oss</h3>
+                <div class="footContet">
+                    <a href="">Lorem</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Ipsum</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Dolor</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Magnum</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Dong</a>
+                </div>
+            </div>
+            <div class="footContainer">
+                <h3>Information</h3>
+                <div class="footContet">
+                    <a href="">Lorem</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Ipsum</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Dolor</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Magnum</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Dong</a>
+                </div>
+            </div>
+            <div class="footContainer">
+                <h3>Sociala Medier</h3>
+                <div class="footContet">
+                    <a href="">Lorem</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Ipsum</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Dolor</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Magnum</a>
+                </div>
+                <div class="footContet">
+                    <a href="">Dong</a>
+                </div>
+            </div>
+        </div>
+    </footer>';
+    }
+
     /**
      * Loggar in på ERP
      * 

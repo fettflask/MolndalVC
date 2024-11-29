@@ -21,6 +21,7 @@
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/receptStyle.css">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Mölndals Vårdcentral</title>
 </head>
 <body>
@@ -196,7 +197,7 @@
                 ?>
         </table>
     </div>
-    
 
+    <?php echoFooter(); ?>
 </body>
 </html>

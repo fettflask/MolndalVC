@@ -18,6 +18,7 @@
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/minaSidorStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Mina Sidor</title>
 </head>
 <body>
@@ -33,7 +34,7 @@
                     <h3>Boka tid</h3>
                     <p>Du kan direkt boka ett läkarbesök hos oss om du bedöms behöva det.</p>
                     <!--Lägg adressen här-->
-                    <a href="VadVillDuGöra.php" class="pushdowndammit">
+                    <a href="FormulärBokatidSTARTHÄR.php" class="pushdowndammit">
                         <div class="gridbutton">Boka tid</div>
                     </a>
                 </div>
@@ -110,6 +111,7 @@
             </div>
         </div>
     </main>
+    <?php echoFooter(); ?>
 
 </body>
 </html>

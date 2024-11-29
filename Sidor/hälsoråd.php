@@ -16,6 +16,7 @@
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/hälsoråd.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Nyheter</title>
 </head>
 
@@ -54,8 +55,6 @@
         ?>
     </div>
     </main>
-    <footer>
-
-    </footer>
+    <?php echoFooter(); ?>
 </body>
 </html>

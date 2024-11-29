@@ -11,6 +11,7 @@
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/indexStyle.css">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Mölndals Vårdcentral</title>
 </head> 
 <body>
@@ -87,32 +88,7 @@
     <p><strong>Avvikande öppettider:</strong> Röda dagar är vårdcentralen stängd. Vid akuta besvär, kontakta din jourmottagning eller akutmottagning.</p>
     </section>
 </main>
-
     
-    <footer>
-    <div class="indexFooter">
-        <h2>Mölndal Vårdcentral</h2>
-        
-        <nav class="footerNav">
-            <ul>
-                <li><a href="index.php">Hem</a></li>
-                <li><a href="news.php">Nyheter</a></li>
-                <li><a href="contact.php">Kontakt</a></li>
-                <li><a href="about.php">Om oss</a></li>
-            </ul>
-        </nav>
-        
-        <div class="footerLogin">
-            <ul>
-                <li><a href="patientLogin.php">Patient Inlogg</a></li>
-                <li><a href="personalLogin.php">Personal Inlogg</a></li>
-            </ul>
-        </div>
-
-        <div class="footerInfo">
-            <p>Adress: Bergmansgatan 17-23, 431 30, Mölndal</p>
-        </div>
-    </div>
-</footer>
+<?php echoFooter(); ?>
 
 </body>
