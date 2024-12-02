@@ -3,8 +3,18 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 $cookiepath = "/tmp/cookies.txt";
 $baseurl = 'http://193.93.250.83:8080/';
+
+// Kontrollera att användarnamn finns i sessionen
+if (!isset($_SESSION["namn"])) {
+    echo "Inget användarnamn hittades i sessionen.";
+    exit;
+}
+
+$anvandarnamn = $_SESSION["namn"];
 
 // Logga in till API:t
 try {
@@ -17,8 +27,8 @@ try {
 curl_setopt($ch, CURLOPT_POST, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, '{"usr":"a23jaced@student.his.se", "pwd":"lmaokraftwerkvem?"}');
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiepath); 
-curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath); 
+curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiepath);
+curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
 
 $response = curl_exec($ch);
 if (curl_errno($ch)) {
@@ -47,22 +57,19 @@ function fetchData($url, $cookiepath) {
     return $response; // Returnera rådata istället för att avkoda här
 }
 
-// Hämta rådata
-$patientsRaw = fetchData('http://193.93.250.83:8080/api/resource/Patient?limit_page_length=None', $cookiepath);
+// Hämta data för läkarscheman
 $practitionersRaw = fetchData('http://193.93.250.83:8080/api/resource/Practitioner%20Schedule?filters=%5B%5B%22name%22%2C%22like%22%2C%22%25%28G6%29%25%22%5D%5D&limit_page_length=None', $cookiepath);
 
-// Avkoda JSON-data utanför funktionen
-$patientsData = json_decode($patientsRaw, true);
+// Avkoda JSON-data för läkarscheman
 $practitionersData = json_decode($practitionersRaw, true);
 
 // Kontrollera JSON-avkodning
-if (json_last_error() !== JSON_ERROR_NONE || empty($patientsData['data']) || empty($practitionersData['data'])) {
+if (json_last_error() !== JSON_ERROR_NONE || empty($practitionersData['data'])) {
     echo 'Error decoding JSON or no data received.';
     exit;
 }
 
-// Extrahera datafält
-$patients = $patientsData['data'];
+// Extrahera datafält för läkare
 $practitioners = $practitionersData['data'];
 
 ?>
@@ -72,36 +79,26 @@ $practitioners = $practitionersData['data'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dropdown med patienter och läkare</title>
+    <title>Boka tid</title>
 </head>
 <body>
-    <h1>Välj Patient och Läkare</h1>
+    <h1>Boka en tid för <?php echo htmlspecialchars($anvandarnamn); ?></h1>
 
     <form action="Bokatid2.php" method="POST">
-    
-    <label for="patientDropdown">Välj en patient:</label>
-    <select id="patientDropdown" name="selectedPatient">
+        <!-- Använd sessionens användarnamn som patient -->
+        <input type="hidden" name="selectedPatient" value="<?php echo htmlspecialchars($anvandarnamn); ?>">
 
-        <?php
-        foreach ($patients as $patient) {
-            $name = htmlspecialchars($patient['name']);
-            echo "<option value=\"$name\">$name</option>";
-        }
-        ?>
-    </select>
+        <label for="practitionerDropdown">Välj en läkare:</label>
+        <select id="practitionerDropdown" name="selectedPractitioner">
+            <?php
+            foreach ($practitioners as $practitioner) {
+                $name = htmlspecialchars($practitioner['name']);
+                echo "<option value=\"$name\">$name</option>";
+            }
+            ?>
+        </select>
 
-    <label for="practitionerDropdown">Välj en läkare:</label>
-    <select id="practitionerDropdown" name="selectedPractitioner">
-        <?php
-        foreach ($practitioners as $practitioner) {
-            $name = htmlspecialchars($practitioner['name']);
-            echo "<option value=\"$name\">$name</option>";
-        }
-        ?>
-    </select>
-
-    <button type="submit">Skicka val</button>
-</form>
-
+        <button type="submit">Boka tid</button>
+    </form>
 </body>
 </html>

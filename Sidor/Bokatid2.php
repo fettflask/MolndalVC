@@ -3,6 +3,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+session_start();
+
 $cookiepath = "/tmp/cookies.txt";
 $baseurl = 'http://193.93.250.83:8080/';
 
@@ -189,7 +191,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endforeach; ?>
     </select>
 
-    <form action="aye2.php" method="POST">
+    <form action="OkäntFel200.php" method="POST">
     <?php foreach ($groupedSlots as $date => $info): ?>
         <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
             <h2>Tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>):</h2>

@@ -75,13 +75,6 @@
     </div>
     <div id="content" style="display: none;">
     <?php
-        /*
-            if pnr in api-lista: 
-                if pnr INTE i databas 
-                    lägg till i databas --WIP
-                Reroute till MinaSidor --Done
-            else reroute tillbaka till patientLogin.php --Done
-        */
 
         if (isset($_POST["pnr"])){
             $_SESSION["pnr"] = $_POST["pnr"];
@@ -145,7 +138,6 @@
         }
         else{
             header("Location: patientLogin.php");
-            $_SESSION["error"] = "Felaktikt personnummer";
             die();
         }
     

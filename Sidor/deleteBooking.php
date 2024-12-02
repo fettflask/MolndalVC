@@ -55,15 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return null; 
         }
 
-        return 'Ett fel uppstod vid borttagning.';
+        return 'Din tid avbokades.';
     }
 
     $result = deleteAppointment($baseurl, $cookiepath, $appointmentId);
 
     if ($result === null) {
-        echo "<script>alert('Bokningen har tagits bort.'); window.location.href = 'minaBokningar.php';</script>";
+        echo "<script>alert('Bokningen har tagits bort.'); window.location.href = 'bokningsHantering.php';</script>";
     } else {
-        echo "<script>alert('Ett fel uppstod: $result'); window.location.href = 'minaBokningar.php';</script>";
+        echo "<script>alert('Ett fel uppstod: $result'); window.location.href = 'bokningsHantering.php';</script>";
     }
 }
 ?>
