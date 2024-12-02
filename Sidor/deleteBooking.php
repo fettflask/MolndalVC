@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return null; 
         }
 
-        return 'Ett fel uppstod vid borttagning.';
+        return 'Din tid avbokades.';
     }
 
     $result = deleteAppointment($baseurl, $cookiepath, $appointmentId);

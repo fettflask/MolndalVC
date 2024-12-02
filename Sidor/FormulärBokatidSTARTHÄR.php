@@ -53,7 +53,7 @@
 
             // omdirigering till boka tid eller telefontid, räcker med att det är ja på en av frågorna
             if ($sickDays === 'Ja' || $bloodCough === 'Ja' || $fever === 'Ja') {
-                header("Location: tiderKanske.php");
+                header("Location: valAvLäkare.php");
                 exit();
             } else {
                 header("Location: Telefontid.php");
