@@ -59,8 +59,7 @@ function getPractitionerDetails($baseurl, $cookiepath) {
 
         // Gå in i varje practitioner's detaljer
         foreach ($practitioners as $practitioner) {
-            $practitionerUrl = $baseurl . 'api/resource/Healthcare%20Practitioner/' . $practitioner['name'];
-
+            $practitionerUrl = $baseurl . 'api/resource/Healthcare%20Practitioner/' . rawurlencode($practitioner['name']);
             $ch = curl_init($practitionerUrl);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -136,6 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $patientName . ' with ' . $selectedPractitionerName;
     $appointmentDatetime = $selectedDate . ' ' . $selectedTimeSlot;
     $serviceUnit = 'Almänmottagnings Rum 1 - MV';
+    $patientNameFull = $patientName . ' (G6)';
 
     $bookingData = [
         'title' => $title,
@@ -197,7 +197,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($http_code === 200 && !empty($responseData['success'])) {
-            echo "Tidsluckan bokades framgångsrikt!";
+            header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/bokningsHantering.php");
         } else {
             $errorMessage = $responseData['message'] ?? 'Okänt fel';
             echo "Ett fel uppstod vid bokning: $errorMessage";

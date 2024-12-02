@@ -111,7 +111,7 @@ foreach ($allAppointments as $appointment) {
                     </a>
                     <form method="POST" action="deleteBooking.php" style="display:inline;">
                         <input type="hidden" name="appointmentId" value="<?php echo htmlspecialchars($booking['name']); ?>">
-                            <button type="submit" class="buttonSlave" onclick="return confirm('Är du säker på att du vill ta bort denna bokning?');">Avboka</button>                
+                            <button type="submit" class="buttonSlave" onclick="return confirm('Är du säker på att du vill ta bort denna bokning? VARNING! Om bokningen är inom 24 timmar kommer du att debiteras. >:(');">Avboka</button>                
                     </form>
                 </div>
             </div>
