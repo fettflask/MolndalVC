@@ -22,12 +22,6 @@
             <div id="elementCenter">
                 <h1>Logga in</h1>
                 <form method='post' action='patientLoggedIn.php'>
-                    <?php
-                    if(isset($_SESSION["error"])){
-                        echo "<tr>" .  $_SESSION["error"] . "</tr>";
-                        session_unset();
-                    }
-                    ?>
                         <div id="pnrfield">
                             Personnummer - ååååmmdd-nnnn
                                 <input type='text' id="pnr" name='pnr' pattern="[0-9]{8}-[0-9]{4}" required maxlength="13">   
