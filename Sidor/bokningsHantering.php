@@ -1,9 +1,8 @@
 <?php
-//ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
 include 'Funktioner/funktioner.php';
 
 
@@ -87,6 +86,7 @@ foreach ($allAppointments as $appointment) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/bokningarStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Mina Bokningar</title>
 </head>
 
