@@ -1,0 +1,64 @@
+body{
+    color: rgb(13, 48, 80);
+    font-family: 'Roboto', sans-serif;
+}
+
+h1{
+    font-size: 38px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+#formMaster{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    width: 30%;
+    margin: auto;
+    margin-top: 80px;
+    background-color: rgb(209, 223, 241);
+    border-radius: 20px;
+    color: rgb(13, 48, 80);
+    font-family: 'Roboto', sans-serif;
+}
+
+#centerForm{
+    margin: 40px 50px;
+}
+
+#docSelect{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 10px 0 10px;
+}
+
+#practitionerDropdown{
+    height: 30px;
+    border: 1px solid rgb(13, 48, 80);
+    border-radius: 30px;
+    background-color: white;
+    text-indent: 5px;
+    appearance: none;
+}
+
+#docSub{
+    background-color: rgb(13, 48, 80);
+    border: 0;
+    border-radius: 100px;
+    font-weight: bold;
+    width: auto;
+    text-align: center;
+    margin: 20px;
+    padding: 12px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    transition: 500ms;
+}
+
+#docSub:hover{
+    background-color: rgb(67, 89, 163);
+    transition: 500ms;
+}
