@@ -17,20 +17,25 @@
     <?php echoHead(); ?>
 
     <main>
-        <?php
-            if(!empty($_POST)){
-                registrera();
-            }
-        ?>
-
         <div id="skapaForm">
             <div id="centerForm">
                 <h1>Registrering</h1>
-                <form method="POST" action="patientLoggedIn.php">
-                    <div class="inputField">
+                <form method="POST" action="patientLoggedIn.php" onsubmit="enableInput()">
+                    <?php if(!isset($_SESSION["pnr"])): ?>
+                        <div class="inputField">
                         Personnummer:
                         <input type="text" name="pnr" class="input" id="pnr" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13" placeholder="YYYYMMDD-XXXX" title="Format: YYYYMMDD-XXXX">
                     </div>
+                    <?php else:?>
+                        <div class="inputField">
+                        Personnummer:
+                        <?php 
+                            echo '<input type="text" name="pnr" id="disPnr" class="input" value ="'. $_SESSION["pnr"] . '" disabled >';
+                        ?>
+                        
+                        </div>
+                    <?php endif ?>
+                    
                     <div class="inputField">
                         Förnamn:
                         <input type="text" name="name" class="input" id="name" required pattern="[A-Za-zÅåÄäÖö]+(-[A-Za-zÅåÄäÖö]+)?" title="Endast bokstäver" placeholder="Förnamn">
@@ -50,6 +55,12 @@
                         </div>
                     <input type="submit" id="registrera" value='Registrera'>
                 </form>
+                <script>
+                    function enableInput() {
+                        var inputElement = document.getElementById("disPnr");
+                        inputElement.disabled = false;
+                    }
+                </script>
             </div>
         </div>
     </main>
@@ -78,9 +89,7 @@
 
         document.getElementById('name').addEventListener('input', capitalizeInput);
         document.getElementById('lastname').addEventListener('input', capitalizeInput);
-    </script>
-                            
-    <script>
+
         const pnrInput = document.getElementById("pnr");
         pnrInput.addEventListener("input", function () {
             let value = pnrInput.value.replace(/\D/g, '');
@@ -89,6 +98,8 @@
             }
             pnrInput.value = value;
         });
+        
+
     </script>
 
     <?php echoFooter(); ?>

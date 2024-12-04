@@ -102,10 +102,11 @@
             }
             //Om pnr Inte finns i ERP
             else{
-                addPatientForm();
+                header("Location: skapaAnvändare.php");
             }  
         }
         else{
+            
             header("Location: patientLogin.php");
             die();
         }

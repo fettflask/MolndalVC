@@ -407,61 +407,6 @@
 
         return $response;
     }
-    
-    /**
-     * Printar HTML-formulär för adering av patient
-     * @return void
-     */
-    function addPatientForm(){
-        echo'
-        <div>
-            <p>
-                Välkommen till att skapa ett konto som patient hos Mölndals Vårdcentral. 
-                Fyll i alla fälten nedanför och verifiera med BankID.
-            </p>
-        </div>
-
-        <div>
-            <h3>Patient Inlogg</h3>
-            <form method="POST" action="patientLoggedIn.php">
-                <table>
-                    <input type="text" name="pnr" hidden value="'. $_POST["pnr"] .'">
-                    <tr>
-                        <td>
-                            Förnamn:
-                        </td>
-                        <td>
-                            <input type="text" name="name" id="name" required pattern="[A-Za-zÅåÄäÖö]+(-[A-Za-zÅåÄäÖö]+)?" title="Endast bokstäver" placeholder="Förnamn">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Efternamn:
-                        </td>
-                        <td>
-                            <input  type="text" name="lastname" id="lastname" required pattern="[A-Za-zÅåÄäÖö]+(-[A-Za-zÅåÄäÖö]+)?" title="Endast bokstäver" placeholder="Efternamn">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Kön:
-                        </td>
-                        <td>
-                            <select name="sex" required title="Välj från listan">
-                                <option selected hidden disabled>Välj kön</option>
-        ';
-        getGender();
-
-        echo '
-                        </select>
-                    </td>
-                </tr>
-            </table>
-        ';
-        echo"<input type='submit' value='Godkänn registrering via BankID'>";
-        echo"</form>";
-        echo"</div>";
-    }
 
     /**
      * Lägger till ny patient i databasen
@@ -491,6 +436,10 @@
         $_SESSION["pnr"] = $_POST["pnr"];
     }
 
+    /**
+     * Registrerar användare på ERP samt i databasen
+     * @return void
+     */
     function addPatientFull($pdo){
         curlSetup();  
         ini_set('display_errors', 1);
@@ -524,32 +473,6 @@
         }catch (PDOException $e){
             echo $e->getMessage(); 
         }
-    }
-
-    function registrera(){
-        ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
-            $cookiepath = "/tmp/cookies.txt";
-
-            curlSetup();
-
-            $ch = curl_init('http://193.93.250.83:8080/api/resource/Patient');
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, '{"uid":"'.$_POST["pnr"].'","first_name":"'.$_POST["name"].'","last_name":"'.$_POST["lastname"].'","sex":"'.$_POST["sex"].'"}');
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
-            curl_setopt($ch,CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-            curl_setopt($ch,CURLOPT_COOKIEJAR, $cookiepath);
-            curl_setopt($ch,CURLOPT_COOKIEFILE, $cookiepath);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-
-            curl_exec($ch);
-            $response = curl_exec($ch);
-
-            $response = json_decode($response,true);
-            $error_no = curl_errno($ch);
-            $error = curl_error($ch);
-            curl_close($ch);
     }
 
     /**
@@ -607,6 +530,7 @@
 
         return $response;
     }
+
     /**
      * Hämtar blogg posts för nyhets sidan
      * retunerar data i json format
@@ -623,6 +547,7 @@
 
         return $response;
     }
+    
     /**
      * Hämtar blogg posts för sjukdoms delen för sjukdomar och besvär sidan
      * retunerar data i json format
@@ -639,6 +564,7 @@
 
         return $response;
     }    
+    
     /**
     * Hämtar blogg posts för besvär delen för sjukdomar och besvär sidan
     * retunerar data i json format
@@ -654,7 +580,5 @@
         $response = json_decode($response, true);
 
         return $response;
-    }
-
-    
+    }   
 ?>
