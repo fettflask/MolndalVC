@@ -59,73 +59,73 @@
             <div class="footContainer">
                 <h3>Hitta Mottagning</h3>
                 <div class="footContet">
-                    <a href="">Lorem</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Lorem</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Ipsum</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Ipsum</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Dolor</a>
+                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw">Dolor</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Magnum</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Dong</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Dong</a>
                 </div>
             </div>
             <div class="footContainer">
                 <h3>Om oss</h3>
                 <div class="footContet">
-                    <a href="">Lorem</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Lorem</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Ipsum</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Ipsum</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Dolor</a>
+                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw">Dolor</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Magnum</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Dong</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Dong</a>
                 </div>
             </div>
             <div class="footContainer">
                 <h3>Information</h3>
                 <div class="footContet">
-                    <a href="">Lorem</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Lorem</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Ipsum</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Ipsum</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Dolor</a>
+                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw">Dolor</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Magnum</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Dong</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Dong</a>
                 </div>
             </div>
             <div class="footContainer">
                 <h3>Sociala Medier</h3>
                 <div class="footContet">
-                    <a href="">Lorem</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Lorem</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Ipsum</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Ipsum</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Dolor</a>
+                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw">Dolor</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Magnum</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="">Dong</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Dong</a>
                 </div>
             </div>
         </div>

@@ -130,7 +130,6 @@
                                     echo 'Medicin: ' . htmlspecialchars($Detail['medication'] ?? 'N/A') . '<br>';
                                     echo 'Dos: ' . htmlspecialchars($Detail['dosage_form'] ?? 'N/A') . '<br>';
                                     echo 'Dos intervall: ' . htmlspecialchars($Detail['dosage'] ?? 'N/A') . '<br>';
-                                    echo 'Ska tas i ' . htmlspecialchars($Detail['interval_uom'] ?? 'N/A') . '<br>';
                                     echo '</p>';
                                 echo '</div>'; 
                             }
