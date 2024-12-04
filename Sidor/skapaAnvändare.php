@@ -18,35 +18,9 @@
 
     <main>
         <?php
-            ini_set('display_errors', 1);
-            ini_set('display_startup_errors', 1);
-            error_reporting(E_ALL);
-            $cookiepath = "/tmp/cookies.txt";
-
-            $baseurl= 'http://193.93.250.83:8080/';
-
-            curlSetup();
-
-            $ch = curl_init($baseurl.'api/resource/Patient');
-
-            if (!empty($_POST)){
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, '{"uid":"'.$_POST["pnr"].'","first_name":"'.$_POST["name"].'","last_name":"'.$_POST["lastname"].'","sex":"'.$_POST["sex"].'"}');
+            if(!empty($_POST)){
+                registrera();
             }
-
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept: application/json'));
-            curl_setopt($ch,CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
-            curl_setopt($ch,CURLOPT_COOKIEJAR, $cookiepath);
-            curl_setopt($ch,CURLOPT_COOKIEFILE, $cookiepath);
-            curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
-
-            curl_exec($ch);
-            $response = curl_exec($ch);
-
-            $response = json_decode($response,true);
-            $error_no = curl_errno($ch);
-            $error = curl_error($ch);
-            curl_close($ch);
         ?>
 
         <div id="skapaForm">
