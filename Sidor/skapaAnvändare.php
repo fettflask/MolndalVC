@@ -55,15 +55,15 @@
                 <form method="POST" action="patientLoggedIn.php">
                     <div class="inputField">
                         Personnummer:
-                        <input type="text" name="pnr" class="input" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13" placeholder="YYYYMMDD-XXXX" title="Format: YYYYMMDD-XXXX">
+                        <input type="text" name="pnr" class="input" id="pnr" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13" placeholder="YYYYMMDD-XXXX" title="Format: YYYYMMDD-XXXX">
                     </div>
                     <div class="inputField">
                         Förnamn:
-                        <input type="text" name="name" class="input" required pattern="[A-Za-zÅåÄäÖö]+" title="Endast bokstäver" placeholder="Förnamn">
+                        <input type="text" name="name" class="input" id="name" required pattern="[A-Za-zÅåÄäÖö]+(-[A-Za-zÅåÄäÖö]+)?" title="Endast bokstäver" placeholder="Förnamn">
                     </div>
                     <div class="inputField">
                         Efternamn:
-                        <input  type="text" name="lastname" class="input" required pattern="[A-Za-zÅåÄäÖö]+" title="Endast bokstäver" placeholder="Efternamn">
+                        <input  type="text" name="lastname" class="input" id="lastname" required pattern="[A-Za-zÅåÄäÖö]+(-[A-Za-zÅåÄäÖö]+)?" title="Endast bokstäver" placeholder="Efternamn">
                     </div>
                     <div id="konSelect">
                         Kön:
