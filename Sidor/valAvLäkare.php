@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
+include 'Funktioner/funktioner.php';
 
 $cookiepath = "/tmp/cookies.txt";
 $baseurl = 'http://193.93.250.83:8080/';
@@ -79,26 +79,38 @@ $practitioners = $practitionersData['data'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/valStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Boka tid</title>
 </head>
 <body>
+    <?php echoHead() ?>
+
     <h1>Boka en tid för <?php echo htmlspecialchars($anvandarnamn); ?></h1>
+    <div id="formMaster">
+        <div id="centerForm">
+            <form action="Bokatid2.php" method="POST">
+                <!-- Använd sessionens användarnamn som patient -->
+                <input type="hidden" name="selectedPatient" value="<?php echo htmlspecialchars($anvandarnamn); ?>">
 
-    <form action="Bokatid2.php" method="POST">
-        <!-- Använd sessionens användarnamn som patient -->
-        <input type="hidden" name="selectedPatient" value="<?php echo htmlspecialchars($anvandarnamn); ?>">
+                <div id="docSelect">
+                    <label for="practitionerDropdown">Välj en läkare:</label>
+                    <select id="practitionerDropdown" name="selectedPractitioner">
+                        <?php
+                        foreach ($practitioners as $practitioner) {
+                            $name = htmlspecialchars($practitioner['name']);
+                            echo "<option value=\"$name\">$name</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+                <input type="submit" id="docSub" value='Boka'>
+            </form>
+        </div>
+    </div>
 
-        <label for="practitionerDropdown">Välj en läkare:</label>
-        <select id="practitionerDropdown" name="selectedPractitioner">
-            <?php
-            foreach ($practitioners as $practitioner) {
-                $name = htmlspecialchars($practitioner['name']);
-                echo "<option value=\"$name\">$name</option>";
-            }
-            ?>
-        </select>
+    <?php echoFooter() ?>
 
-        <button type="submit">Boka tid</button>
-    </form>
 </body>
 </html>
