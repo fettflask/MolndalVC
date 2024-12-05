@@ -1,5 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
 
+body{
+    min-height: 100vh;
+}
+
+main{
+    min-height: 100vh;
+}
+
 #loginForm{
     display: flex;
     flex-direction: column;

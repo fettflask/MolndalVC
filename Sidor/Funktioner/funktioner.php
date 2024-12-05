@@ -13,42 +13,45 @@
                         <img src="../IMG/MölndalLogo.png">
                     </a>
                 </div>
-                    <div id="topnav">    
+                <div id="topnav">    
 
-                        <div class="navbox">
-                            <a href="nyheter.php">Nyheter</a>
-                        </div>
-
-                        <div class="navbox">
-                            <a href="sjukdomarbesvär.php">Sjukdomar & Besvär</a>
-                        </div>
-
-                        <div class="navbox">
-                            <a href="hälsoråd.php">Hälsoråd & Tips</a>
-                        </div>
-
-                        <div class="navbox">
-                            <a href="">Mer</a>
-                        </div>
-
+                    <div class="navbox">
+                        <a href="nyheter.php">Nyheter</a>
                     </div>
 
-                    <div class="navbutton" id="push">
-                        <a href="minaSidor.php">Mina sidor</a>
+                    <div class="navbox">
+                        <a href="sjukdomarbesvär.php">Sjukdomar & Besvär</a>
                     </div>
 
-                    <div class="navbutton" id="buffer">
-                        <a href="">Sök vård</a>
-                    </div>';
+                    <div class="navbox">
+                        <a href="hälsoråd.php">Hälsoråd & Tips</a>
+                    </div>
 
-                    
-                    if(isset($_SESSION["namn"])){
-                        echo '<div class="navbutton">';
-                                echo '<a href="sessionKill.php">Logga ut</a>';
-                        echo '</div>';
-                    }
-        
-        echo '</header>';
+                    <div class="navbox">
+                        <a href="">Mer</a>
+                    </div>
+
+                </div>
+
+                <div class="navbutton" id="push">
+                    <a href="minaSidor.php">Mina sidor</a>
+                </div>
+
+                <div class="navbutton" id="buffer">
+                    <a href="">Sök vård</a>
+                </div>';
+
+                if(isset($_SESSION["namn"])){
+                    echo '<div class="navbutton">';
+                            echo '<a href="sessionKill.php">Logga ut</a>';
+                    echo '</div>';
+                }
+    
+            echo '
+                <div id="translate">
+                <a href="">English 🇬🇧</a>
+                </div>
+            </header>';
     }
 
     //Skriver ut footer på sidan
