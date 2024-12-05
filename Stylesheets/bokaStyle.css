@@ -1,50 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto&display=swap');
-
 body{
-    min-height: 100vh;
+    color: rgb(13, 48, 80);
+    font-family: 'Roboto', sans-serif;
 }
 
-main{
-    min-height: 100vh;
+h1{
+    font-size: 38px;
+    font-weight: bold;
+    text-align: center;
 }
 
-#loginForm{
+#bookingMaster{
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     width: 30%;
     margin: auto;
-    margin-top: 150px;
+    margin-top: 80px;
     background-color: rgb(209, 223, 241);
     border-radius: 20px;
     color: rgb(13, 48, 80);
     font-family: 'Roboto', sans-serif;
 }
 
-#elementCenter{
+#centerForm{
     margin: 40px 50px;
 }
 
-h1{
-    font-size: 38px;
-    font-weight: bold;
-}
-
-#pnrfield{
+#daySelect{
     display: flex;
     flex-direction: column;
     text-align: left;
+    margin: 10px 0 10px;
 }
 
-#pnr{
+#dateDropdown{
     height: 30px;
     border: 1px solid rgb(13, 48, 80);
     border-radius: 30px;
-    text-indent: 10px; 
+    background-color: white;
+    text-indent: 5px;
+    appearance: none;
 }
 
-#bankid{
+#timeSub{
     background-color: rgb(13, 48, 80);
     border: 0;
     border-radius: 100px;
@@ -58,7 +57,7 @@ h1{
     transition: 500ms;
 }
 
-#bankid:hover{
+#timeSub:hover{
     background-color: rgb(67, 89, 163);
     transition: 500ms;
 }

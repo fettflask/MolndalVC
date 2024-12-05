@@ -1,11 +1,16 @@
 body{
     min-height: 100vh;
+    margin: 0;
+}
+
+main{
+    min-height: 100vh;
 }
 
 footer{
     font-family: 'Roboto', sans-serif;
     background-color: rgb(13, 48, 80);
-    margin-top: 200px;
+    margin-top: 10vh;
     padding: 20px;
 }
 

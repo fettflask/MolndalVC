@@ -1,14 +1,18 @@
 <?php
-//ini_set('display_errors', 1);
+ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+<<<<<<< HEAD
 session_start();
     include 'Funktioner/funktioner.php';
     if(!isset($_SESSION["namn"])){
         header("Location: patientLogin.php");
         die();
     }
+=======
+include 'Funktioner/funktioner.php';
+>>>>>>> 2663673603bc3c15ce6fb89d9ad3f459b36031b5
 
 
 // Sätt upp API-bas och cookies
@@ -109,6 +113,7 @@ foreach ($allAppointments as $appointment) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/bokningarStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Mina Bokningar</title>
 </head>
 
