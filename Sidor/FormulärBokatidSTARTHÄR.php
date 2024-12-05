@@ -130,9 +130,7 @@
                 <textarea id="description" name="description" rows="4" cols="50" maxlength="150" placeholder="Skriv dina besvär här..."></textarea>
             </p>
             
-            <p>
-                <button type="submit">Skicka in</button>
-            </p>
+            <input type="submit" id="sickSub" value='Skicka in'>
         </form>
     </div>
 
