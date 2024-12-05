@@ -12,6 +12,11 @@
     <link rel="stylesheet" href="../Stylesheets/formStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Symptomformulär</title>
+    <script>
+        function tillMinaSidor() {
+            window.location.href = "minaSidor.php";
+        }
+    </script>
 </head>
 
 <body>
@@ -33,7 +38,7 @@
             <div class="detailMaster">
                 <details class="detailSlave">
                     <summary class="mainSummary">Vem gör triage bedömningen?</summary>
-                    <p> <!--Tack chatgpt-->
+                    <p>
                         Applikationen använder den senaste AI-teknologin för att göra triagebedömningar, 
                         vilket innebär att den snabbt och noggrant prioriterar patienters vårdbehov baserat på symtom och medicinsk information.
                     </p>
@@ -42,27 +47,36 @@
         </p>
 
         <?php
-        if ($_SERVER["REQUEST_METHOD"] === "POST") {
-            $fever = $_POST['fever'] ?? 'Nej';
-            $cough = $_POST['cough'] ?? 'Nej';
-            $bloodCough = $_POST['bloodCough'] ?? 'Nej';
-            $breathing = $_POST['breathing'] ?? 'Nej';
-            $pain = $_POST['pain'] ?? 'Nej';
-            $sickDays = $_POST['sickDays'] ?? 'Nej';
-            $description = $_POST['description'] ?? '';
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $fever = $_POST['fever'] ?? 'Nej';
+                $cough = $_POST['cough'] ?? 'Nej';
+                $bloodCough = $_POST['bloodCough'] ?? 'Nej';
+                $breathing = $_POST['breathing'] ?? 'Nej';
+                $pain = $_POST['pain'] ?? 'Nej';
+                $sickDays = $_POST['sickDays'] ?? 'Nej';
+                $description = $_POST['description'] ?? '';
 
-            // omdirigering till boka tid eller telefontid, räcker med att det är ja på en av frågorna
-            if ($sickDays === 'Ja' || $bloodCough === 'Ja' || $fever === 'Ja') {
-                header("Location: valAvLäkare.php");
-                exit();
-            } else {
-                header("Location: Telefontid.php");
-                exit();
+                // omdirigering till boka tid eller telefontid, räcker med att det är ja på en av frågorna
+                if ($sickDays === 'Ja' || $bloodCough === 'Ja' || $fever === 'Ja') {
+                    header("Location: valAvLäkare.php");
+                    exit();
+                } else {
+                    //header("Location: Telefontid.php");
+                    echo '<div class="message-box-overlay">';
+                        echo '<div class="message-box">';
+                            echo '<h1>Du bedöms inte behöva läkartid. Vi hänvisar dig till vår telefonrådgivning.</h1>';
+                            echo '<p>Ring detta nummer för att få hjälp:</p>';
+                            echo '<p class="phone-number">0500-30 25 55</p>';
+                            echo '<p>Tack för att du kontaktar oss!</p>';
+                            echo '<button class="redirect-button" onclick="tillMinaSidor()">Mina Sidor</button>';
+                        echo '</div>';
+                    echo '</div>';
+                    exit();
+                }
             }
-        }
         ?>
 
-        <form method="post">
+        <form method="post" action="FormulärBokatidSTARTHÄR.php">
             <p>
                 <label>Har du haft feber i över sju dygn?</label><br>
                 <input type="radio" id="feverYes" name="fever" value="Ja">
@@ -116,11 +130,13 @@
                 <textarea id="description" name="description" rows="4" cols="50" maxlength="150" placeholder="Skriv dina besvär här..."></textarea>
             </p>
             
-            <p>
-                <button type="submit">Skicka in</button>
-            </p>
+            <input type="submit" id="sickSub" value='Skicka in'>
         </form>
     </div>
+
+
     <?php echoFooter(); ?>
+
+
 </body>
 </html>

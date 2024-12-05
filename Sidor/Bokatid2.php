@@ -3,7 +3,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
+include 'Funktioner/funktioner.php';
 
 $cookiepath = "/tmp/cookies.txt";
 $baseurl = 'http://193.93.250.83:8080/';
@@ -151,6 +151,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/bokaStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Schema för <?= htmlspecialchars($selectedPractitioner) ?></title>
     <script>
         function updateTimeSlots() {
@@ -177,44 +180,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 <body>
-    <h1>Schema för <?= htmlspecialchars($selectedPractitioner) ?></h1>
-    <p>Vald patient: <?= htmlspecialchars($selectedPatient) ?></p>
+    <?php echoHead() ?>
+    <h1>Tillgängliga tider för <?= htmlspecialchars($selectedPractitioner) ?></h1>
+    <!--<p>Vald patient: <?= htmlspecialchars($selectedPatient) ?></p>-->
 
     <!-- Dropdownen för datum -->
-    <label for="dateDropdown">Välj ett datum:</label>
-    <select id="dateDropdown" onchange="updateTimeSlots()">
-        <option value="">-- Välj datum --</option>
-        <?php foreach ($groupedSlots as $date => $info): ?>
-            <option value="<?= htmlspecialchars($date) ?>">
-                <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)
-            </option>
-        <?php endforeach; ?>
-    </select>
+    <div id="bookingMaster">
+        <div id="centerForm">
+            <div id="daySelect">
+            <label for="dateDropdown">Välj ett datum:</label>
+                <select id="dateDropdown" onchange="updateTimeSlots()">
+                    <option value="">-- Välj datum --</option>
+                    <?php foreach ($groupedSlots as $date => $info): ?>
+                        <option value="<?= htmlspecialchars($date) ?>">
+                            <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-    <form action="OkäntFel200.php" method="POST">
-    <?php foreach ($groupedSlots as $date => $info): ?>
-        <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
-            <h2>Tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>):</h2>
-            <?php foreach ($info['slots'] as $slot): ?>
-                <?php $fromTime = htmlspecialchars($slot['from_time']); ?>
-                <label>
-                    <input type="radio" name="selectedTimeSlot" value="<?= $fromTime ?>" required>
-                    <?= $fromTime ?>
-                </label>
-                <br>
-            <?php endforeach; ?>
+            <form action="OkäntFel300.php" method="POST">
+                <?php foreach ($groupedSlots as $date => $info): ?>
+                    <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
+                        <h2>Tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>):</h2>
+                        <?php foreach ($info['slots'] as $slot): ?>
+                            <?php $fromTime = htmlspecialchars($slot['from_time']); ?>
+                            <label>
+                                <input type="radio" name="selectedTimeSlot" value="<?= $fromTime ?>" required>
+                                <?= $fromTime ?>
+                            </label>
+                            <br>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endforeach; ?>
+
+                <input type="hidden" id="selectedDateInput" name="selectedDate" value="">
+                <input type="hidden" name="company" value="Mölndal VC(G6)">
+                <input type="hidden" name="department" value="Allmänvård(G6)">
+                <input type="hidden" name="appointment For" value="Practitioner">
+                <input type="hidden" name="selectedPractitioner" value="<?= htmlspecialchars($selectedPractitioner) ?>">
+                <input type="hidden" name="patient" value="<?= htmlspecialchars($selectedPatient) ?>">
+                
+                <input type="submit" id="timeSub" value='Boka tid'>
+            </form>
         </div>
-    <?php endforeach; ?>
+    </div>
 
-    <input type="hidden" id="selectedDateInput" name="selectedDate" value="">
-    <input type="hidden" name="company" value="Mölndal VC(G6)">
-    <input type="hidden" name="department" value="Allmänvård(G6)">
-    <input type="hidden" name="appointment For" value="Practitioner">
-    <input type="hidden" name="selectedPractitioner" value="<?= htmlspecialchars($selectedPractitioner) ?>">
-    <input type="hidden" name="patient" value="<?= htmlspecialchars($selectedPatient) ?>">
-    
-    <button type="submit">Boka tidslucka</button>
-</form>
-
+    <?php echoFooter() ?>
 </body>
 </html>

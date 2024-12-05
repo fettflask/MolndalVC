@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
+error_reporting(0);
 
 session_start();
 
@@ -12,7 +12,7 @@ $baseurl = 'http://193.93.250.83:8080/';
 try {
     $ch = curl_init($baseurl . 'api/method/login');
 } catch (Exception $e) {
-    echo 'Caught exception: ', $e->getMessage(), "\n";
+    header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/errorPage.php");
     exit;
 }
 
@@ -24,7 +24,7 @@ curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
 
 $response = curl_exec($ch);
 if (curl_errno($ch)) {
-    echo 'Curl error: ' . curl_error($ch);
+    header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/errorPage.php");
     exit;
 }
 curl_close($ch);
@@ -43,68 +43,51 @@ function getPractitionerDetails($baseurl, $cookiepath) {
     $response = curl_exec($ch);
 
     if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
+        return null;
     }
 
     curl_close($ch);
 
     $data = json_decode($response, true);
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        echo "JSON Decode Error: " . json_last_error_msg();
-        exit;
+    if (json_last_error() !== JSON_ERROR_NONE || empty($data['data'])) {
+        return null;
     }
 
-    if (!empty($data['data'])) {
-        $practitioners = $data['data'];
-        $details = [];
+    $practitioners = $data['data'];
+    $details = [];
 
-        // Gå in i varje practitioner's detaljer
-        foreach ($practitioners as $practitioner) {
-            $practitionerUrl = $baseurl . 'api/resource/Healthcare%20Practitioner/' . rawurlencode($practitioner['name']);
-            $ch = curl_init($practitionerUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Accept: application/json',
-            ]);
-            curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
+    foreach ($practitioners as $practitioner) {
+        $practitionerUrl = $baseurl . 'api/resource/Healthcare%20Practitioner/' . rawurlencode($practitioner['name']);
+        $ch = curl_init($practitionerUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+        ]);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
 
-            $practitionerResponse = curl_exec($ch);
-
-            if (curl_errno($ch)) {
-                echo 'Curl error: ' . curl_error($ch);
-                exit;
-            }
-
-            curl_close($ch);
-
-            $practitionerData = json_decode($practitionerResponse, true);
-            if (!empty($practitionerData['data'])) {
-                $details[] = $practitionerData['data'];
-            }
+        $practitionerResponse = curl_exec($ch);
+        if (curl_errno($ch)) {
+            return null;
         }
 
-        return $details;
-    } else {
-        echo "Inga practitioners hittades.";
-        exit;
+        curl_close($ch);
+
+        $practitionerData = json_decode($practitionerResponse, true);
+        if (!empty($practitionerData['data'])) {
+            $details[] = $practitionerData['data'];
+        }
     }
+
+    return $details;
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "<h2>Debug: POST-data</h2>";
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
-
-    // Hämta alla practitioners och deras detaljer
     $practitioners = getPractitionerDetails($baseurl, $cookiepath);
-    echo "<h2>Debug: Practitioner Details</h2>";
-    echo "<pre>";
-    print_r($practitioners);
-    echo "</pre>";
+    if ($practitioners === null) {
+        header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/errorPage.php");
+        exit;
+    }
 
-    // Använd vald practitioner's "parent" från practitioner_schedules
     $selectedPractitionerName = $_POST['selectedPractitioner'] ?? '';
     $practitionerKod = '';
 
@@ -116,15 +99,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($practitionerKod)) {
-        echo "Ingen matchande practitioner hittades för det valda namnet.";
+        header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/errorPage.php");
         exit;
     }
 
-    // Hårdkodade värden
     $status = 'Open';
     $appointmentType = 'Vård (G6)';
 
-    // Värden från formuläret
     $selectedDate = $_POST['selectedDate'] ?? '';
     $selectedTimeSlot = $_POST['selectedTimeSlot'] ?? '';
     $company = $_POST['company'] ?? '';
@@ -132,12 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $appointmentFor = $_POST['appointment_For'] ?? '';
     $patientName = $_POST['patient'] ?? '';
 
-
-
     $title = $patientName . ' with ' . $selectedPractitionerName;
     $appointmentDatetime = $selectedDate . ' ' . $selectedTimeSlot;
     $serviceUnit = 'Almänmottagnings Rum 1 - MV';
-    $patientNameFull = $patientName . ' (G6)';
 
     $bookingData = [
         'title' => $title,
@@ -155,16 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'service_unit' => $serviceUnit,
     ];
 
-    echo "<h2>Debug: Booking Data</h2>";
-    echo "<pre>";
-    print_r($bookingData);
-    echo "</pre>";
-
     $apiUrl = $baseurl . 'api/resource/Patient%20Appointment';
     $payload = json_encode($bookingData);
-
-    echo "<h2>Debug: JSON Payload</h2>";
-    echo "<pre>" . json_encode($bookingData, JSON_PRETTY_PRINT) . "</pre>";
 
     try {
         $ch = curl_init($apiUrl);
@@ -178,37 +148,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
 
         $response = curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            echo 'Curl error: ' . curl_error($ch);
-            exit;
-        }
-
         $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        echo "<h2>Debug: API Response</h2>";
-        echo "HTTP Status Code: $http_code<br>";
-        echo "<pre>" . htmlspecialchars($response) . "</pre>";
-
-        $responseData = json_decode($response, true);
-
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            echo "JSON Decode Error: " . json_last_error_msg();
+        if ($http_code !== 200) {
+            header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/errorPage.php");
             exit;
         }
-
-        if ($http_code === 200 && !empty($responseData['success'])) {
-            header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/bokningsHantering.php");
-        } else {
-            $errorMessage = $responseData['message'] ?? 'Okänt fel';
-            echo "Ett fel uppstod vid bokning: $errorMessage";
-        }
     } catch (Exception $e) {
-        echo 'Caught exception: ', $e->getMessage(), "\n";
+        header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/errorPage.php");
+        exit;
     }
-} else {
-    echo "Fel metod.";
-    exit;
 }
+
+header("Location: http://193.93.250.83/wwwit-utv/Grupp%206/Sidor/bokningsHantering.php");
+exit;
 ?>
