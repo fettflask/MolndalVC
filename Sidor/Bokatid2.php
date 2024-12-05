@@ -199,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </select>
             </div>
 
-            <form action="OkäntFel200.php" method="POST">
+            <form action="OkäntFel300.php" method="POST">
                 <?php foreach ($groupedSlots as $date => $info): ?>
                     <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
                         <h2>Tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>):</h2>
