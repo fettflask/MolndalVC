@@ -1,9 +1,9 @@
 <?php
+session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
 include 'Funktioner/funktioner.php';
 if(!isset($_SESSION["namn"])){
     header("Location: patientLogin.php");
@@ -19,35 +19,26 @@ $baseurl = 'http://193.93.250.83:8080/';
 curlSetup();
 
 // Hämta användarens bokningar
-$anvandarnamn = $_SESSION["namn"];
-$allAppointments = getAllAppointments();
+$anvandarnamn = str_replace(" ", "%20", $_SESSION["namn"]);
 
-$userAppointments = [];
+$allAppointments = getAllAppointments($anvandarnamn);
 
-foreach ($allAppointments as $appointment) {
-    $details = getAppointmentDetails($baseurl);
-
-    if (strpos($details['patient'], $anvandarnamn) === 0) {
-        $userAppointments[] = $details;
+//Bubblesort sorterar efter de la time
+for($i = 0; $i < sizeof($allAppointments); $i++){
+    for($j = 0; $j < sizeof($allAppointments)-1; $j++){
+        $tempArray = [];
+        if($allAppointments[$i]["appointment_date"] < $allAppointments[$j]["appointment_date"]){
+            $tempArray = $allAppointments[$j];
+            $allAppointments[$j] = $allAppointments[$i];
+            $allAppointments[$i] = $tempArray;
+        } 
+        else if($allAppointments[$i]["appointment_date"] == $allAppointments[$j]["appointment_date"] && $allAppointments[$i]["appointment_time"] > $allAppointments[$j]["appointment_time"]){
+            $tempArray = $allAppointments[$j];
+            $allAppointments[$j] = $allAppointments[$i];
+            $allAppointments[$i] = $tempArray;
+        }
     }
 }
-
-        //Bubblesort sorterar efter de la time
-        for($i = 0; $i < sizeof($userAppointments); $i++){
-            for($j = 0; $j < sizeof($userAppointments)-1; $j++){
-                $tempArray = [];
-                if($userAppointments[$i]["appointment_date"] < $userAppointments[$j]["appointment_date"]){
-                    $tempArray = $userAppointments[$j];
-                    $userAppointments[$j] = $userAppointments[$i];
-                    $userAppointments[$i] = $tempArray;
-                } 
-                else if($userAppointments[$i]["appointment_date"] == $userAppointments[$j]["appointment_date"] && $userAppointments[$i]["appointment_time"] > $userAppointments[$j]["appointment_time"]){
-                    $tempArray = $userAppointments[$j];
-                    $userAppointments[$j] = $userAppointments[$i];
-                    $userAppointments[$i] = $tempArray;
-                }
-            }
-        }
 
 ?>
 
@@ -68,9 +59,9 @@ foreach ($allAppointments as $appointment) {
 
     <h1>Dina Bokningar</h1>
 
-    <?php if (!empty($userAppointments)):?>
+    <?php if (!empty($allAppointments)):?>
     <div id="bokningarMaster">
-        <?php foreach ($userAppointments as $booking): ?>
+        <?php foreach ($allAppointments as $booking): ?>
             <div id="bokningarElement">
                 <div id="status">
                     <strong>Bokning:</strong> <?php echo htmlspecialchars($booking['title']); ?><br>
