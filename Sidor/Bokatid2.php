@@ -34,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $bookedSlots = [];
      
     $appointmentDetails = curlGetData( 'api/resource/Patient%20Appointment?filters={"practitioner_name":"' . rawurlencode($selectedPractitioner) .'"}&fields=["practitioner_name","practitioner","appointment_date","appointment_time"]&limit_page_length=None');
-    echo 'api/resource/Patient%20Appointment?filters={"practitioner_name":"' . rawurlencode($selectedPractitioner) .'"}&fields=["practitioner_name","practitioner","appointment_date","appointment_time"]&limit_page_length=None';
     $appointmentDetails = $appointmentDetails['data'];
     foreach($appointmentDetails as $row2){
 
