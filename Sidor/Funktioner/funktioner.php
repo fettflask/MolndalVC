@@ -33,18 +33,25 @@
 
                     </div>
 
-                    <div class="navbutton" id="push">
-                        <a href="minaSidor.php">Mina sidor</a>
-                    </div>
+                    <a href="minaSidor.php" class="navbutton">
+                        <div>
+                            Mina sidor
+                        </div>
+                    </a>
 
-                    <div class="navbutton" id="buffer">
-                        <a href="">Sök vård</a>
-                    </div>';
+                    <a href="" class="navbutton">
+                        <div>
+                            Sök vård
+                        </div>
+                    </a>';
 
                     if(isset($_SESSION["namn"])){
-                        echo '<div class="navbutton">';
-                                echo '<a href="sessionKill.php">Logga ut</a>';
-                        echo '</div>';
+                        echo '
+                        <a href="sessionKill.php" class="navbutton">
+                            <div>
+                                Logga ut
+                            </div>
+                        </a>';
                     }
     
             echo '

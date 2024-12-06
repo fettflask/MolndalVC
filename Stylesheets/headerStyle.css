@@ -24,6 +24,7 @@ header {
     height: 30px;
     width: auto;
     margin: 20px;
+    margin-top: 25px;
     margin-left: 80px;
 }
 
@@ -63,9 +64,6 @@ header {
     margin: 20px;
     padding: 12px;
     transition: 500ms;
-}
-
-.navbutton a{ 
     text-decoration: none;
     font-size: 16px;
     color: rgb(255, 255, 255);
@@ -76,9 +74,6 @@ header {
     transition: 500ms;
 }
 
-/*#push{
-    margin-left: auto;
-}*/
 
 #translate{
     position: absolute;
