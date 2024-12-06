@@ -3,16 +3,12 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-<<<<<<< HEAD
 session_start();
-    include 'Funktioner/funktioner.php';
-    if(!isset($_SESSION["namn"])){
-        header("Location: patientLogin.php");
-        die();
-    }
-=======
 include 'Funktioner/funktioner.php';
->>>>>>> 2663673603bc3c15ce6fb89d9ad3f459b36031b5
+if(!isset($_SESSION["namn"])){
+    header("Location: patientLogin.php");
+    die();
+}
 
 
 // Sätt upp API-bas och cookies
@@ -20,67 +16,16 @@ $cookiepath = "/tmp/cookies.txt";
 $baseurl = 'http://193.93.250.83:8080/';
 
 // Logga in till API:t
-$loginUrl = $baseurl . 'api/method/login';
-$loginPayload = json_encode(['usr' => 'a23jaced@student.his.se', 'pwd' => 'lmaokraftwerkvem?']);
-
-$ch = curl_init($loginUrl);
-curl_setopt($ch, CURLOPT_POST, true);
-curl_setopt($ch, CURLOPT_POSTFIELDS, $loginPayload);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiepath);
-curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-$response = curl_exec($ch);
-
-if (curl_errno($ch)) {
-    echo 'Curl error: ' . curl_error($ch);
-    exit;
-}
-curl_close($ch);
-
-// Hämta alla bokningar
-function getAllAppointments($baseurl, $cookiepath) {
-    $url = $baseurl . 'api/resource/Patient%20Appointment?limit_page_length=None';
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-    $response = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
-    }
-    curl_close($ch);
-
-    $data = json_decode($response, true);
-    return $data['data'] ?? [];
-}
-
-// Hämta detaljer för en specifik bokning
-function getAppointmentDetails($baseurl, $cookiepath, $appointmentId) {
-    $url = $baseurl . "api/resource/Patient%20Appointment/$appointmentId?limit_page_length=None";
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-    $response = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
-    }
-    curl_close($ch);
-
-    $data = json_decode($response, true);
-    return $data['data'] ?? null;
-}
+curlSetup();
 
 // Hämta användarens bokningar
 $anvandarnamn = $_SESSION["namn"];
-$allAppointments = getAllAppointments($baseurl, $cookiepath);
+$allAppointments = getAllAppointments();
 
 $userAppointments = [];
 
 foreach ($allAppointments as $appointment) {
-    $details = getAppointmentDetails($baseurl, $cookiepath, $appointment['name']);
+    $details = getAppointmentDetails($baseurl);
 
     if (strpos($details['patient'], $anvandarnamn) === 0) {
         $userAppointments[] = $details;
@@ -111,6 +56,7 @@ foreach ($allAppointments as $appointment) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/bokningarStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
