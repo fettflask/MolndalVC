@@ -593,9 +593,9 @@
      * @param mixed $cookiepath
      * @return mixed
      */
-    function getAllAppointments() {
-        $cookiepath = "/tmp/cookies.txt";   
-        $url = 'http://193.93.250.83:8080/api/resource/Patient%20Appointment?limit_page_length=None';
+    function getAllAppointments($name) {
+     
+        $url = 'http://193.93.250.83:8080/api/resource/Patient%20Appointment?filters={"patient":"'. $name .'","status":["in",["Open","Scheduled"]]}&fields=["name","title","status","appointment_date","appointment_time"]&limit_page_length=None';
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
@@ -619,7 +619,8 @@
      * @return mixed
      */
     function getAppointmentDetails($appointmentId) {
-        $url = "http://193.93.250.83:8080/api/resource/Patient%20Appointment/$appointmentId?limit_page_length=None";
+        $url = "http://193.93.250.83:8080/api/resource/Patient%20Appointment/" . $appointmentId . "?limit_page_length=None";
+        echo $url;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
