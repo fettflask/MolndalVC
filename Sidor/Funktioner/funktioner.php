@@ -70,73 +70,73 @@
             <div class="footContainer">
                 <h3>Hitta Mottagning</h3>
                 <div class="footContet">
-                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Lorem</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg" target="blank">Lorem</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Ipsum</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg" target="blank">Ipsum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw">Dolor</a>
+                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw" target="blank">Dolor</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Magnum</a>
+                    <a href="https://www.youtube.com/shorts/L7vSk5Qy68c" target="blank">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Dong</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg" target="blank">Dong</a>
                 </div>
             </div>
             <div class="footContainer">
                 <h3>Om oss</h3>
                 <div class="footContet">
-                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Lorem</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg" target="blank">Lorem</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Ipsum</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg" target="blank">Ipsum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw">Dolor</a>
+                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw" target="blank">Dolor</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Magnum</a>
+                    <a href="https://www.youtube.com/shorts/L7vSk5Qy68c" target="blank">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Dong</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg" target="blank">Dong</a>
                 </div>
             </div>
             <div class="footContainer">
                 <h3>Information</h3>
                 <div class="footContet">
-                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Lorem</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg" target="blank">Lorem</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Ipsum</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg" target="blank">Ipsum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw">Dolor</a>
+                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw" target="blank">Dolor</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Magnum</a>
+                    <a href="https://www.youtube.com/shorts/L7vSk5Qy68c" target="blank">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Dong</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg" target="blank">Dong</a>
                 </div>
             </div>
             <div class="footContainer">
                 <h3>Sociala Medier</h3>
                 <div class="footContet">
-                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Lorem</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg" target="blank">Lorem</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg">Ipsum</a>
+                    <a href="https://cdn.memes.com/up/6678511587603893/i/1607369498279.jpg" target="blank">Ipsum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw">Dolor</a>
+                    <a href="https://www.youtube.com/watch?v=fnj2D0Eukhw" target="blank">Dolor</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Magnum</a>
+                    <a href="https://www.youtube.com/shorts/L7vSk5Qy68c" target="blank">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg">Dong</a>
+                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg" target="blank">Dong</a>
                 </div>
             </div>
         </div>
@@ -602,7 +602,7 @@
      */
     function getAllAppointments($name) {
      
-        $url = 'http://193.93.250.83:8080/api/resource/Patient%20Appointment?filters={"patient":"'. $name .'","status":["in",["Open","Scheduled"]]}&fields=["name","title","status","appointment_date","appointment_time"]&limit_page_length=None';
+        $url = 'http://193.93.250.83:8080/api/resource/Patient%20Appointment?filters={"patient":"'. $name .'","status":["in",["Open","Scheduled"]]}&fields=["name","title","status","appointment_date","appointment_time","practitioner_name"]&limit_page_length=None';
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
@@ -641,5 +641,23 @@
 
         $data = json_decode($response, true);
         return $data['data'] ?? null;
+    }
+
+    /**
+     * Summary of getNextDateForDay
+     * @param mixed $dayName
+     * @param mixed $referenceDate
+     * @return array
+     */
+    function getNextDateForDay($dayName, $referenceDate) {
+        $dayOfWeek = $referenceDate->format('l'); 
+        $daysToAdd = (date('N', strtotime($dayName)) - date('N', strtotime($dayOfWeek)) + 7) % 7;
+        $nextDate = clone $referenceDate;
+        $nextDate->modify("+$daysToAdd days");
+
+        return [
+            'date' => $nextDate->format('Y-m-d'), 
+            'day' => $nextDate->format('l') 
+        ];
     }
 ?>
