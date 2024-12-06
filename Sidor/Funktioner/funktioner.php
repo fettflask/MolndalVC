@@ -584,4 +584,53 @@
 
         return $response;
     }   
+
+
+    /**
+     * Hämtar alla bokningar
+     * @param mixed $baseurl
+     * @param mixed $cookiepath
+     * @return mixed
+     */
+    function getAllAppointments() {
+        $cookiepath = "/tmp/cookies.txt";   
+        $url = 'http://193.93.250.83:8080/api/resource/Patient%20Appointment?limit_page_length=None';
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            echo 'Curl error: ' . curl_error($ch);
+            exit;
+        }
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+        return $data['data'] ?? [];
+    }
+    // Hämta detaljer för en specifik bokning
+    /**
+     * Summary of getAppointmentDetails
+     * @param mixed $baseurl
+     * @param mixed $cookiepath
+     * @param mixed $appointmentId
+     * @return mixed
+     */
+    function getAppointmentDetails($appointmentId) {
+        $url = "http://193.93.250.83:8080/api/resource/Patient%20Appointment/$appointmentId?limit_page_length=None";
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            echo 'Curl error: ' . curl_error($ch);
+            exit;
+        }
+        curl_close($ch);
+
+        $data = json_decode($response, true);
+        return $data['data'] ?? null;
+    }
 ?>
