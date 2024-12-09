@@ -660,4 +660,56 @@
             'day' => $nextDate->format('l') 
         ];
     }
+
+    // Funktion för att hämta alla practitioners och deras detaljer
+function getPractitionerDetails($baseurl, $cookiepath) {
+    $url = $baseurl . 'api/resource/Healthcare%20Practitioner?limit_page_length=None';
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'Accept: application/json',
+    ]);
+    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
+
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        return null;
+    }
+
+    curl_close($ch);
+
+    $data = json_decode($response, true);
+    if (json_last_error() !== JSON_ERROR_NONE || empty($data['data'])) {
+        return null;
+    }
+
+    $practitioners = $data['data'];
+    $details = [];
+
+    foreach ($practitioners as $practitioner) {
+        $practitionerUrl = $baseurl . 'api/resource/Healthcare%20Practitioner/' . rawurlencode($practitioner['name']);
+        $ch = curl_init($practitionerUrl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Accept: application/json',
+        ]);
+        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
+
+        $practitionerResponse = curl_exec($ch);
+        if (curl_errno($ch)) {
+            return null;
+        }
+
+        curl_close($ch);
+
+        $practitionerData = json_decode($practitionerResponse, true);
+        if (!empty($practitionerData['data'])) {
+            $details[] = $practitionerData['data'];
+        }
+    }
+
+    return $details;
+}
 ?>
