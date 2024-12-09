@@ -98,3 +98,28 @@ p{
     padding: 12px 28px;
 }
 
+#tjanster{
+    width: 75%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.tjanstMasterElement{
+    font-family: 'Roboto', sans-serif;
+    color: rgb(13, 48, 80);
+    width: 75%;
+}
+
+.tjanstElement{
+    background-color: rgb(240, 244, 250);
+    margin: 15px;
+    padding: 15px;
+    border-radius: 25px;
+}
+
+.mainSummary{
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
