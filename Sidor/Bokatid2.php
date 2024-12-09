@@ -5,34 +5,8 @@ error_reporting(E_ALL);
 
 include 'Funktioner/funktioner.php';
 
-$cookiepath = "/tmp/cookies.txt";
-$baseurl = 'http://193.93.250.83:8080/';
-
-// Inloggningsfunktion
-function apiLogin($baseurl, $cookiepath) {
-    try {
-        $ch = curl_init($baseurl . 'api/method/login');
-    } catch (Exception $e) {
-        echo 'Caught exception: ', $e->getMessage(), "\n";
-        exit;
-    }
-
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, '{"usr":"a23jaced@student.his.se", "pwd":"lmaokraftwerkvem?"}');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiepath);
-    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-
-    $response = curl_exec($ch);
-    if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
-    }
-    curl_close($ch);
-}
-
 // Logga in till API:t
-apiLogin($baseurl, $cookiepath);
+curlSetup();
 
 // Se om formuläret fungerade
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -43,61 +17,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Ingen läkare vald.";
         exit;
     }
-
+    
     // Hämta schema för vald läkare
-    $scheduleUrl = $baseurl . 'api/resource/Practitioner%20Schedule/' . rawurlencode($selectedPractitioner);
-    $ch = curl_init($scheduleUrl);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-    $scheduleResponse = curl_exec($ch);
-    if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
-    }
-    curl_close($ch);
-
-    $scheduleData = json_decode($scheduleResponse, true);
-    $timeSlots = $scheduleData['data']['time_slots'] ?? [];
+    $scheduleData = curlGetData('api/resource/Practitioner%20Schedule?filters={"schedule_name":"' . rawurlencode($selectedPractitioner) .'"}&fields=["time_slots.from_time","time_slots.from_time","time_slots.day"]&limit_page_length=None&order_by=from_time');
+    
+    $timeSlots = $scheduleData['data'] ?? [];
     if (empty($timeSlots)) {
         echo 'Inga tidsluckor tillgängliga för vald läkare.';
         exit;
     }
 
     // Hämta bokningar
-    apiLogin($baseurl, $cookiepath);
-
-    $appointmentsUrl = $baseurl . 'api/resource/Patient%20Appointment/?limit_page_length=None';
-    $ch = curl_init($appointmentsUrl);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-    $appointmentsResponse = curl_exec($ch);
-    if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
-    }
-    curl_close($ch);
-
-    $appointmentsData = json_decode($appointmentsResponse, true);
-    $bookedAppointments = $appointmentsData['data'] ?? [];
+    curlSetup();
 
     // Hämta bokningar för vald läkare
     $bookedSlots = [];
-    foreach ($bookedAppointments as $appointment) {
-        $detailsUrl = $baseurl . 'api/resource/Patient%20Appointment/' . rawurlencode($appointment['name']);
-        $ch = curl_init($detailsUrl);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-        $detailsResponse = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Curl error: ' . curl_error($ch);
-            continue;
-        }
-        curl_close($ch);
+     
+    $appointmentDetails = curlGetData( 'api/resource/Patient%20Appointment?filters={"practitioner_name":"' . rawurlencode($selectedPractitioner) .'"}&fields=["practitioner_name","practitioner","appointment_date","appointment_time"]&limit_page_length=None');
+    $appointmentDetails = $appointmentDetails['data'];
+    foreach($appointmentDetails as $row2){
 
-        $appointmentDetails = json_decode($detailsResponse, true)['data'] ?? [];
-        if ($appointmentDetails['practitioner_name'] === $selectedPractitioner || $appointmentDetails['practitioner'] === $selectedPractitioner) {
-            $date = $appointmentDetails['appointment_date'];
-            $time = $appointmentDetails['appointment_time'];
+        if ($row2['practitioner_name'] === $selectedPractitioner || $row2['practitioner'] === $selectedPractitioner) {
+            $date = $row2['appointment_date'];
+            $time = $row2['appointment_time'];
             if (!isset($bookedSlots[$date])) {
                 $bookedSlots[$date] = [];
             }
@@ -107,18 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Filtrera schematider mot bokade tider
     $today = new DateTime();
-
-    function getNextDateForDay($dayName, $referenceDate) {
-        $dayOfWeek = $referenceDate->format('l'); 
-        $daysToAdd = (date('N', strtotime($dayName)) - date('N', strtotime($dayOfWeek)) + 7) % 7;
-        $nextDate = clone $referenceDate;
-        $nextDate->modify("+$daysToAdd days");
-
-        return [
-            'date' => $nextDate->format('Y-m-d'), 
-            'day' => $nextDate->format('l') 
-        ];
-    }
 
     $groupedSlots = [];
     foreach ($timeSlots as $slot) {
@@ -139,10 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Sortera datumen så att dagens kommer först
-    uksort($groupedSlots, function ($a, $b) {
-        return strtotime($a) - strtotime($b);
-    });
+        // Sortera datumen så att dagens kommer först
+        uksort($groupedSlots, function ($a, $b) {
+            return strtotime($a) - strtotime($b);
+        });
+
 }
 ?>
 

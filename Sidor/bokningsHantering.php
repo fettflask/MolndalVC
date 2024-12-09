@@ -1,7 +1,5 @@
 <?php
 session_start();
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include 'Funktioner/funktioner.php';
@@ -72,8 +70,6 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
                 <div id="buttonMaster"> 
                     <a class="buttonSlave" 
                         href="editBokning6.php?booking_id=<?php echo urlencode($booking['name']); ?>
-                        &patient=<?php echo urlencode($booking['patient']); ?>
-                        &patient_name=<?php echo urlencode($booking['patient_name']); ?>>
                         &practitioner_name=<?php echo urlencode($booking['practitioner_name']); ?>">
                         Omboka
                     </a>

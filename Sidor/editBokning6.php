@@ -1,47 +1,24 @@
 <?php
+session_start();
+include "Funktioner/funktioner.php";
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
 
 $cookiepath = "/tmp/cookies.txt";
 $baseurl = 'http://193.93.250.83:8080/';
 
-// Inloggningsfunktion
-function apiLogin($baseurl, $cookiepath) {
-    try {
-        $ch = curl_init($baseurl . 'api/method/login');
-    } catch (Exception $e) {
-        echo 'Caught exception: ', $e->getMessage(), "\n";
-        exit;
-    }
 
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, '{"usr":"a23jaced@student.his.se", "pwd":"lmaokraftwerkvem?"}');
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiepath);
-    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
-
-    $response = curl_exec($ch);
-    if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-        exit;
-    }
-    curl_close($ch);
-}
 
 // Logga in till API:t
-apiLogin($baseurl, $cookiepath);
+curlSetup();
 
 // Kontrollera parametrar
 $bookingId = $_GET['booking_id'] ?? null;
-$patient = $_GET['patient'] ?? null;
 $practitioner = $_GET['practitioner_name'] ?? null;
 
-echo ''. $bookingId . '';
-
-if (!$bookingId || !$patient || !$practitioner) {
+if (!$bookingId || !$practitioner) {
     echo "Saknar nödvändig data för att fortsätta.";
     exit;
 }
@@ -109,18 +86,6 @@ foreach ($bookedAppointments as $appointment) {
 $groupedSlots = [];
 $today = new DateTime();
 
-function getNextDateForDay($dayName, $referenceDate) {
-    $dayOfWeek = $referenceDate->format('l');
-    $daysToAdd = (date('N', strtotime($dayName)) - date('N', strtotime($dayOfWeek)) + 7) % 7;
-    $nextDate = clone $referenceDate;
-    $nextDate->modify("+$daysToAdd days");
-
-    return [
-        'date' => $nextDate->format('Y-m-d'),
-        'day' => $nextDate->format('l')
-    ];
-}
-
 foreach ($timeSlots as $slot) {
     $day = $slot['day'];
     $fromTime = $slot['from_time'];
@@ -160,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ]);
 
     // Skicka PUT-förfrågan till API
-    apiLogin($baseurl, $cookiepath);
+    curlSetup();
     $updateUrl = $baseurl . 'api/resource/Patient%20Appointment/' . rawurlencode($bookingId);
 
     $ch = curl_init($updateUrl);
@@ -219,7 +184,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h1>Omboka din tid</h1>
-    <p>Patient: <?= htmlspecialchars($patient) ?></p>
     <p>Läkare: <?= htmlspecialchars($practitioner) ?></p>
 
     <form method="POST">
