@@ -84,30 +84,41 @@ foreach ($bookedAppointments as $appointment) {
 
 // Filtrera schematider mot bokade tider
 $groupedSlots = [];
-$today = new DateTime();
+$today = new DateTime(); // Nuvarande datum och tid
+    date_default_timezone_set('Europe/Stockholm');
 
-foreach ($timeSlots as $slot) {
-    $day = $slot['day'];
-    $fromTime = $slot['from_time'];
-    $nextDateInfo = getNextDateForDay($day, $today);
-    $date = $nextDateInfo['date'];
+    $groupedSlots = [];
+    foreach ($timeSlots as $slot) {
+        $day = $slot['day'];
+        $fromTime = $slot['from_time'];
+        $nextDateInfo = getNextDateForDay($day, $today);
+        $date = $nextDateInfo['date'];
 
-    // Kontrollera om tiden är bokad
-    if (!isset($bookedSlots[$date]) || !in_array($fromTime, $bookedSlots[$date])) {
-        if (!isset($groupedSlots[$date])) {
-            $groupedSlots[$date] = [
-                'day' => $nextDateInfo['day'],
-                'slots' => []
-            ];
+        $slotDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date . ' ' . $fromTime);
+
+        if ($date == $today->format('Y-m-d')) {
+
+            if ($slotDateTime <= $today) {
+                continue; 
+            }
         }
-        $groupedSlots[$date]['slots'][] = $slot;
-    }
-}
 
-// Sortera datumen
-uksort($groupedSlots, function ($a, $b) {
-    return strtotime($a) - strtotime($b);
-});
+        // Kontrollera om tiden är bokad
+        if (!isset($bookedSlots[$date]) || !in_array($fromTime, $bookedSlots[$date])) {
+            if (!isset($groupedSlots[$date])) {
+                $groupedSlots[$date] = [
+                    'day' => $nextDateInfo['day'],
+                    'slots' => []
+                ];
+            }
+            $groupedSlots[$date]['slots'][] = $slot;
+        }
+    }
+
+    // Sortera datumen så att dagens kommer först
+    uksort($groupedSlots, function ($a, $b) {
+        return strtotime($a) - strtotime($b);
+    });
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedDate = $_POST['selectedDate'] ?? null;
