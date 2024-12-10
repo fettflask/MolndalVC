@@ -4,11 +4,16 @@
     color: rgb(13, 48, 80);
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    text-align: center;
     width: 50%;
+    margin: auto;
 }
 
 .detailMaster{
     width: 500px;
+    margin: auto;
+    text-align: start;
 }
 
 .detailSlave{
@@ -21,6 +26,15 @@
 .mainSummary{
     font-size: 18px;
     font-weight: bold;
+}
+
+#description{
+    height: 200px;
+    border: solid 2px rgb(13, 48, 80);
+    border-radius: 10px;
+    padding-left: 5px;
+    overflow: hidden;
+    resize: none;
 }
 
 body {
@@ -43,16 +57,16 @@ body {
 }
 
 .message-box {
-    border: 2px solid #4CAF50;
+    border: 2px solid rgb(13, 48, 80);
     padding: 20px;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: rgb(240, 244, 250);
     max-width: 600px;
     margin: 0 auto;
     text-align: center;
 }
 .message-box h1 {
-    color: #4CAF50;
+    color: rgb(13, 48, 80);
 }
 .message-box p {
     font-size: 18px;
@@ -60,13 +74,13 @@ body {
 .phone-number {
     font-size: 22px;
     font-weight: bold;
-    color: #333;
+    color: rgb(13, 48, 80);
 }
 
 .redirect-button {
     margin-top: 15px;
     padding: 10px 20px;
-    background-color: red;
+    background-color: rgb(13, 48, 80);
     color: white;
     border: none;
     border-radius: 5px;

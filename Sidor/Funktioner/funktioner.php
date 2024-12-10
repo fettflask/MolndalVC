@@ -57,7 +57,7 @@
             echo '
                 </div>
                 <div id="translate">
-                <a href="">English 🇬🇧</a>
+                <a href="rickroll.php">English 🇬🇧</a>
                 </div>
             </header>';
     }

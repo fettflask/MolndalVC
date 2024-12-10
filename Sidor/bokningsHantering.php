@@ -51,11 +51,64 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Mina Bokningar</title>
 </head>
+<style>
+    .message-box-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    }
+
+    .message-box {
+        border: 2px solid  rgb(13, 48, 80);
+        padding: 20px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .message-box h1 {
+        color:  rgb(13, 48, 80);
+    }
+    .message-box p {
+        font-size: 18px;
+    }
+</style>
+<script>
+    function hideMessageBox() {
+        const messageBox = document.getElementById('messageBox');
+        if (messageBox) {
+            messageBox.style.display = 'none';
+        }
+        
+    }
+</script>
 
 <body>
     <?php echoHead(); ?>
 
     <h1>Dina Bokningar</h1>
+
+    <?php
+        if (isset($_SESSION['bokadTid'])) {
+            echo '<div class="message-box-overlay" id="messageBox">';
+                echo '<div class="message-box">';
+                    echo '<h3>Tid bokad med ' . $_SESSION['bokadTid']['practitioner_name'] . '</h3>';
+                    echo '<p>Datum: ' . $_SESSION['bokadTid']['appointment_date'] . '</p>';
+                    echo '<p>Tid: ' . $_SESSION['bokadTid']['appointment_time'] . '</p>';
+                    echo '<button class="redirect-button" onclick="hideMessageBox()">Bekräfta</button>';
+                echo '</div>';
+            echo '</div>';
+            unset($_SESSION['bokadTid']);
+        }
+    ?>
 
     <?php if (!empty($allAppointments)):?>
     <div id="bokningarMaster">

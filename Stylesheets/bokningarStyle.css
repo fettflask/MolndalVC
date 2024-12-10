@@ -4,12 +4,14 @@ h1{
     margin: 15px;
     font-family: 'Roboto', sans-serif;
     color: rgb(13, 48, 80);
+    text-align: center;
 }
 
 #bokningarMaster{
     font-family: 'Roboto', sans-serif;
     color: rgb(13, 48, 80);
-    width: 750px;
+    width: 850px;
+    margin: auto;
 }
 
 #bokningarElement{
@@ -48,3 +50,4 @@ h1{
     font-size: 16px;
     transition: 500ms;
 }
+

@@ -123,3 +123,19 @@ p{
     font-weight: bold;
     cursor: pointer;
 }
+
+#googleMap{
+    display: flex;
+    flex-direction: row;
+    width: 75%;
+    margin: auto;
+    height: 350px;
+    background-color: rgb(240, 244, 250);
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+#info{
+    text-align: center;
+    margin: auto;
+}

@@ -32,8 +32,8 @@
     </div>
 
     <h1>Hur kan vi hjälpa dig?</h1>
-    <section>
 
+    <section>
         <div id="mastergrid">
             <div class="mastergridelement">
                 <div class="gridelement">
@@ -156,35 +156,37 @@
             </details>
         </div>
     </div>
+        
+    <h3>Kontakt & Öppettider</h3>
 
-    <section class="KontaktInfo">
-        <h3>Kontakta oss</h3>
-        <p>
-            Har du frågor eller vill boka en tid? Tveka inte att höra av dig!
-        </p>
-        <p>
-            <strong>Telefon:</strong> ??? ??? ????<br>
-            <strong>E-post:</strong> ?
-        </p>
-        <p>
-            <strong>Adress:</strong> The white house
-        </p>
-    </section>
+    <div id="googleMap">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2031.7364177946968!2d12.010435576674055!3d57.65572884384258!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x464ff2313d740ac1%3A0xd1f57ce2129e0e0a!2sCapio%20V%C3%A5rdcentral%20M%C3%B6lndal!5e1!3m2!1sen!2sse!4v1733819849574!5m2!1sen!2sse" 
+        width="50%" height="350" style="border:0;" 
+        allowfullscreen="" loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+        <div id="info">
+            <strong>Öppettider</strong>
+            <p>
+                Måndag: 7:30 - 19:00 <br>
+                Tisdag: 7:30 - 19:00 <br>
+                Onsdag: 7:30 - 19:00 <br>
+                Torsdag: 7:30 - 19:00 <br>
+                Fredag: 7:30 - 17:00 <br>
+                Lördag: Stängt <br>
+                Söndag: Stängt <br>
+            </p>
+            <strong>Kontakt</strong>
+            <p>
+                Adress: Bergmansgatan 17-23 <br>
+                Telefon: 0707-070707 <br>
+                Mejl: Kundservice@MölndalVC.se
+            </p>
+        </div>
+    </div>
 
-    <section class="Öppettider">
-    <h3>Adress & öppettider</h3>
-    <p><strong>Adress:</strong> Bergmansgatan 17-23, 431 30, Mölndal</p>
-    <p><strong>Öppettider:</strong></p>
-    <ul>
-        <li>Måndag kl. 7.45-19.00</li>
-        <li>Tisdag kl. 7.45-19.00</li>
-        <li>Onsdag kl. 7.45-19.00</li>
-        <li>Torsdag kl. 7.45-19.00</li>
-        <li>Fredag kl. 7.45-17.45</li>
-    </ul>
-    <p><strong>Öppettider till Drop-in:</strong> Helgfria vardagar 8.00-15.00.</p>
-    <p><strong>Avvikande öppettider:</strong> Röda dagar är vårdcentralen stängd. Vid akuta besvär, kontakta din jourmottagning eller akutmottagning.</p>
-    </section>
+    
+
 </main>
 
     
