@@ -37,7 +37,7 @@
             </div>
             <div class="detailMaster">
                 <details class="detailSlave">
-                    <summary class="mainSummary">Vem gör triage bedömningen?</summary>
+                    <summary class="mainSummary">Vem gör triagebedömningen?</summary>
                     <p>
                         Applikationen använder den senaste AI-teknologin för att göra triagebedömningar, 
                         vilket innebär att den snabbt och noggrant prioriterar patienters vårdbehov baserat på symtom och medicinsk information.
