@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/formStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
@@ -25,7 +26,7 @@
         <h1>Triage</h1>
         <p>
             För att själv boka en tid hos oss behöver du svara på några <br>
-            frågorna som bedömer om du ska få boka en läkartid.
+            frågor som bedömer om du ska få boka en läkartid.
             <div class="detailMaster">
                 <details class="detailSlave">
                     <summary class="mainSummary">Varför måste jag svara på frågorna?</summary>
@@ -127,7 +128,7 @@
             
             <p>
                 <label>Beskriv dina besvär med max 150 ord:</label><br>
-                <textarea id="description" name="description" rows="4" cols="50" maxlength="150" placeholder="Skriv dina besvär här..."></textarea>
+                <textarea id="description" name="description" rows="4" cols="50" maxlength="750" placeholder="Beskriv dina besvär här..."></textarea>
             </p>
             
             <input type="submit" id="sickSub" value='Skicka in'>
