@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/journalStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
-    <title>Provsvar</title>
+    <title>Journaler</title>
 </head>
 <body>
     <?php echoHead(); ?>
