@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/journalStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
-    <title>Provsvar</title>
+    <title>Journaler</title>
 </head>
 <body>
     <?php echoHead(); ?>
@@ -41,7 +41,7 @@
                     echo '<p>Ansvarig läkare: ' . htmlspecialchars($journal['practitioner_name'] ?? 'N/A') . '</p>';
                     echo '<p>Avdelning: ' . htmlspecialchars($journal['medical_department'] ?? 'N/A') . '</p>';
                     
-                    echo '<p>Journal anteckning:<br>';
+                    echo '<p>Journalanteckning:<br>';
                     echo '' . htmlspecialchars($journal['encounter_comment'] ?? 'Finns ingen anteckning för mötet') . '</p>';
                     if (isset($journal['name'])) {
                         $JournalDetails = getPatientEncountersDetails($journal);
