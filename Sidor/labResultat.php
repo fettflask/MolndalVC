@@ -57,7 +57,7 @@
                         
                             if ($hasResultValue) {
                                 echo '<details>';
-                                echo '<summary class="mainSummary">Prov resultat</summary>';
+                                echo '<summary class="mainSummary">Provresultat</summary>';
                                 if (isset($labDetails['data']['normal_test_items']) && is_array($labDetails['data']['normal_test_items'])) {
                                         foreach ($labDetails['data']['normal_test_items'] as $provSvar) {
                                             echo '<div><hr>';
