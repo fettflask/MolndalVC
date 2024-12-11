@@ -8,6 +8,23 @@ include 'Funktioner/funktioner.php';
 // Logga in till API:t
 curlSetup();
 
+function getNextDateForDay($dayName, $referenceDate, $maxDays = 365) {
+    $dates = [];
+    $currentDate = clone $referenceDate;
+
+    for ($i = 0; $i < $maxDays; $i++) {
+        if (strcasecmp($currentDate->format('l'), $dayName) === 0) {
+            $dates[] = [
+                'date' => $currentDate->format('Y-m-d'),
+                'day' => $currentDate->format('l')
+            ];
+        }
+        $currentDate->modify('+1 day');
+    }
+
+    return $dates;
+}
+
 // Se om formuläret fungerade
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedPatient = $_POST['selectedPatient'] ?? '';
@@ -16,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$selectedPractitioner) {
         echo "Ingen läkare vald.";
         exit;
-    }
+    }               
     
     // Hämta schema för vald läkare
     $scheduleData = curlGetData('api/resource/Practitioner%20Schedule?filters={"schedule_name":"' . rawurlencode($selectedPractitioner) .'"}&fields=["time_slots.from_time","time_slots.from_time","time_slots.day"]&limit_page_length=None&order_by=from_time');
@@ -33,10 +50,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Hämta bokningar för vald läkare
     $bookedSlots = [];
      
-    $appointmentDetails = curlGetData( 'api/resource/Patient%20Appointment?filters={"practitioner_name":"' . rawurlencode($selectedPractitioner) .'"}&fields=["practitioner_name","practitioner","appointment_date","appointment_time"]&limit_page_length=None');
+    $appointmentDetails = curlGetData('api/resource/Patient%20Appointment?filters={"practitioner_name":"' . rawurlencode($selectedPractitioner) .'"}&fields=["practitioner_name","practitioner","appointment_date","appointment_time"]&limit_page_length=None');
     $appointmentDetails = $appointmentDetails['data'];
     foreach($appointmentDetails as $row2){
-
         if ($row2['practitioner_name'] === $selectedPractitioner || $row2['practitioner'] === $selectedPractitioner) {
             $date = $row2['appointment_date'];
             $time = $row2['appointment_time'];
@@ -48,32 +64,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Filtrera schematider mot bokade tider
-    $today = new DateTime();
+    $today = new DateTime(); // Nuvarande datum och tid
+    date_default_timezone_set('Europe/Stockholm');
 
     $groupedSlots = [];
+    $futureDays = 60; // Antal dagar framåt
     foreach ($timeSlots as $slot) {
         $day = $slot['day'];
         $fromTime = $slot['from_time'];
-        $nextDateInfo = getNextDateForDay($day, $today);
-        $date = $nextDateInfo['date'];
 
-        // Kontrollera om tiden är bokad
-        if (!isset($bookedSlots[$date]) || !in_array($fromTime, $bookedSlots[$date])) {
-            if (!isset($groupedSlots[$date])) {
-                $groupedSlots[$date] = [
-                    'day' => $nextDateInfo['day'], 
-                    'slots' => []
-                ];
+        $futureDates = getNextDateForDay($day, $today, $futureDays);
+        foreach ($futureDates as $nextDateInfo) {
+            $date = $nextDateInfo['date'];
+
+            $slotDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date . ' ' . $fromTime);
+
+            if ($date == $today->format('Y-m-d') && $slotDateTime <= $today) {
+                continue;
             }
-            $groupedSlots[$date]['slots'][] = $slot;
+
+            if (!isset($bookedSlots[$date]) || !in_array($fromTime, $bookedSlots[$date])) {
+                if (!isset($groupedSlots[$date])) {
+                    $groupedSlots[$date] = [
+                        'day' => $nextDateInfo['day'],
+                        'slots' => []
+                    ];
+                }
+                $groupedSlots[$date]['slots'][] = $slot;
+            }
         }
     }
-
-        // Sortera datumen så att dagens kommer först
-        uksort($groupedSlots, function ($a, $b) {
-            return strtotime($a) - strtotime($b);
-        });
-
+    
+    // Sortera datumen så att dagens kommer först
+    uksort($groupedSlots, function ($a, $b) {
+        return strtotime($a) - strtotime($b);
+    });
 }
 ?>
 
@@ -85,49 +110,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/bokaStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <title>Schema för <?= htmlspecialchars($selectedPractitioner) ?></title>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        function updateTimeSlots() {
-            // Hämta valt datum från dropdown
-            const selectedDate = document.getElementById('dateDropdown').value;
+        document.addEventListener('DOMContentLoaded', function () {
+            const groupedSlots = <?= json_encode($groupedSlots) ?>;
 
-            // Visa eller dölj tidsluckor baserat på valt datum
-            const allSlots = document.querySelectorAll('.time-slots');
-            allSlots.forEach(slot => {
-                if (slot.dataset.date === selectedDate) {
-                    slot.style.display = 'block'; // Visa matchande slots
-                } else {
-                    slot.style.display = 'none'; // Dölj andra slots
+            // Initialisera kalender
+            const calendar = flatpickr("#datePicker", {
+                enable: Object.keys(groupedSlots),
+                dateFormat: "Y-m-d",
+                onChange: function (selectedDates, dateStr, instance) {
+                    // Hantera valt datum
+                    const allSlots = document.querySelectorAll('.time-slots');
+                    allSlots.forEach(slot => {
+                        if (slot.dataset.date === dateStr) {
+                            slot.style.display = 'block';
+                        } else {
+                            slot.style.display = 'none';
+                        }
+                    });
+
+                    // Uppdatera dolda inputfältet
+                    const dateInput = document.getElementById('selectedDateInput');
+                    if (dateInput) {
+                        dateInput.value = dateStr;
+                    }
                 }
             });
-
-    // Hämta dolda inputfältet och uppdatera dess värde
-    const dateInput = document.getElementById('selectedDateInput');
-    if (dateInput) {
-        dateInput.value = selectedDate; // Sätt valt datum i inputfältet
-    }
-}
-
+        });
     </script>
 </head>
 <body>
     <?php echoHead() ?>
     <h1>Tillgängliga tider för <?= htmlspecialchars($selectedPractitioner) ?></h1>
-    <!--<p>Vald patient: <?= htmlspecialchars($selectedPatient) ?></p>-->
 
-    <!-- Dropdownen för datum -->
     <div id="bookingMaster">
         <div id="centerForm">
             <div id="daySelect">
-            <label for="dateDropdown">Välj ett datum:</label>
-                <select id="dateDropdown" onchange="updateTimeSlots()">
-                    <option value="">-- Välj datum --</option>
-                    <?php foreach ($groupedSlots as $date => $info): ?>
-                        <option value="<?= htmlspecialchars($date) ?>">
-                            <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+                <label for="datePicker">Välj ett datum:</label>
+                <input type="text" id="datePicker" placeholder="Välj datum">
             </div>
 
             <form action="OkäntFel300.php" method="POST">
