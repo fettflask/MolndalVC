@@ -136,7 +136,7 @@
                     <a href="https://www.youtube.com/shorts/L7vSk5Qy68c" target="blank">Magnum</a>
                 </div>
                 <div class="footContet">
-                    <a href="https://www.youtube.com/watch?v=KYDCQc2T9Rg" target="blank">Dong</a>
+                    <a href="bildkällor.html" target="blank">Bildkällor</a>
                 </div>
             </div>
         </div>

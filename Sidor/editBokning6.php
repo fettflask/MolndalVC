@@ -84,41 +84,30 @@ foreach ($bookedAppointments as $appointment) {
 
 // Filtrera schematider mot bokade tider
 $groupedSlots = [];
-$today = new DateTime(); // Nuvarande datum och tid
-    date_default_timezone_set('Europe/Stockholm');
+$today = new DateTime();
 
-    $groupedSlots = [];
-    foreach ($timeSlots as $slot) {
-        $day = $slot['day'];
-        $fromTime = $slot['from_time'];
-        $nextDateInfo = getNextDateForDay($day, $today);
-        $date = $nextDateInfo['date'];
+foreach ($timeSlots as $slot) {
+    $day = $slot['day'];
+    $fromTime = $slot['from_time'];
+    $nextDateInfo = getNextDateForDay($day, $today);
+    $date = $nextDateInfo['date'];
 
-        $slotDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date . ' ' . $fromTime);
-
-        if ($date == $today->format('Y-m-d')) {
-
-            if ($slotDateTime <= $today) {
-                continue; 
-            }
+    // Kontrollera om tiden är bokad
+    if (!isset($bookedSlots[$date]) || !in_array($fromTime, $bookedSlots[$date])) {
+        if (!isset($groupedSlots[$date])) {
+            $groupedSlots[$date] = [
+                'day' => $nextDateInfo['day'],
+                'slots' => []
+            ];
         }
-
-        // Kontrollera om tiden är bokad
-        if (!isset($bookedSlots[$date]) || !in_array($fromTime, $bookedSlots[$date])) {
-            if (!isset($groupedSlots[$date])) {
-                $groupedSlots[$date] = [
-                    'day' => $nextDateInfo['day'],
-                    'slots' => []
-                ];
-            }
-            $groupedSlots[$date]['slots'][] = $slot;
-        }
+        $groupedSlots[$date]['slots'][] = $slot;
     }
+}
 
-    // Sortera datumen så att dagens kommer först
-    uksort($groupedSlots, function ($a, $b) {
-        return strtotime($a) - strtotime($b);
-    });
+// Sortera datumen
+uksort($groupedSlots, function ($a, $b) {
+    return strtotime($a) - strtotime($b);
+});
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedDate = $_POST['selectedDate'] ?? null;
@@ -181,6 +170,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
+    <link rel="stylesheet" href="../Stylesheets/bokaStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
+    <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Omboka tid</title>
     <script>
         function updateTimeSlots() {
@@ -194,35 +187,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </script>
 </head>
 <body>
+    <?php echoHead() ?>
     <h1>Omboka din tid</h1>
-    <p>Läkare: <?= htmlspecialchars($practitioner) ?></p>
 
     <form method="POST">
-        <label for="dateDropdown">Välj ett datum:</label>
-        <select id="dateDropdown" name="dateDropdown" onchange="updateTimeSlots()">
-            <option value="">-- Välj datum --</option>
-            <?php foreach ($groupedSlots as $date => $info): ?>
-                <option value="<?= htmlspecialchars($date) ?>">
-                    <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <div id="bookingMaster">
+            <div id="centerForm">
+                <div id="daySelect">
+                    <label for="dateDropdown">Välj ett datum:</label>
+                    <select id="dateDropdown" name="dateDropdown" onchange="updateTimeSlots()">
+                        <option value="">-- Välj datum --</option>
+                        <?php foreach ($groupedSlots as $date => $info): ?>
+                        <option value="<?= htmlspecialchars($date) ?>">
+                            <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)
+                        </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-        <?php foreach ($groupedSlots as $date => $info): ?>
-            <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
+                <?php foreach ($groupedSlots as $date => $info): ?>
+                <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
                 <h3>Tillgängliga tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)</h3>
                 <?php foreach ($info['slots'] as $slot): ?>
-                    <label>
-                        <input type="radio" name="selectedTimeSlot" value="<?= htmlspecialchars($slot['from_time']) ?>" required>
-                        <?= htmlspecialchars($slot['from_time']) ?>
-                    </label>
-                    <br>
+                <label>
+                    <input type="radio" name="selectedTimeSlot" value="<?= htmlspecialchars($slot['from_time']) ?>" required>
+                    <?= htmlspecialchars($slot['from_time']) ?>
+                </label>
+                <br>
                 <?php endforeach; ?>
-            </div>
-        <?php endforeach; ?>
+                </div>
+                <?php endforeach; ?>
 
-        <input type="hidden" id="selectedDateInput" name="selectedDate" value="">
-        <button type="submit">Uppdatera bokning</button>
-    </form>
+                <input type="hidden" id="selectedDateInput" name="selectedDate" value="">
+                <button type="submit" id="timeSub">Uppdatera bokning</button>
+                
+            </div>
+        </div>
+    </form>    
+    <?php echoFooter() ?>
 </body>
 </html>
