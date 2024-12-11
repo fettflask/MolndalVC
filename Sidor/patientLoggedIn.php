@@ -19,30 +19,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <title>Mölndals Vårdcentral</title>
-    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
-
-    <script type="text/javascript">
-        window.onload = function() {
-            document.getElementById('loading').style.display = 'block';
-            setTimeout(function() {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-                document.getElementById('header').style.display = 'flex';
-            }, 2000);
-            var shouldRunOnLoad = false;
-        };   
-    </script>
-                            
-
+    <link rel="stylesheet" href="../Stylesheets/headerStyle.css">      
 </head>
 
 <body>
     <?php echoHead(); ?>
-   
-    <div id="loading" style="display: none; ">
-        <img src="../IMG/bankID.png" alt="Öppna BankID">
-    </div>
-    <div id="content" style="display: none;">
+    <div id="content">
     <?php
 
         if (isset($_POST["pnr"])){
@@ -106,7 +88,6 @@
             }  
         }
         else{
-            
             header("Location: patientLogin.php");
             die();
         }
