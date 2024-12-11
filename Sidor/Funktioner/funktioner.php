@@ -649,16 +649,21 @@
      * @param mixed $referenceDate
      * @return array
      */
-    function getNextDateForDay($dayName, $referenceDate) {
-        $dayOfWeek = $referenceDate->format('l'); 
-        $daysToAdd = (date('N', strtotime($dayName)) - date('N', strtotime($dayOfWeek)) + 7) % 7;
-        $nextDate = clone $referenceDate;
-        $nextDate->modify("+$daysToAdd days");
-
-        return [
-            'date' => $nextDate->format('Y-m-d'), 
-            'day' => $nextDate->format('l') 
-        ];
+    function getNextDateForDay($dayName, $referenceDate, $maxDays = 365) {
+        $dates = [];
+        $currentDate = clone $referenceDate;
+    
+        for ($i = 0; $i < $maxDays; $i++) {
+            if (strcasecmp($currentDate->format('l'), $dayName) === 0) {
+                $dates[] = [
+                    'date' => $currentDate->format('Y-m-d'),
+                    'day' => $currentDate->format('l')
+                ];
+            }
+            $currentDate->modify('+1 day');
+        }
+    
+        return $dates;
     }
 
     // Funktion för att hämta alla practitioners och deras detaljer
