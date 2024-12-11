@@ -5,11 +5,25 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 $cookiepath = "/tmp/cookies.txt";
 $baseurl = 'http://193.93.250.83:8080/';
 
+// Funktion för att hämta nästa datum för en viss veckodag
+function getNextDateForDay($dayName, $referenceDate, $maxDays = 365) {
+    $dates = [];
+    $currentDate = clone $referenceDate;
 
+    for ($i = 0; $i < $maxDays; $i++) {
+        if (strcasecmp($currentDate->format('l'), $dayName) === 0) {
+            $dates[] = [
+                'date' => $currentDate->format('Y-m-d'),
+                'day' => $currentDate->format('l')
+            ];
+        }
+        $currentDate->modify('+1 day');
+    }
+    return $dates;
+}
 
 // Logga in till API:t
 curlSetup();
@@ -83,24 +97,34 @@ foreach ($bookedAppointments as $appointment) {
 }
 
 // Filtrera schematider mot bokade tider
-$groupedSlots = [];
 $today = new DateTime();
+date_default_timezone_set('Europe/Stockholm');
 
+$groupedSlots = [];
+$futureDays = 60; // Antal dagar framåt
 foreach ($timeSlots as $slot) {
     $day = $slot['day'];
     $fromTime = $slot['from_time'];
-    $nextDateInfo = getNextDateForDay($day, $today);
-    $date = $nextDateInfo['date'];
 
-    // Kontrollera om tiden är bokad
-    if (!isset($bookedSlots[$date]) || !in_array($fromTime, $bookedSlots[$date])) {
-        if (!isset($groupedSlots[$date])) {
-            $groupedSlots[$date] = [
-                'day' => $nextDateInfo['day'],
-                'slots' => []
-            ];
+    $futureDates = getNextDateForDay($day, $today, $futureDays);
+    foreach ($futureDates as $nextDateInfo) {
+        $date = $nextDateInfo['date'];
+
+        $slotDateTime = DateTime::createFromFormat('Y-m-d H:i:s', $date . ' ' . $fromTime);
+
+        if ($date == $today->format('Y-m-d') && $slotDateTime <= $today) {
+            continue;
         }
-        $groupedSlots[$date]['slots'][] = $slot;
+
+        if (!isset($bookedSlots[$date]) || !in_array($fromTime, $bookedSlots[$date])) {
+            if (!isset($groupedSlots[$date])) {
+                $groupedSlots[$date] = [
+                    'day' => $nextDateInfo['day'],
+                    'slots' => []
+                ];
+            }
+            $groupedSlots[$date]['slots'][] = $slot;
+        }
     }
 }
 
@@ -163,27 +187,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <link rel="stylesheet" href="../Stylesheets/bokaStyle.css">
     <link rel="stylesheet" href="../Stylesheets/headerStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <title>Omboka tid</title>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        function updateTimeSlots() {
-            const selectedDate = document.getElementById('dateDropdown').value;
-            const allSlots = document.querySelectorAll('.time-slots');
-            allSlots.forEach(slot => {
-                slot.style.display = slot.dataset.date === selectedDate ? 'block' : 'none';
+        document.addEventListener('DOMContentLoaded', function () {
+            const groupedSlots = <?= json_encode($groupedSlots) ?>;
+
+            // Initialisera kalender
+            const calendar = flatpickr("#datePicker", {
+                enable: Object.keys(groupedSlots),
+                dateFormat: "Y-m-d",
+                onChange: function (selectedDates, dateStr, instance) {
+                    // Hantera valt datum
+                    const allSlots = document.querySelectorAll('.time-slots');
+                    allSlots.forEach(slot => {
+                        if (slot.dataset.date === dateStr) {
+                            slot.style.display = 'block';
+                        } else {
+                            slot.style.display = 'none';
+                        }
+                    });
+
+                    // Uppdatera dolda inputfältet
+                    const dateInput = document.getElementById('selectedDateInput');
+                    if (dateInput) {
+                        dateInput.value = dateStr;
+                    }
+                }
             });
-            document.getElementById('selectedDateInput').value = selectedDate;
-        }
+        });
     </script>
 </head>
 <body>
@@ -194,33 +235,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="bookingMaster">
             <div id="centerForm">
                 <div id="daySelect">
-                    <label for="dateDropdown">Välj ett datum:</label>
-                    <select id="dateDropdown" name="dateDropdown" onchange="updateTimeSlots()">
-                        <option value="">-- Välj datum --</option>
-                        <?php foreach ($groupedSlots as $date => $info): ?>
-                        <option value="<?= htmlspecialchars($date) ?>">
-                            <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)
-                        </option>
-                        <?php endforeach; ?>
-                    </select>
+                    <label for="datePicker">Välj ett datum:</label>
+                    <input type="text" id="datePicker" placeholder="Välj datum">
                 </div>
 
                 <?php foreach ($groupedSlots as $date => $info): ?>
                 <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
-                <h3>Tillgängliga tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)</h3>
-                <?php foreach ($info['slots'] as $slot): ?>
-                <label>
-                    <input type="radio" name="selectedTimeSlot" value="<?= htmlspecialchars($slot['from_time']) ?>" required>
-                    <?= htmlspecialchars($slot['from_time']) ?>
-                </label>
-                <br>
-                <?php endforeach; ?>
+                    <h3>Tillgängliga tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)</h3>
+                    <?php foreach ($info['slots'] as $slot): ?>
+                    <label>
+                        <input type="radio" name="selectedTimeSlot" value="<?= htmlspecialchars($slot['from_time']) ?>" required>
+                        <?= htmlspecialchars($slot['from_time']) ?>
+                    </label>
+                    <br>
+                    <?php endforeach; ?>
                 </div>
                 <?php endforeach; ?>
 
                 <input type="hidden" id="selectedDateInput" name="selectedDate" value="">
                 <button type="submit" id="timeSub">Uppdatera bokning</button>
-                
             </div>
         </div>
     </form>    
