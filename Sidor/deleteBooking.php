@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'Funktioner/funktioner.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -12,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $baseurl = 'http://193.93.250.83:8080/';
     $cookiepath = '/tmp/cookies.txt';
 
+
     function deleteAppointment($baseurl, $cookiepath, $appointmentId) {
         try {
             $ch = curl_init($baseurl . 'api/method/login');
@@ -19,21 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo 'Caught exception: ', $e->getMessage(), "\n";
             exit;
         }
-        
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, '{"usr":"a23jaced@student.his.se", "pwd":"lmaokraftwerkvem?"}');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_COOKIEJAR, $cookiepath); 
-        curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath); 
-        
-        $response = curl_exec($ch);
-        if (curl_errno($ch)) {
-            echo 'Curl error: ' . curl_error($ch);
-            exit;
-        }
-        curl_close($ch);
 
-        $data = json_decode($response, true);
+        $bookingData = getAppointmentDetails($appointmentId);
+
+        curlSetup();
 
         // ta bort
         $deleteUrl = $baseurl . "api/resource/Patient%20Appointment/$appointmentId";
@@ -55,15 +46,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return null; 
         }
 
-        return 'Din tid avbokades.';
+        $_SESSION['raderadTid'] = $bookingData;
+
     }
 
     $result = deleteAppointment($baseurl, $cookiepath, $appointmentId);
 
     if ($result === null) {
-        echo "<script>alert('Bokningen har tagits bort.'); window.location.href = 'bokningsHantering.php';</script>";
+        echo "<script>window.location.href = 'bokningsHantering.php';</script>";
     } else {
-        echo "<script>alert('Ett fel uppstod: $result'); window.location.href = 'bokningsHantering.php';</script>";
+        echo "<script>window.location.href = 'bokningsHantering.php';</script>";
     }
+
+    
 }
 ?>

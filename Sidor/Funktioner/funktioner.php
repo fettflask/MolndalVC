@@ -627,7 +627,6 @@
      */
     function getAppointmentDetails($appointmentId) {
         $url = "http://193.93.250.83:8080/api/resource/Patient%20Appointment/" . $appointmentId . "?limit_page_length=None";
-        echo $url;
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_COOKIEFILE, "/tmp/cookies.txt");

@@ -98,67 +98,65 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
         if (messageBox) {
             messageBox.style.display = 'none';
         }
-        
     }
 </script>
 <script>
-let formToSubmit = null;
-let linkToSend = null;
+    let formToSubmit = null;
+    let linkToSend = null;
 
-function showModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'flex';
+    function showModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'flex';
+        }
     }
-}
 
-function hideModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'none';
+    function hideModal(modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+            modal.style.display = 'none';
+        }
     }
-}
 
-function confirmOmboka(event) {
-    event.preventDefault();
-    linkToSend = event.target.closest('a');
-    showModal('confirmOmbokaModal');
-}
+    function confirmOmboka(event) {
+        event.preventDefault();
+        linkToSend = event.target.closest('a');
+        showModal('confirmOmbokaModal');
+    }
 
-function confirmAvboka(event) {
-    event.preventDefault();
-    formToSubmit = event.target;
-    showModal('confirmAvbokaModal');
-}
+    function confirmAvboka(event) {
+        event.preventDefault();
+        formToSubmit = event.target;
+        showModal('confirmAvbokaModal');
+    }
 
-document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('cancelAvbokaButton').addEventListener('click', () => {
-        hideModal('confirmAvbokaModal');
-        formToSubmit = null;
-    });
-
-    document.getElementById('confirmAvbokaButton').addEventListener('click', () => {
-        hideModal('confirmAvbokaModal');
-        if (formToSubmit) {
-            formToSubmit.submit();
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('cancelAvbokaButton').addEventListener('click', () => {
+            hideModal('confirmAvbokaModal');
             formToSubmit = null;
-        }
-    });
+        });
 
-    document.getElementById('cancelOmbokaButton').addEventListener('click', () => {
-        hideModal('confirmOmbokaModal');
-        linkToSend = null;
-    });
+        document.getElementById('confirmAvbokaButton').addEventListener('click', () => {
+            hideModal('confirmAvbokaModal');
+            if (formToSubmit) {
+                formToSubmit.submit();
+                formToSubmit = null;
+            }
+        });
 
-    document.getElementById('confirmOmbokaButton').addEventListener('click', () => {
-        hideModal('confirmOmbokaModal');
-        if (linkToSend) {
-            window.location.href = linkToSend.href;
+        document.getElementById('cancelOmbokaButton').addEventListener('click', () => {
+            hideModal('confirmOmbokaModal');
             linkToSend = null;
-        }
-    });
-});
+        });
 
+        document.getElementById('confirmOmbokaButton').addEventListener('click', () => {
+            hideModal('confirmOmbokaModal');
+            if (linkToSend) {
+                window.location.href = linkToSend.href;
+                linkToSend = null;
+            }
+        });
+    });
 </script>
 
 
@@ -178,6 +176,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 echo '</div>';
             echo '</div>';
             unset($_SESSION['bokadTid']);
+        }
+    ?>
+
+    <?php
+        if (isset($_SESSION['raderadTid'])) {
+            echo '<div class="message-box-overlay"  id="messageBox">';
+                echo '<div class="message-box">';
+                    echo '<h3>Din tid med ' . $_SESSION['raderadTid']['practitioner_name'] . ' är nu avbokad</h3>';
+                    echo '<p>Datum: ' . $_SESSION['raderadTid']['appointment_date'] . '</p>';
+                    echo '<p>Tid: ' . $_SESSION['raderadTid']['appointment_time'] . '</p>';
+                    echo '<button class="redirect-button" onclick="hideMessageBox()">Bekräfta</button>';
+                echo '</div>';
+            echo '</div>';
+            unset($_SESSION['raderadTid']);
         }
     ?>
 
