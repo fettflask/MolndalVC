@@ -31,6 +31,7 @@
         <div id="mastergrid">
             <div class="mastergridelement">
                 <div class="gridelement">
+                    <img class="svg" src="../IMG/calendar-add-svgrepo-com.svg">
                     <h3>Boka tid</h3>
                     <p>Du kan direkt boka ett läkarbesök hos oss om du bedöms behöva det.</p>
                     <!--Lägg adressen här-->
@@ -41,6 +42,7 @@
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
+                    <img class="svg" src="../IMG/jar-of-pills-svgrepo-com.svg">
                     <h3>Beställ läkemdel</h3>
                     <p>Du kan skicka en förfrågan om att förnya dina recept på läkemedel hos oss.</p>
                     <!--Lägg adressen här-->
@@ -51,6 +53,7 @@
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
+                    <img class="svg" src="../IMG/book-bookmark-svgrepo-com.svg">
                     <h3>Din journal</h3>
                     <p>Här kan du ta andel av dina journalanteckningar.</p>
                     <!--Lägg adressen här-->
@@ -61,6 +64,7 @@
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
+                    <img class="svg" src="../IMG/syringe-svgrepo-com.svg">
                     <h3>Provresultat</h3>
                     <p>Här kan du ta andel av resultaten på dina prover.</p>
                     <!--Lägg adressen här-->
@@ -71,6 +75,7 @@
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
+                    <img class="svg" src="../IMG/calendar-search-svgrepo-com.svg">
                     <h3>Dina tider</h3>
                     <p>Här kan du se alla dina bokade besök hos oss och av- eller omboka dem.</p>
                     <!--Lägg adressen här-->
@@ -81,6 +86,7 @@
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
+                    <img class="svg" src="../IMG/gallery-minimalistic-svgrepo-com.svg">
                     <h3>Lorem Ipsum</h3>
                     <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
                     <!--Lägg adressen här-->
@@ -91,6 +97,7 @@
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
+                    <img class="svg" src="../IMG/gallery-minimalistic-svgrepo-com.svg">
                     <h3>Lorem Ipsum</h3>
                     <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
                     <!--Lägg adressen här-->
@@ -101,6 +108,7 @@
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
+                    <img class="svg" src="../IMG/phone-svgrepo-com.svg">
                     <h3>Kontakt</h3>
                     <p>
                         Telefon:<br> 0701740620 <br><br>
