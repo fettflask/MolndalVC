@@ -41,7 +41,7 @@ $practitioners = $practitionersData['data'];
     <h1>Boka en tid för <?php echo htmlspecialchars($anvandarnamn); ?></h1>
     <div id="formMaster">
         <div id="centerForm">
-            <form action="Bokatid2.php" method="POST">
+            <form action="Bokatid2Test2.php" method="POST">
                 <!-- Använd sessionens användarnamn som patient -->
                 <input type="hidden" name="selectedPatient" value="<?php echo htmlspecialchars($anvandarnamn); ?>">
 
