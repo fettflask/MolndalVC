@@ -80,6 +80,17 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
     .message-box p {
         font-size: 18px;
     }
+    .redirect-button {
+        margin-top: 15px;
+        margin-left :5px;
+        margin-right :5px;
+        padding: 10px 20px;
+        background-color: rgb(13, 48, 80);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 </style>
 <script>
     function hideMessageBox() {
@@ -90,6 +101,66 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
         
     }
 </script>
+<script>
+let formToSubmit = null;
+let linkToSend = null;
+
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+}
+
+function hideModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
+function confirmOmboka(event) {
+    event.preventDefault();
+    linkToSend = event.target.closest('a');
+    showModal('confirmOmbokaModal');
+}
+
+function confirmAvboka(event) {
+    event.preventDefault();
+    formToSubmit = event.target;
+    showModal('confirmAvbokaModal');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('cancelAvbokaButton').addEventListener('click', () => {
+        hideModal('confirmAvbokaModal');
+        formToSubmit = null;
+    });
+
+    document.getElementById('confirmAvbokaButton').addEventListener('click', () => {
+        hideModal('confirmAvbokaModal');
+        if (formToSubmit) {
+            formToSubmit.submit();
+            formToSubmit = null;
+        }
+    });
+
+    document.getElementById('cancelOmbokaButton').addEventListener('click', () => {
+        hideModal('confirmOmbokaModal');
+        linkToSend = null;
+    });
+
+    document.getElementById('confirmOmbokaButton').addEventListener('click', () => {
+        hideModal('confirmOmbokaModal');
+        if (linkToSend) {
+            window.location.href = linkToSend.href;
+            linkToSend = null;
+        }
+    });
+});
+
+</script>
+
 
 <body>
     <?php echoHead(); ?>
@@ -98,7 +169,7 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
 
     <?php
         if (isset($_SESSION['bokadTid'])) {
-            echo '<div class="message-box-overlay" id="messageBox">';
+            echo '<div class="message-box-overlay"  id="messageBox">';
                 echo '<div class="message-box">';
                     echo '<h3>Tid bokad med ' . $_SESSION['bokadTid']['practitioner_name'] . '</h3>';
                     echo '<p>Datum: ' . $_SESSION['bokadTid']['appointment_date'] . '</p>';
@@ -109,6 +180,24 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
             unset($_SESSION['bokadTid']);
         }
     ?>
+
+    <div class="message-box-overlay" id="confirmAvbokaModal" style="display: none;">
+        <div class="message-box">
+            <h3>Är du säker på att du vill avboka denna tid?</h3>
+            <p>Varning: sker avbokningen inom 24 timmar innan den bokade tiden kommer du debiteras.</p>
+            <button class="redirect-button" id="cancelAvbokaButton">Behåll bokning</button>
+            <button class="redirect-button" id="confirmAvbokaButton">Avboka</button>
+        </div>
+    </div>
+
+    <div class="message-box-overlay" id="confirmOmbokaModal" style="display: none;">
+        <div class="message-box">
+            <h3>Är du säker på att du vill omboka denna tid?</h3>
+            <p>Varning: sker ombokningen inom 24 timmar innan den bokade tiden kommer du debiteras.</p>
+            <button class="redirect-button" id="cancelOmbokaButton">Behåll bokning</button>
+            <button class="redirect-button" id="confirmOmbokaButton">Omboka</button>
+        </div>
+    </div>
 
     <?php if (!empty($allAppointments)):?>
     <div id="bokningarMaster">
@@ -123,14 +212,16 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
                 <div id="buttonMaster"> 
                     <a class="buttonSlave" 
                         href="editBokning6.php?booking_id=<?php echo urlencode($booking['name']); ?>
-                        &practitioner_name=<?php echo urlencode($booking['practitioner_name']); ?>">
+                        &practitioner_name=<?php echo urlencode($booking['practitioner_name']); ?>"
+                        onclick="confirmOmboka(event);">
                         Omboka
                     </a>
-                <form method="POST" action="deleteBooking.php" style="display:inline;">
-                    <input type="hidden" name="appointmentId" value="<?php echo htmlspecialchars($booking['name']); ?>">
-                <button type="submit" class="buttonSlave" onclick="return confirm('Är du säker på att du vill ta bort denna bokning? \nVARNING! Om bokningen är inom 24 timmar kommer du att debiteras.');">Avboka</button>                
-            </form>
-        </div>
+
+                    <form method="POST" action="deleteBooking.php" style="display:inline;" onsubmit="confirmAvboka(event);">
+                        <input type="hidden" name="appointmentId" value="<?php echo htmlspecialchars($booking['name']); ?>">
+                        <button type="submit" class="buttonSlave" style="cursor: pointer;">Avboka</button>
+                    </form>
+                </div>
 
             </div>
         <?php endforeach; ?>    
