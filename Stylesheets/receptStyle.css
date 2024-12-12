@@ -45,7 +45,13 @@ h1{
     border-radius: 30px;
     background-color: white;
     text-align: center;
+
+    /*Pil*/
     appearance: none;
+    background-image: url(../IMG/down-arrow-svgrepo-com.svg);
+    background-repeat: no-repeat;
+    background-position: right 0.7rem top 50%;
+    background-size: 0.65rem auto;
 }
 
 #order{
