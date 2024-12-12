@@ -31,6 +31,8 @@ curlSetup();
 // Kontrollera parametrar
 $bookingId = $_GET['booking_id'] ?? null;
 $practitioner = $_GET['practitioner_name'] ?? null;
+$timeData = $_GET['appointment_time'] ?? null;
+$DateData = $_GET['appointment_date'] ?? null;
 
 if (!$bookingId || !$practitioner) {
     echo "Saknar nödvändig data för att fortsätta.";
@@ -136,6 +138,16 @@ uksort($groupedSlots, function ($a, $b) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedDate = $_POST['selectedDate'] ?? null;
     $selectedTime = $_POST['selectedTimeSlot'] ?? null;
+
+    
+    $ombokadData=[
+        'practitioner' => $practitioner,
+        'time' => $timeData,
+        'date' => $DateData,
+        'appointment_date' => $selectedDate,
+        'appointment_time' => $selectedTime
+    ];
+    $_SESSION['ombokadTid'] = $ombokadData;
 
     if (!$selectedDate || !$selectedTime) {
         echo "Du måste välja ett datum och en tid.";
@@ -256,7 +268,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" id="timeSub">Uppdatera bokning</button>
             </div>
         </div>
-    </form>    
+    </form>
     <?php echoFooter() ?>
 </body>
 </html>

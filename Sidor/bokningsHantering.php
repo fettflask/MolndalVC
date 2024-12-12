@@ -53,16 +53,17 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
 </head>
 <style>
     .message-box-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        font-family: 'Roboto', sans-serif;
     }
 
     .message-box {
@@ -91,6 +92,13 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
         border-radius: 5px;
         cursor: pointer;
     }
+    .tdTop{
+        border: 2px solid rgb(13, 48, 80);
+        border-radius:10px;
+        padding-left:10px;
+        padding-right:10px;
+    }
+
 </style>
 <script>
     function hideMessageBox() {
@@ -193,6 +201,24 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
         }
     ?>
 
+    <?php
+        if (isset($_SESSION['ombokadTid'])) {
+            echo '<div class="message-box-overlay" id="messageBox">';
+                echo '<div class="message-box">';
+                    echo '<h3>Din tid med ' . $_SESSION['ombokadTid']['practitioner'] . ' är nu ombokad</h3>';
+                    echo '<table style="margin:auto;"><tr><td><p>Från</p></td><td><p>→</p></td><td><p>Till</p></td></tr><tr>';
+                    echo '<td class="tdTop"><p>' . $_SESSION['ombokadTid']['date'] . '</p><p>' . $_SESSION['ombokadTid']['time'] . '</p></td>';
+                    echo '<td></td>';
+                    echo '<td class="tdTop"><p>' . $_SESSION['ombokadTid']['appointment_date'] . '</p><p>' . $_SESSION['ombokadTid']['appointment_time'] . '</p></td>';
+                    echo '</tr></table>';
+                    echo '<button class="redirect-button" onclick="hideMessageBox()">Bekräfta</button>';
+                echo '</div>';
+            echo '</div>';
+            unset($_SESSION['ombokadTid']);
+        }
+    ?>
+
+
     <div class="message-box-overlay" id="confirmAvbokaModal" style="display: none;">
         <div class="message-box">
             <h3>Är du säker på att du vill avboka denna tid?</h3>
@@ -224,7 +250,9 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
                 <div id="buttonMaster"> 
                     <a class="buttonSlave" 
                         href="editBokning6.php?booking_id=<?php echo urlencode($booking['name']); ?>
-                        &practitioner_name=<?php echo urlencode($booking['practitioner_name']); ?>"
+                        &practitioner_name=<?php echo urlencode($booking['practitioner_name']); ?>
+                        &appointment_time=<?php echo urlencode($booking['appointment_time']); ?>
+                        &appointment_date=<?php echo urlencode($booking['appointment_date']); ?>"
                         onclick="confirmOmboka(event);">
                         Omboka
                     </a>
