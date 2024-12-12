@@ -110,7 +110,7 @@
                         } else{$printList = $mediciner2;}
 
                         echo '<div id="repSelect">
-                            Mediciner:
+                            Mediciner: 
                             <select name="medicin" id="selector" required title="Välj från listan">
                             <option selected hidden disabled>Välj Medicin</option>
                             ';

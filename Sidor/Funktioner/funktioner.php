@@ -647,4 +647,35 @@ function getPractitionerDetails($baseurl, $cookiepath) {
 
     return $details;
 }
+
+function deleteAppointment($appointmentId) {
+    $baseurl = 'http://193.93.250.83:8080/';
+    $cookiepath = '/tmp/cookies.txt';
+
+    $bookingData = getAppointmentDetails($appointmentId);
+
+    curlSetup();
+
+    // ta bort
+    $deleteUrl = $baseurl . "api/resource/Patient%20Appointment/$appointmentId";
+    $ch = curl_init($deleteUrl);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_COOKIEFILE, $cookiepath);
+    $response = curl_exec($ch);
+
+    if (curl_errno($ch)) {
+        return 'Curl error: ' . curl_error($ch);
+    }
+
+    curl_close($ch);
+
+    $deleteResponse = json_decode($response, true);
+    
+    $_SESSION['raderadTid'] = $bookingData;
+    if (isset($deleteResponse['message'])) {
+        return null; 
+    }
+}
+
 ?>

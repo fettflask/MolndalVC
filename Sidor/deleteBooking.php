@@ -1,4 +1,7 @@
 <?php
+/*
+ * INTE IN USE ATM
+ * 
 session_start();
 include 'Funktioner/funktioner.php';
 
@@ -57,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         echo "<script>window.location.href = 'bokningsHantering.php';</script>";
     }
-
-    
 }
+*/
 ?>
+
