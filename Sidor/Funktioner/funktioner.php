@@ -649,7 +649,6 @@ function getPractitionerDetails($baseurl, $cookiepath) {
 }
 
 function deleteAppointment($appointmentId) {
-    echo "huhhhuhh";
     $baseurl = 'http://193.93.250.83:8080/';
     $cookiepath = '/tmp/cookies.txt';
 
@@ -674,7 +673,6 @@ function deleteAppointment($appointmentId) {
     $deleteResponse = json_decode($response, true);
     
     $_SESSION['raderadTid'] = $bookingData;
-    echo "whuhuh";
     if (isset($deleteResponse['message'])) {
         return null; 
     }
