@@ -157,14 +157,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php foreach ($groupedSlots as $date => $info): ?>
                     <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
                         <h2>Tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>):</h2>
-                        <?php foreach ($info['slots'] as $slot): ?>
-                            <?php $fromTime = htmlspecialchars($slot['from_time']); ?>
-                            <label>
-                                <input type="radio" name="selectedTimeSlot" value="<?= $fromTime ?>" required>
-                                <?= $fromTime ?>
-                            </label>
-                            <br>
-                        <?php endforeach; ?>
+                        <div class="radiogrid">
+                            <?php foreach ($info['slots'] as $slot): ?>
+                                <?php $fromTime = htmlspecialchars($slot['from_time']); ?>
+                                <div class="radio-grid-item">
+                                    <label class="radiobutton">
+                                        <input type="radio" class="radioinput" name="selectedTimeSlot" value="<?= $fromTime ?>" required>
+                                        <?= $fromTime ?>
+                                    </label>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                     </div>
                 <?php endforeach; ?>
 

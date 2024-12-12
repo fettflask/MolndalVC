@@ -61,3 +61,34 @@ h1{
     background-color: rgb(67, 89, 163);
     transition: 500ms;
 }
+
+.radiogrid{
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto auto auto;
+    margin-bottom: 20px;
+}
+
+.radio-grid-item{
+    margin: 12px;
+}
+
+.radiobutton{
+    background-color: rgb(13, 48, 80);
+    color: white;
+    width: 30px;
+    padding: 8px;
+    padding-right: 10px;
+    font-weight: bold;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.radioinput{
+    margin: 18px 0 18px 0;
+    appearance: none;
+}
+
+.radiobutton:has(input:checked){
+    background-color: rgb(67, 89, 163);
+}

@@ -253,14 +253,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <?php foreach ($groupedSlots as $date => $info): ?>
                 <div class="time-slots" data-date="<?= htmlspecialchars($date) ?>" style="display: none;">
-                    <h3>Tillgängliga tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)</h3>
-                    <?php foreach ($info['slots'] as $slot): ?>
-                    <label>
-                        <input type="radio" name="selectedTimeSlot" value="<?= htmlspecialchars($slot['from_time']) ?>" required>
-                        <?= htmlspecialchars($slot['from_time']) ?>
-                    </label>
-                    <br>
-                    <?php endforeach; ?>
+                    <h2>Tillgängliga tider för <?= htmlspecialchars($info['day']) ?> (<?= htmlspecialchars($date) ?>)</h3>
+                    <div class="radiogrid">
+                            <?php foreach ($info['slots'] as $slot): ?>
+                                <?php $fromTime = htmlspecialchars($slot['from_time']); ?>
+                                <div class="radio-grid-item">
+                                    <label class="radiobutton">
+                                        <input type="radio" class="radioinput" name="selectedTimeSlot" value="<?= $fromTime ?>" required>
+                                        <?= $fromTime ?>
+                                    </label>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
                 </div>
                 <?php endforeach; ?>
 
