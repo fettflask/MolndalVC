@@ -8,10 +8,10 @@ if(!isset($_SESSION["namn"])){
     die();
 }
 
-
-// Sätt upp API-bas och cookies
-$cookiepath = "/tmp/cookies.txt";
-$baseurl = 'http://193.93.250.83:8080/';
+//Tar bort bokning om användare valt att göra det
+if(isset($_POST["appointmentId"])){
+    deleteAppointment($_POST["appointmentId"]);
+}
 
 // Logga in till API:t
 curlSetup();
@@ -229,7 +229,7 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
                         Omboka
                     </a>
 
-                    <form method="POST" action="deleteBooking.php" style="display:inline;" onsubmit="confirmAvboka(event);">
+                    <form method="POST" action="bokningsHantering.php" style="display:inline;" onsubmit="confirmAvboka(event);">
                         <input type="hidden" name="appointmentId" value="<?php echo htmlspecialchars($booking['name']); ?>">
                         <button type="submit" class="buttonSlave" style="cursor: pointer;">Avboka</button>
                     </form>
