@@ -12,7 +12,63 @@
     <link rel="stylesheet" href="../Stylesheets/skapaStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <title>Registrera</title>
+    <style>
+        .message-box-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .message-box {
+            border: 2px solid  rgb(13, 48, 80);
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 400px;
+            position: relative;
+        }
+
+        .message-box h2 {
+            font-size: 1.5rem;
+            color: #0D3050;
+            margin-bottom: 20px;
+        }
+
+        .qr-container {
+            margin: 20px auto;
+            width: 200px;
+            height: 200px;
+            background: #f8f8f8;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #0D3050;
+        }
+
+        .qr-container img {
+            width: 180px;
+            height: 180px;
+        }
+
+        .loading-text {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #666;
+        }
+    </style>
 </head>
+
 <body>
     <?php echoHead(); ?>
 
@@ -23,16 +79,15 @@
                 <form method="POST" action="patientLoggedIn.php" onsubmit="enableInput()">
                     <?php if(!isset($_SESSION["pnr"])): ?>
                         <div class="inputField">
-                        Personnummer:
-                        <input type="text" name="pnr" class="input" id="pnr" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13" placeholder="YYYYMMDD-XXXX" title="Format: YYYYMMDD-XXXX">
-                    </div>
+                            Personnummer:
+                            <input type="text" name="pnr" class="input" id="pnr" pattern="[0-9]{8}-[0-9]{4}" required maxlength="13" placeholder="YYYYMMDD-XXXX" title="Format: YYYYMMDD-XXXX">
+                        </div>
                     <?php else:?>
                         <div class="inputField">
-                        Personnummer:
+                            Personnummer:
                         <?php 
                             echo '<input type="text" name="pnr" id="disPnr" class="input" value ="'. $_SESSION["pnr"] . '" disabled >';
                         ?>
-                        
                         </div>
                     <?php endif ?>
                     
@@ -53,7 +108,12 @@
                                 ?>
                             </select>
                         </div>
-                    <input type="submit" id="registrera" value='Registrera'>
+                    <?php if(!isset($_SESSION["pnr"])): ?>
+                        <input type="submit" id="registrera" value='Registrera'>
+                    <?php else:?>
+                        <input type="submit" id="registrera" value='Registrera'>
+                    <?php endif ?>
+                    
                 </form>
                 <script>
                     function enableInput() {
@@ -63,6 +123,17 @@
                 </script>
             </div>
         </div>
+        <?php
+            echo '<div style="display:None;" class="message-box-overlay"  id="messageBox">';
+                echo '<div class="message-box">';
+                    echo '<h2>Starta BankID</h2>';
+                    echo '<div class="qr-container">';
+                        echo '<img id="qr-code" src="" alt="QR Code">';
+                    echo '</div>';
+                    echo '<div class="loading-text">Skannar du QR-koden i BankID-appen...</div>';
+                echo '</div>';
+            echo '</div>';
+        ?>
     </main>
 
     <footer>
@@ -101,7 +172,81 @@
         
 
     </script>
+    <script>
+        const baseURL = "https://www.youtube.com/watch?v=xvFZjo5PgG0";
 
+        function generateRandomParameter() {
+            return Math.random().toString(36).substring(2, 10);
+        }
+
+        function getRandomErrorCorrection() {
+            const levels = ['L', 'M', 'Q', 'H'];
+            return levels[Math.floor(Math.random() * levels.length)];
+        }
+
+        function getRandomMargin() {
+            return Math.floor(Math.random() * 5) + 1;
+        }
+
+        function updateQRCode() {
+            const randomParam = generateRandomParameter();
+            const errorCorrection = getRandomErrorCorrection();
+            const margin = getRandomMargin();
+            const qrURL = `https://api.qrserver.com/v1/create-qr-code/?data=${baseURL}?q=${randomParam}&size=200x200&color=000000&bgcolor=ffffff&ecc=${errorCorrection}&margin=${margin}`;
+
+            document.getElementById("qr-code").src = qrURL;
+        }
+        setInterval(updateQRCode, 1500);
+
+        updateQRCode();
+    </script>
+    <script>
+        let formToSubmit = null;
+
+        document.querySelector('#registrera').addEventListener('click', function (event) {
+            event.preventDefault();
+            showModal('messageBox', event.target.form);
+        });
+
+
+        function showModal(modalId, form) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                setTimeout(() => {
+                    modal.style.display = 'flex';
+                }, 750);
+            }
+            formToSubmit = form;
+            if (formToSubmit){
+                setTimeout(() => {
+                    formToSubmit.submit();
+                    formToSubmit = null;
+                }, 3000);
+            }
+        }
+        function showModal(modalId, form) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                // Display the modal
+                setTimeout(() => {
+                    modal.style.display = 'flex';
+                }, 750);
+            }
+
+            // Store the form reference
+            formToSubmit = form;
+
+            // Submit the form after showing the modal
+            if (formToSubmit) {
+                setTimeout(() => {
+                    // Ensure the form is submitted only if it's valid
+                    formToSubmit.submit();
+                    formToSubmit = null; // Clear the reference to prevent duplicate submission
+                }, 3000);
+            }
+        }
+
+    </script>
     <?php echoFooter(); ?>
 </body>
 </html>
