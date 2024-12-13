@@ -20,11 +20,19 @@
         }
         //Om pnr Inte finns i ERP
         else{
+            if(isset($_POST["sex"])){
+                addPatient();
+                $_SESSION["namn"] = $_POST["name"] ." " . $_POST["lastname"];
+                echo $_POST["pnr"];
+                header("Location: minaSidor.php");
+                die();
+            }
             header("Location: skapaAnvändare.php");
             die();
         }  
     }
     else{
+        //Här dör loginen för patient som reggar sig genom att först försöka logga in.
         header("Location: patientLogin.php");
         die();
     }  

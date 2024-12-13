@@ -183,6 +183,31 @@
         curl_exec($ch);
     }
 
+    function addPatient(){
+        $cookiepath = "/tmp/cookies.txt";
+        curlSetup();
+        try {
+            $ch = curl_init('http://193.93.250.83:8080/api/resource/Patient');
+        } 
+        catch (Exception $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n";
+        }
+
+        curl_setopt($ch,CURLOPT_POST, true);
+
+        curl_setopt($ch,CURLOPT_POSTFIELDS, '{"uid":"'. $_POST["pnr"] .'","first_name":"'. $_POST["name"] .'","last_name":"'. $_POST["lastname"] .'","sex":"'. $_POST["sex"] .'"}');
+
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Accept:
+        application/json'));
+        curl_setopt($ch,CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+        curl_setopt($ch,CURLOPT_COOKIEJAR, $cookiepath);
+        curl_setopt($ch,CURLOPT_COOKIEFILE, $cookiepath);
+        curl_setopt($ch,CURLOPT_TIMEOUT, $_SESSION["timeout"]);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        curl_exec($ch);
+    }
+
+
     /**
      * Hämtar data från en angiven sida i API:et.
      * @param mixed $domainSuffix URL:ens ändelse vilken avgör vartifrån datan hämtas - specificeras vi påkallning av funktionen
