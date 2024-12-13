@@ -196,9 +196,11 @@
                 const pnrInput = document.getElementById('pnr');
 
                 if (pnrInput.disabled) {
-                    console.log('PNR input is disabled, submitting the form...');
-                    pnrInput.disabled = false;
-                    form.submit();
+                    setTimeout(() => {
+                        console.log('PNR input is disabled. Enabling now, submitting the form...');
+                        pnrInput.disabled = false;
+                        form.submit();
+                    }, 750);
                 } else {
                     console.log('PNR input is enabled, showing the modal...');
                     showModal('messageBox', form);
