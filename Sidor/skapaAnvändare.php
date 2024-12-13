@@ -76,7 +76,7 @@
         <div id="skapaForm">
             <div id="centerForm">
                 <h1>Registrering</h1>
-                <form method="POST" action="patientLoggedIn.php" onsubmit="enableInput()">
+                <form method="POST" action="patientLoggedIn.php" onsubmit="return handleSubmit(event)">
                     <?php if(!isset($_SESSION["pnr"])): ?>
                         <div class="inputField">
                             Personnummer:
@@ -86,7 +86,7 @@
                         <div class="inputField">
                             Personnummer:
                         <?php 
-                            echo '<input type="text" name="pnr" id="disPnr" class="input" value ="'. $_SESSION["pnr"] . '" disabled >';
+                            echo '<input type="text" name="pnr" id="pnr" class="input" value ="'. $_SESSION["pnr"] . '" disabled >';
                         ?>
                         </div>
                     <?php endif ?>
@@ -108,19 +108,8 @@
                                 ?>
                             </select>
                         </div>
-                    <?php if(!isset($_SESSION["pnr"])): ?>
-                        <input type="submit" id="registrera" value='Registrera'>
-                    <?php else:?>
-                        <input type="submit" id="registrera" value='Registrera'>
-                    <?php endif ?>
-                    
+                    <input type="submit" id="registrera" value='Registrera'>
                 </form>
-                <script>
-                    function enableInput() {
-                        var inputElement = document.getElementById("disPnr");
-                        inputElement.disabled = false;
-                    }
-                </script>
             </div>
         </div>
         <?php
@@ -169,7 +158,6 @@
             }
             pnrInput.value = value;
         });
-        
 
     </script>
     <script>
@@ -201,13 +189,22 @@
         updateQRCode();
     </script>
     <script>
-        let formToSubmit = null;
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('form');
+            form.onsubmit = function (event) {
+                event.preventDefault();
+                const pnrInput = document.getElementById('pnr');
 
-        document.querySelector('#registrera').addEventListener('click', function (event) {
-            event.preventDefault();
-            showModal('messageBox', event.target.form);
+                if (pnrInput.disabled) {
+                    console.log('PNR input is disabled, submitting the form...');
+                    pnrInput.disabled = false;
+                    form.submit();
+                } else {
+                    console.log('PNR input is enabled, showing the modal...');
+                    showModal('messageBox', form);
+                }
+            };
         });
-
 
         function showModal(modalId, form) {
             const modal = document.getElementById(modalId);
@@ -216,37 +213,23 @@
                     modal.style.display = 'flex';
                 }, 750);
             }
-            formToSubmit = form;
-            if (formToSubmit){
+
+            let formToSubmit = form;
+
+            if (formToSubmit) {
                 setTimeout(() => {
+                    const disPnrInput = document.getElementById('disPnr');
+                    if (disPnrInput && disPnrInput.disabled) {
+                        disPnrInput.disabled = false;
+                    }
+
                     formToSubmit.submit();
                     formToSubmit = null;
                 }, 3000);
             }
         }
-        function showModal(modalId, form) {
-            const modal = document.getElementById(modalId);
-            if (modal) {
-                // Display the modal
-                setTimeout(() => {
-                    modal.style.display = 'flex';
-                }, 750);
-            }
-
-            // Store the form reference
-            formToSubmit = form;
-
-            // Submit the form after showing the modal
-            if (formToSubmit) {
-                setTimeout(() => {
-                    // Ensure the form is submitted only if it's valid
-                    formToSubmit.submit();
-                    formToSubmit = null; // Clear the reference to prevent duplicate submission
-                }, 3000);
-            }
-        }
-
     </script>
+
     <?php echoFooter(); ?>
 </body>
 </html>

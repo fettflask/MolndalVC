@@ -184,6 +184,11 @@
     }
 
     function addPatient(){
+        if (!isset($_POST["pnr"], $_POST["name"], $_POST["lastname"], $_POST["sex"])) {
+            // Handle the error (maybe log or display a message)
+            echo "Missing required data!";
+            return;
+        }
         $cookiepath = "/tmp/cookies.txt";
         curlSetup();
         try {
