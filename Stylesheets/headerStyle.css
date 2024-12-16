@@ -6,6 +6,10 @@ html, body {
     margin: 0px;
 }
 
+main{
+    min-height: 90vh;
+}
+
 header {
     border-bottom: 1px solid rgb(209, 223, 241);
     font-family: proxima-nova, helvetica, arial, sans-serif;

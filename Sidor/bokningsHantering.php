@@ -171,6 +171,7 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
 <body>
     <?php echoHead(); ?>
 
+    <main>
     <h1>Dina Bokningar</h1>
 
     <?php
@@ -267,8 +268,10 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
         <?php endforeach; ?>    
     </div>
     <?php else: ?>
-        <p>Inga bokningar hittades för dig.</p>
+        <div class="noBook">Inga bokningar hittades för dig.</div>
     <?php endif; ?>
+    </main>
+    <?php echoFooter(); ?>
 </body>
 </html>
 
