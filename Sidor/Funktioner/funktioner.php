@@ -37,12 +37,6 @@
                         <div>
                             Mina sidor
                         </div>
-                    </a>
-
-                    <a href="" class="navbutton">
-                        <div>
-                            Sök vård
-                        </div>
                     </a>';
 
                     if(isset($_SESSION["namn"])){
@@ -50,6 +44,14 @@
                         <a href="sessionKill.php" class="navbutton">
                             <div>
                                 Logga ut
+                            </div>
+                        </a>';
+                    }
+                    else{
+                        echo '
+                        <a href="patientLogin.php" class="navbutton">
+                            <div>
+                                Logga in
                             </div>
                         </a>';
                     }
