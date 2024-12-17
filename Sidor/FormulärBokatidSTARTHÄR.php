@@ -1,6 +1,12 @@
 <?php
     session_start();
     include 'Funktioner/funktioner.php';
+
+    if(!isset($_SESSION["namn"])){
+        header("Location: patientLogin.php");
+        $_SESSION["error"] = "Felaktikt personnummer";
+        die();
+    }
 ?>
 
 <!DOCTYPE html>

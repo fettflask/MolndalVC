@@ -37,42 +37,46 @@
         <div id="mastergrid">
             <div class="mastergridelement">
                 <div class="gridelement">
-                        <h3>Lorem Ipsum</h3>
-                        <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
+                    <img class="svg" src="../IMG/user-svgrepo-com.svg">
+                        <h3>Mina Sidor</h3>
+                        <p>Här kan du se allt som har med din vård att göra.</p>
                         <!--Lägg adressen här-->
-                        <a href="" class="pushdowndammit">
-                            <div class="gridbutton">Botono</div>
+                        <a href="minaSidor.php" class="pushdowndammit">
+                            <div class="gridbutton">Mina sidor</div>
                         </a>
                 </div>
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
-                        <h3>Lorem Ipsum</h3>
-                        <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
-                        <!--Lägg adressen här-->
-                        <a href="" class="pushdowndammit">
-                            <div class="gridbutton">Botono</div>
-                        </a>
+                <img class="svg" src="../IMG/calendar-add-svgrepo-com.svg">
+                    <h3>Boka tid</h3>
+                    <p>Du kan direkt boka ett läkarbesök hos oss om du bedöms behöva det.</p>
+                    <!--Lägg adressen här-->
+                    <a href="minaSidor.php" class="pushdowndammit">
+                        <div class="gridbutton">Boka tid</div>
+                    </a>
                 </div>
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
-                        <h3>Lorem Ipsum</h3>
-                        <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
-                        <!--Lägg adressen här-->
-                        <a href="" class="pushdowndammit">
-                            <div class="gridbutton">Botono</div>
-                        </a>
+                    <img class="svg" src="../IMG/gallery-minimalistic-svgrepo-com.svg">
+                    <h3>Lorem Ipsum</h3>
+                    <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
+                    <!--Lägg adressen här-->
+                    <a href="" class="pushdowndammit">
+                        <div class="gridbuttonLesser">Botono</div>
+                    </a>
                 </div>
             </div>
             <div class="mastergridelement">
                 <div class="gridelement">
-                        <h3>Lorem Ipsum</h3>
-                        <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
-                        <!--Lägg adressen här-->
-                        <a href="" class="pushdowndammit">
-                            <div class="gridbutton">Botono</div>
-                        </a>
+                    <img class="svg" src="../IMG/gallery-minimalistic-svgrepo-com.svg">
+                    <h3>Lorem Ipsum</h3>
+                    <p>Aliquam lorem purus, convallis quis turpis et, consectetur malesuada arcu.</p>
+                    <!--Lägg adressen här-->
+                    <a href="" class="pushdowndammit">
+                        <div class="gridbuttonLesser">Botono</div>
+                    </a>
                 </div>
             </div>
         </div>
