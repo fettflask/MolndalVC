@@ -274,4 +274,3 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
     <?php echoFooter(); ?>
 </body>
 </html>
-

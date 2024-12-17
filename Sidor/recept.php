@@ -128,7 +128,7 @@
             </form>
         </div>
     </div>
-
+    <?php if(sizeof($mediciner) > 0 || sizeof($mediciner2) > 0){ ?>
     <div>
         <div class="intro">
             <h1>Recepthistorik:</h1>
@@ -197,6 +197,7 @@
                 ?>
         </table>
     </div>
+    <?php } ?>
 
     <?php echoFooter(); ?>
 </body>
