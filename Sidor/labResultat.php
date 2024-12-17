@@ -2,9 +2,6 @@
     session_start();
     $_SESSION["timeout"] = 300;
     include 'Funktioner/funktioner.php';
-    $pdo = new PDO("mysql:dbname=grupp6;host=localhost", "sqllab", "Hare#2022");
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     if(!isset($_SESSION["namn"])){
         header("Location: patientLogin.php");
