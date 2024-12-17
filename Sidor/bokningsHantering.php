@@ -271,4 +271,3 @@ for($i = 0; $i < sizeof($allAppointments); $i++){
     <?php endif; ?>
 </body>
 </html>
-
