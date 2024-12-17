@@ -8,23 +8,6 @@ error_reporting(E_ALL);
 $cookiepath = "/tmp/cookies.txt";
 $baseurl = 'http://193.93.250.83:8080/';
 
-// Funktion för att hämta nästa datum för en viss veckodag
-function getNextDateForDay($dayName, $referenceDate, $maxDays = 365) {
-    $dates = [];
-    $currentDate = clone $referenceDate;
-
-    for ($i = 0; $i < $maxDays; $i++) {
-        if (strcasecmp($currentDate->format('l'), $dayName) === 0) {
-            $dates[] = [
-                'date' => $currentDate->format('Y-m-d'),
-                'day' => $currentDate->format('l')
-            ];
-        }
-        $currentDate->modify('+1 day');
-    }
-    return $dates;
-}
-
 // Logga in till API:t
 curlSetup();
 
@@ -33,6 +16,9 @@ $bookingId = $_GET['booking_id'] ?? null;
 $practitioner = $_GET['practitioner_name'] ?? null;
 $timeData = $_GET['appointment_time'] ?? null;
 $DateData = $_GET['appointment_date'] ?? null;
+
+$practitioner = trim($practitioner);
+
 
 if (!$bookingId || !$practitioner) {
     echo "Saknar nödvändig data för att fortsätta.";
@@ -88,19 +74,49 @@ foreach ($bookedAppointments as $appointment) {
     curl_close($ch);
 
     $appointmentDetails = json_decode($detailsResponse, true)['data'] ?? [];
-    if ($appointmentDetails['practitioner_name'] === $practitioner || $appointmentDetails['practitioner'] === $practitioner) {
+    if (trim($appointmentDetails['practitioner_name']) === $practitioner || trim($appointmentDetails['practitioner']) === $practitioner) {
         $date = $appointmentDetails['appointment_date'];
         $time = $appointmentDetails['appointment_time'];
+    
         if (!isset($bookedSlots[$date])) {
             $bookedSlots[$date] = [];
         }
         $bookedSlots[$date][] = $time;
     }
+    
+    if (empty($appointmentDetails)) {
+        echo "Tomt svar från detaljer-API för: ";
+        var_dump($detailsUrl);
+        continue;
+    }
+    if (!isset($appointmentDetails['practitioner_name']) || !isset($appointmentDetails['appointment_date']) || !isset($appointmentDetails['appointment_time'])) {
+        echo "Saknade nycklar i detaljer-API: ";
+        var_dump($appointmentDetails);
+        continue;
+    }
+    
 }
 
 // Filtrera schematider mot bokade tider
 $today = new DateTime();
 date_default_timezone_set('Europe/Stockholm');
+
+// Funktion för att hämta nästa datum för en viss veckodag
+function getNextDateForDay($dayName, $referenceDate, $maxDays = 365) {
+    $dates = [];
+    $currentDate = clone $referenceDate;
+
+    for ($i = 0; $i < $maxDays; $i++) {
+        if (strcasecmp($currentDate->format('l'), $dayName) === 0) {
+            $dates[] = [
+                'date' => $currentDate->format('Y-m-d'),
+                'day' => $currentDate->format('l')
+            ];
+        }
+        $currentDate->modify('+1 day');
+    }
+    return $dates;
+}
 
 $groupedSlots = [];
 $futureDays = 60; // Antal dagar framåt
@@ -129,6 +145,7 @@ foreach ($timeSlots as $slot) {
         }
     }
 }
+
 
 // Sortera datumen
 uksort($groupedSlots, function ($a, $b) {
@@ -196,6 +213,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Misslyckades att uppdatera bokningen.";
     }
 }
+
+
 
 ?>
 

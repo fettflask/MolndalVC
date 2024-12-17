@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="navbox">
-                            <a href="">Mer</a>
+                            <a href="https://res.cloudinary.com/coopsverige/image/upload/e_sharpen,f_auto,fl_clip,fl_progressive,q_90,c_lpad,g_center,h_440,w_660/v1683297429/cloud/280310.jpg" target="blank">Mer</a>
                         </div>
 
                     </div>
@@ -59,7 +59,7 @@
             echo '
                 </div>
                 <div id="translate">
-                <a href="rickroll.php">English 🇬🇧</a>
+                <a href="https://youtube.com/shorts/OBcmAX1y5CQ?si=2ZQ3N9JxN83Rt3RH" target="blank">English 🇬🇧</a>
                 </div>
             </header>';
     }
