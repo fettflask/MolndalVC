@@ -51,3 +51,13 @@ h1{
     transition: 500ms;
 }
 
+.noBook{
+    margin: auto;
+    width: 300px;
+    text-align: center;
+    padding: 8px;
+    font-size: 20px;
+    color: rgb(13, 48, 80);
+    background-color: rgb(240, 244, 250);
+    border-radius: 10px;
+}

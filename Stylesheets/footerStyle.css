@@ -3,10 +3,6 @@ body{
     margin: 0;
 }
 
-main{
-    min-height: 100vh;
-}
-
 footer{
     font-family: 'Roboto', sans-serif;
     background-color: rgb(13, 48, 80);
