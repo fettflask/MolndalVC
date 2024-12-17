@@ -43,7 +43,7 @@
             <div class="mastergridelement">
                 <div class="gridelement">
                     <img class="svg" src="../IMG/jar-of-pills-svgrepo-com.svg">
-                    <h3>Beställ läkemdel</h3>
+                    <h3>Beställ läkemedel</h3>
                     <p>Du kan skicka en förfrågan om att förnya dina recept på läkemedel hos oss.</p>
                     <!--Lägg adressen här-->
                     <a href="recept.php" class="pushdowndammit">
@@ -54,7 +54,7 @@
             <div class="mastergridelement">
                 <div class="gridelement">
                     <img class="svg" src="../IMG/book-bookmark-svgrepo-com.svg">
-                    <h3>Din journal</h3>
+                    <h3>Min journal</h3>
                     <p>Här kan du ta andel av dina journalanteckningar.</p>
                     <!--Lägg adressen här-->
                     <a href="patientJournal.php" class="pushdowndammit">
@@ -76,7 +76,7 @@
             <div class="mastergridelement">
                 <div class="gridelement">
                     <img class="svg" src="../IMG/calendar-search-svgrepo-com.svg">
-                    <h3>Dina tider</h3>
+                    <h3>Mina tider</h3>
                     <p>Här kan du se alla dina bokade besök hos oss och av- eller omboka dem.</p>
                     <!--Lägg adressen här-->
                     <a href="bokningsHantering.php" class="pushdowndammit">
