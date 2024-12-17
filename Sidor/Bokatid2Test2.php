@@ -111,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../Stylesheets/bokaStyle.css">
     <link rel="stylesheet" href="../Stylesheets/footerStyle.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="icon" type="image/x-icon" href="../IMG/favicon.png">
     <title>Schema för <?= htmlspecialchars($selectedPractitioner) ?></title>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
